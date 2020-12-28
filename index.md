@@ -3,7 +3,7 @@
      <div style="margin-right: 100px;"> <b>Mirko Tritella</b><br/> mirkotritella1999@gmail.com <br/> </div>
 </div>
 
-## Open Data nella nostra città
+## Open Data a Roseto degli Abruzzi
 
 
 
