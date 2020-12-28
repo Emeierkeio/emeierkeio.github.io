@@ -1,10 +1,9 @@
  <div style="width: 100%; overflow: hidden;">
      <div style="width: 100px; float: left;"><a href="https://github.com/Emeierkeio" target="_blank"><img src="https://avatars2.githubusercontent.com/u/48449691?s=400&v=4" style='vertical-align:middle; width:80px; height:80px; border-radius:50%;'></a></div>
-     <div style="margin-right: 100px;"> <b>Mirko Tritella</b><br/> mirkotritella1999@gmail.com <br/> </div>
+     <div style="margin-right: 100px;"> <b>Mirko Tritella</b><br/> <a href = "mailto: mirkotritella1999@gmail.com">Send Email</a> <br/> </div>
 </div>
 
-## Open Data a Roseto degli Abruzzi
-
+## Open Data nella città di Roseto degli Abruzzi
 
 
 ### L'importanza del pubblicare dati nel modo giusto
