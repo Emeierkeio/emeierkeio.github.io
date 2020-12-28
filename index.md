@@ -1,6 +1,14 @@
 ## Open Data nella nostra città
 
-<a href="https://github.com/Emeierkeio" target="_blank"><img src="https://avatars2.githubusercontent.com/u/48449691?s=400&v=4" style='vertical-align:middle; width:80px; height:80px; border-radius:50%;'></a>
+<ul>
+{% for member in site.data.author %}
+  <li>
+    <a href="https://github.com/{{ member.github }}">
+      {{ member.name }}
+    </a>
+  </li>
+{% endfor %}
+</ul>
 
 
 ### L'importanza del pubblicare dati nel modo giusto
