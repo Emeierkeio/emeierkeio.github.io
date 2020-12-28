@@ -251,13 +251,14 @@ Qui di seguito troverete i link dei dati riguardanti i risultati delle elezioni 
 #### CSV
 A questo [link](https://github.com/Emeierkeio/emeierkeio.github.io/blob/main/data/csv/Regionali2019.csv) potrete scaricare il file csv descritto di seguito:
 
-Sezione   |Località                       | Elettori| Votanti | Bianche    | Nulle |Partito Democratico Per l'Abruzzo| ... |
-----------|-------------------------------|---------|---------------|------------------------------------|-----------|--------------------|-----|
-1         |Scuola Elementare M. Schiazza  |809      |427            | 1                                | 9        |86                   | ... |
-2         |Scuola Elementare M. Schiazza  |962      |528            | 3                                | 14        |71                  | ... |
-3         |Scuola Elementare G. D'Annunzio|823      |428            | 3                                | 9        |67                   | ... |
-...       | ...                           | ...     | ...           | ...                                | ...       | ...                | ... |
-24        |Scuola Elementare M. Schiazza  |901      |452            | 2                                | 8        |60                   | ... |
+Sezione   |Località                       | Elettori| Votanti       | Bianche                          | Nulle |Partito Democratico Per l'Abruzzo| ... |
+----------|-------------------------------|---------|---------------|----------------------------------|-------|---------------------------------|-----|
+1         |Scuola Elementare M. Schiazza  |809      |427            | 1                                | 9     |86                               | ... |
+2         |Scuola Elementare M. Schiazza  |962      |528            | 3                                | 14    |71                               | ... |
+3         |Scuola Elementare G. D'Annunzio|823      |428            | 3                                | 9     |67                               | ... |
+...       | ...                           | ...     | ...           | ...                              | ...   | ...                             | ... |
+24        |Scuola Elementare M. Schiazza  |901      |452            | 2                                | 8     |60                               | ... |
+
 <br/>
 
 #### JSON
