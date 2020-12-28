@@ -1,14 +1,16 @@
 ## Open Data nella nostra città
 
-<ul>
-{% for member in site.data.author %}
-  <li>
-    <a href="https://github.com/{{ member.github }}">
-      {{ member.name }}
-    </a>
-  </li>
-{% endfor %}
-</ul>
+---
+title: sample post
+author: mirko
+---
+
+{% assign author = site.data.people[page.author] %}
+<a rel="author"
+  href="https://twitter.com/{{ author.twitter }}"
+  title="{{ author.name }}">
+    {{ author.name }}
+</a>
 
 
 ### L'importanza del pubblicare dati nel modo giusto
