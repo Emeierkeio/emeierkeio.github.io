@@ -123,7 +123,7 @@ Allo stesso modo, tramite questo [link](https://github.com/Emeierkeio/emeierkeio
 <br/>
 <br/>
 
-### RISULTATI
+### ESEMPI
 
 ---
 <p align="center" style="font-size: 18px"><b>ATTENZIONE</b></p> 
