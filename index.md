@@ -22,7 +22,7 @@ Fonte: <https://www.comune.roseto.te.it/notizie/elezioni/risultati-elettorali-el
 
 
 ---
-## <p align="center">ATTENZIONE</p> 
+<p align="center" style="font-size: 18px"><b>ATTENZIONE</b></p> 
 
 <p align="center" style="font-size: 20px">I dati si riferiscono alle elezioni e non al seguente ballottaggio </p>
 
@@ -223,7 +223,7 @@ La mappa dà una veloce informazione sulla prevalenza territoriale dei candidati
 #### VOTI OTTENUTI DAI MEMBRI DEL CONSIGLIO COMUNALE
 
 ---
-### <p align="center">ATTENZIONE</p> 
+<p align="center" style="font-size: 18px"><b>ATTENZIONE</b></p> 
 
 <p align="center" style="font-size: 14px">L'elezione a consigliere comunale non dipende esclusivamente dalle preferenze ottenute ma anche da altri fattori.</p>
 
