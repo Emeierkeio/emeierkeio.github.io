@@ -1,0 +1,2168 @@
+{
+    "Marco Marsilio" : 4950,
+    "Giovanni Legnini" : 3949,
+    "Sara Marcozzi" : 2347,
+    "Stefano Flajani" : 113,
+    "Sezioni" : [
+        {
+            "id" : 1,
+            "località" : "Scuola Elementare M. Schiazza",
+            "elettori" : 809,
+            "votanti" : 427,
+            "bianche" : 1,
+            "nulle" : 9,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 86
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 45
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 6
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 0
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 97
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 23
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 21
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 91
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 2,
+            "località" : "Scuola Elementare M. Schiazza",
+            "elettori" : 962,
+            "votanti" : 528,
+            "bianche" : 2,
+            "nulle" : 14,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 71
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 55
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 15
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 12
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 141
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 15
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 42
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 123
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 7
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 3,
+            "località" : "Scuola Elementare G. D'Annunzio",
+            "elettori" : 823,
+            "votanti" : 428,
+            "bianche" : 3,
+            "nulle" : 9,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 67
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 30
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 4
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 133
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 23
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 18
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 6
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 84
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 4,
+            "località" : "Scuola Elementare G. D'Annunzio",
+            "elettori" : 886,
+            "votanti" : 462,
+            "bianche" : 6,
+            "nulle" : 11,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 66
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 55
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 12
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 1
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 134
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 25
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 32
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 69
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 5,
+            "località" : "Scuola Elementare G. D'Annunzio",
+            "elettori" : 930,
+            "votanti" : 459,
+            "bianche" : 8,
+            "nulle" : 10,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 73
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 39
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 19
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 6
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 119
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 26
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 36
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 1
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 81
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 6
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 6,
+            "località" : "Scuola Materna G. Milli",
+            "elettori" : 1209,
+            "votanti" : 635,
+            "bianche" : 5,
+            "nulle" : 10,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 122
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 55
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 12
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 16
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 15
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 6
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 152
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 34
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 36
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 7
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 105
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 9
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 7,
+            "località" : "Scuola Elementare P. Celommi",
+            "elettori" : 1159,
+            "votanti" : 611,
+            "bianche" : 9,
+            "nulle" : 18,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 108
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 61
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 13
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 12
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 6
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 160
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 34
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 36
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 10
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 10
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 89
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 7
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 8,
+            "località" : "Scuola Elementare P. Celommi",
+            "elettori" : 1151,
+            "votanti" : 522,
+            "bianche" : 4,
+            "nulle" : 22,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 123
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 44
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 13
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 152
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 28
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 24
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 8
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 85
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 9,
+            "località" : "Scuola Elementare P. Celommi",
+            "elettori" : 1087,
+            "votanti" : 537,
+            "bianche" : 4,
+            "nulle" : 14,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 74
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 33
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 23
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 157
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 24
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 17
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 4
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 109
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 6
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 10,
+            "località" : "Scuola Media F. Romani",
+            "elettori" : 1215,
+            "votanti" : 592,
+            "bianche" : 6,
+            "nulle" : 8,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 80
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 48
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 16
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 20
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 6
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 150
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 36
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 26
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 3
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 121
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 11,
+            "località" : "Scuola Elementare S. Petronilla",
+            "elettori" : 890,
+            "votanti" : 561,
+            "bianche" : 3,
+            "nulle" : 14,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 51
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 36
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 80
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 12
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 7
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 183
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 22
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 16
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 7
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 103
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 12,
+            "località" : "Scuola Elementare Voltarrosto",
+            "elettori" : 1033,
+            "votanti" : 549,
+            "bianche" : 10,
+            "nulle" : 15,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 78
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 26
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 19
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 17
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 1
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 165
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 34
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 26
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 5
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 114
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 13,
+            "località" : "Scuola Elementare Voltarrosto",
+            "elettori" : 1026,
+            "votanti" : 530,
+            "bianche" : 4,
+            "nulle" : 13,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 73
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 48
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 17
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 0
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 165
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 35
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 24
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 5
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 102
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 6
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 14,
+            "località" : "Scuola Elementare Voltarrosto",
+            "elettori" : 1145,
+            "votanti" : 620,
+            "bianche" : 4,
+            "nulle" : 7,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 87
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 60
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 19
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 3
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 211
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 36
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 29
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 6
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 112
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 15,
+            "località" : "Scuola Materna Casal Thaulero",
+            "elettori" : 508,
+            "votanti" : 255,
+            "bianche" : 5,
+            "nulle" : 10,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 17
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 45
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 0
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 91
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 16
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 6
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 2
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 38
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 16,
+            "località" : "Scuola Elementare Santa Lucia",
+            "elettori" : 520,
+            "votanti" : 284,
+            "bianche" : 2,
+            "nulle" : 4,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 37
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 43
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 99
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 4
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 45
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 17,
+            "località" : "Scuola Elementare Santa Lucia",
+            "elettori" : 729,
+            "votanti" : 391,
+            "bianche" : 6,
+            "nulle" : 16,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 61
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 38
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 0
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 127
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 83
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 18,
+            "località" : "Scuola Elementare Montepagano",
+            "elettori" : 679,
+            "votanti" : 364,
+            "bianche" : 4,
+            "nulle" : 17,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 64
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 30
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 1
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 0
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 90
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 19
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 3
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 73
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 10
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 19,
+            "località" : "Scuola Elementare Montepagano",
+            "elettori" : 680,
+            "votanti" : 408,
+            "bianche" : 3,
+            "nulle" : 7,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 74
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 30
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 119
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 30
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 29
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 62
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 9
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 20,
+            "località" : "Scuola Elementare Cologna Paese",
+            "elettori" : 1040,
+            "votanti" : 596,
+            "bianche" : 7,
+            "nulle" : 14,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 68
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 96
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 12
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 13
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 5
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 190
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 21
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 22
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 13
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 3
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 99
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 21,
+            "località" : "Scuola Elementare Cologna Spiaggia",
+            "elettori" : 890,
+            "votanti" : 474,
+            "bianche" : 5,
+            "nulle" : 23,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Democratico per l'Abruzzo",
+                            "preferenze" : 50
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 26
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 158
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 14
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 17
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 16
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 93
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 22,
+            "località" : "Scuola Elementare Cologna Spiaggia",
+            "elettori" : 919,
+            "votanti" : 516,
+            "bianche" : 7,
+            "nulle" : 8,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Docratico per l'Abruzzo",
+                            "preferenze" : 47
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 42
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 7
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 16
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 4
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 8
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 155
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 22
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 26
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 19
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 14
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 109
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 23,
+            "località" : "Scuola Elementare Cologna Spiaggia",
+            "elettori" : 998,
+            "votanti" : 545,
+            "bianche" : 4,
+            "nulle" : 22,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Docratico per l'Abruzzo",
+                            "preferenze" : 65
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 45
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 2
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 22
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 18
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 3
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 1
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 3
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 179
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 13
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 19
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 5
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 128
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : 24,
+            "località" : "Scuola Elementare M. Schiazza",
+            "elettori" : 901,
+            "votanti" : 452,
+            "bianche" : 2,
+            "nulle" : 8,
+            "candidati" : [
+                {
+                    "nome" : "Giovanni Legnini",
+                    "partiti" : [
+                        {
+                            "nome" : "Partito Docratico per l'Abruzzo",
+                            "preferenze" : 60
+                        },
+                        {
+                            "nome" : "Legnini Presidente",
+                            "preferenze" : 46
+                        },
+                        {
+                            "nome" : "Avanti Abruzzo - Italia Dei Valori",
+                            "preferenze" : 9
+                        },
+                        {
+                            "nome" : "Progressisti - Liberi e Uguali",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo in Comune - Regione Facile",
+                            "preferenze" : 11
+                        },
+                        {
+                            "nome" : "Centro Democratico + Abruzzo",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Abruzzo Insieme - Abruzzo Futuro",
+                            "preferenze" : 0
+                        },
+                        {
+                            "nome" : "Centristi per l'Europa",
+                            "preferenze" : 0
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Marco Marsilio",
+                    "partiti" : [
+                        {
+                            "nome" : "Lega",
+                            "preferenze" : 139
+                        },
+                        {
+                            "nome" : "Forza Italia",
+                            "preferenze" : 32
+                        },
+                        {
+                            "nome" : "Fratelli d'Italia",
+                            "preferenze" : 34
+                        },
+                        {
+                            "nome" : "Azione Politica",
+                            "preferenze" : 8
+                        },
+                        {
+                            "nome" : "Unione Di Centro - Democrazia Cristiana - Idea",
+                            "preferenze" : 1
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Sara Marcozzi",
+                    "partiti" : [
+                        {
+                            "nome" : "Movimento 5 Stelle",
+                            "preferenze" : 67
+                        }
+                    ]
+                },
+                {
+                    "nome" : "Flajani Stefano",
+                    "partiti" : [
+                        {
+                            "nome" : "Casapound Italia",
+                            "preferenze" : 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
