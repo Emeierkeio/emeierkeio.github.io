@@ -121,7 +121,7 @@ Allo stesso modo, tramite questo [link](https://github.com/Emeierkeio/emeierkeio
 ### RISULTATI
 
 ---
-<p align="center">ATTENZIONE</p> 
+<p align="center" style="font-size: 18px"><b>ATTENZIONE</b></p> 
 
 <p align="center" style="font-size: 20px">In questa sezione si vuole solamente dare esempi di utilizzo di questi dati, <br/> <u>le valutazioni sono lasciate ai professionisti</u>.</p>
 
@@ -239,7 +239,8 @@ All'interno del grafico non ho tenuto conto dei Candidati Sindaci entrati all'in
 
 
 ## Risultati delle Elezioni Regionali 2019 a Roseto
-Fonte: [Dipartimento per gli Affari Interni e Territoriali](https://elezionistorico.interno.gov.it/index.php?tpel=R&dtel=10/02/2019&tpa=I&tpe=R&lev0=0&levsut0=0&lev1=13&levsut1=1&ne1=13&es0=S&es1=S&ms=S)
+
+e: [Dipartimento per gli Affari Interni e Territoriali](https://elezionistorico.interno.gov.it/index.php?tpel=R&dtel=10/02/2019&tpa=I&tpe=R&lev0=0&levsut0=0&lev1=13&levsut1=1&ne1=13&es0=S&es1=S&ms=S)
 
 Qui di seguito troverete i link dei dati riguardanti i risultati delle elezioni regionali del 2019 nella nostra città.
 
