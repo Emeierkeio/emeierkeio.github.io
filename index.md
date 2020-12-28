@@ -132,7 +132,7 @@ Qui di seguito troverete alcuni esempi delle opportunità create dall'analisi de
 <br/>
 #### QUAL È STATA LA SEZIONE CON IL MAGGIOR TASSO DI ASTENSIONISMO?
 
-![image](./img/Astensionismo.png)
+![image](/img/Astensionismo.png)
 
 <br/>
 <br/>
@@ -167,7 +167,7 @@ Queste erano le coalizioni che concorrevano nel 2016:
 
  
 
-![image](./img/Coalizioni.png)
+![image](/img/Coalizioni.png)
 
 <br/>
 <br/>
@@ -177,17 +177,17 @@ Queste erano le coalizioni che concorrevano nel 2016:
 #### IN CHE PERCENTUALI HANNO INFLUITO LE DIVERSE LISTE SUI LORO CANDIDATI?
 
 ##### Enio Pavone
-![image](./img/PesoCoalizionePavone.png)
+![image](/img/PesoCoalizionePavone.png)
 <br/>
 <br/>
 
 ##### Rosaria Ciancaione
-![image](./img/PesoCoalizioneCiancaione.png)
+![image](/img/PesoCoalizioneCiancaione.png)
 <br/>
 <br/>
 
 ##### Sabatino Di Girolamo
-![image](./img/PesoCoalizioneDiGirolamo.png)
+![image](/img/PesoCoalizioneDiGirolamo.png)
 
 <br/>
 <br/>
@@ -197,7 +197,7 @@ All'interno dei file è possibile trovare il numero esatto delle preferenze otte
 <br/>
 <br/>
 
-![image](./img/PD.png)
+![image](/img/PD.png)
 
 <br/>
 <br/>
@@ -231,7 +231,7 @@ La mappa dà una veloce informazione sulla prevalenza territoriale dei candidati
 
 All'interno del grafico non ho tenuto conto dei Candidati Sindaci entrati all'interno del Consiglio comunale.
 
-![image](./img/MediaConsiglieri.png)
+![image](/img/MediaConsiglieri.png)
 <br/>
 <br/>
 <br/>
