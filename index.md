@@ -1,17 +1,5 @@
 ## Open Data nella nostra città
 
----
-title: sample post
-author: mirko
----
-
-{% assign author = site.data.people[page.author] %}
-<a rel="author"
-  href="https://twitter.com/{{ author.twitter }}"
-  title="{{ author.name }}">
-    {{ author.name }}
-</a>
-
 
 ### L'importanza del pubblicare dati nel modo giusto
 
