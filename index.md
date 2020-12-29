@@ -178,13 +178,13 @@ Queste erano le coalizioni che concorrevano nel 2016:
 #### IN CHE PERCENTUALI HANNO INFLUITO LE DIVERSE LISTE SUI LORO CANDIDATI?
 
 ##### Enio Pavone
-<iframe width="100%" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=609134946&amp;format=interactive"></iframe>
+<iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=609134946&amp;format=interactive"></iframe>
 
 ##### Rosaria Ciancaione
-<iframe width="100%" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1578267357&amp;format=interactive"></iframe>
+<iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1578267357&amp;format=interactive"></iframe>
 
 ##### Sabatino Di Girolamo
-<iframe width="100%" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1879539561&amp;format=interactive"></iframe>
+<iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1879539561&amp;format=interactive"></iframe>
 
 #### CANDIDATI CON MAGGIOR NUMERO DI PREFERENZE NEL PARTITO DEMOCRATICO
 All'interno dei file è possibile trovare il numero esatto delle preferenze ottenute da ogni candidato consigliere in ogni sezione, qui di seguito ho riportato il grafico che raffigura il numero totale di preferenze per ogni candidato del Partito Democratico.
