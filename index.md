@@ -181,7 +181,7 @@ Queste erano le coalizioni che concorrevano nel 2016:
 #### IN CHE PERCENTUALI HANNO INFLUITO LE DIVERSE LISTE SUI LORO CANDIDATI?
 
 ##### Enio Pavone
-![image](/img/PesoCoalizionePavone.png)
+<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1134021607&amp;format=interactive"></iframe>
 <br/>
 <br/>
 
