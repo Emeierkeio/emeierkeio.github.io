@@ -191,7 +191,7 @@ All'interno dei file è possibile trovare il numero esatto delle preferenze otte
 <br/>
 <br/>
 
-![image](/img/PD.png)
+<iframe width="100%" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1967473722&amp;format=interactive"></iframe>
 
 <br/>
 <br/>
