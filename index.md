@@ -181,14 +181,10 @@ Queste erano le coalizioni che concorrevano nel 2016:
 #### IN CHE PERCENTUALI HANNO INFLUITO LE DIVERSE LISTE SUI LORO CANDIDATI?
 
 ##### Enio Pavone
-<iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1134021607&amp;format=interactive"></iframe>
-<br/>
-<br/>
+<iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=609134946&amp;format=interactive"></iframe>
 
 ##### Rosaria Ciancaione
-![image](/img/PesoCoalizioneCiancaione.png)
-<br/>
-<br/>
+<iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1578267357&amp;format=interactive"></iframe>
 
 ##### Sabatino Di Girolamo
 ![image](/img/PesoCoalizioneDiGirolamo.png)
