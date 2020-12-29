@@ -136,10 +136,7 @@ Qui di seguito troverete alcuni esempi delle opportunità create dall'analisi de
 <br/>
 #### QUAL È STATA LA SEZIONE CON IL MAGGIOR TASSO DI ASTENSIONISMO?
 
-![image](/img/Astensionismo.png)
-
-<br/>
-<br/>
+<iframe width="100%" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=2077700988&amp;format=interactive"></iframe>
 
 
 #### ANDAMENTO DELLE COALIZIONI NEL TERRITORIO COMUNALE
