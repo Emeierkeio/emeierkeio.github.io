@@ -5,7 +5,7 @@
 
 ## Open Data nella città di Roseto degli Abruzzi
 
-{% include important.html content="Add your important info here." %}
+<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning: </b>Attento.
 
 ### L'importanza del pubblicare dati nel modo giusto
 
