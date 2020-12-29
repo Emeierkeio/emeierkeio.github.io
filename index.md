@@ -1,6 +1,6 @@
  <div style="width: 100%; overflow: hidden;">
-     <div style="width: 100px; float: left;"><a href="https://github.com/Emeierkeio" target="_blank"><img src="https://avatars2.githubusercontent.com/u/48449691?s=400&v=4" style='vertical-align:middle; width:40px; height:40px; border-radius:50%;'></a></div>
-     <div style="margin-right: 50px;"> <b>Mirko Tritella</b><br/> <a href = "mailto: mirkotritella1999@gmail.com"><p style="font-size:12px">mirkotritella1999@gmail.com</p></a> <br/> </div>
+     <div style="width: 80px; float: left;"><a href="https://github.com/Emeierkeio" target="_blank"><img src="https://avatars2.githubusercontent.com/u/48449691?s=400&v=4" style='vertical-align:middle; width:80px; height:80px; border-radius:50%;'></a></div>
+     <div style="margin-right: 100px;"> <b>Mirko Tritella</b><br/> <a href = "mailto: mirkotritella1999@gmail.com"><p style="font-size:10px">mirkotritella1999@gmail.com</p></a> <br/> </div>
 </div>
 
 ## Open Data nella città di Roseto degli Abruzzi
