@@ -5,7 +5,7 @@
 
 ## Open Data nella città di Roseto degli Abruzzi
 
-<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1967473722&amp;format=interactive"></iframe>
+<div width="100%"><iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTzca5pgL1oWUaYsCMJEU0HVOq4pXskJ1_LPz7474EZyZBsUV1ZEuyDyAPXH-eHHYc94QBxF-w0D5vF/pubchart?oid=1967473722&amp;format=interactive"></iframe></div>
 
 ### L'importanza del pubblicare dati nel modo giusto
 
