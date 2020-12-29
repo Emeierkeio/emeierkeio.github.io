@@ -7,7 +7,7 @@
 
 ### L'importanza del pubblicare dati nel modo giusto
 
-Come nella maggioranza delle amministrazioni comunali, anche quella della città di Roseto degli Abruzzi non ha ancora chiara l’importanza di pubblicare i dati in un formato "machine-readable" ma, al contrario, continua a condividerli in un formato non riutilizzabile come, ad esempio, il PDF. <br/><br/>
+Così come il maggior numero delle amministrazioni comunali, anche quella della città di Roseto degli Abruzzi non ha ancora ben chiara l’importanza di pubblicare i dati in un formato "machine-readable" ma, al contrario, continua a condividerli in un formato non riutilizzabile come, ad esempio, il PDF. <br/><br/>
 La pubblicazione dei dati di interesse pubblico non è una semplice formalità, al contrario risulta fondamentale affinchè giornalisti, esperti di dati e tutti i cittadini possano estrarli, accedervi con facilità, analizzarli e integrarli con altri dati. <br/>
 Per rendere tutto ciò possibile, è necessario pubblicare le informazioni possedute in un formato che sia adatto all'utilizzo di fogli elettronici, applicazioni, database per fare analisi, previsioni e visualizzazioni. <br/><br/>
 La speranza è che, al più presto, anche nella nostra città, si possa intraprendere un percorso che abbia come obiettivo la pubblicazione dell'enorme quantità di dati di interesse pubblica quotidianamente prodotta in maniera completamente trasparente e aperta. <br/><br/>
