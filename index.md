@@ -6,6 +6,8 @@
 ## Open Data nella città di Roseto degli Abruzzi
 
 
+<iframe src="https://datastudio.google.com/reporting/cfb57e1b-2774-46c1-b9ff-feac8aa5e14a" title="W3Schools Free Online Web Tutorials"></iframe>
+
 ### L'importanza del pubblicare dati nel modo giusto
 
 Così come nella gran parte dei comuni italiani, l'amministrazione della città di Roseto degli Abruzzi non ha ancora ben chiara l’importanza di pubblicare i dati in un formato "machine-readable" continuando, al contrario, a condividerli in un formato non riutilizzabile come, ad esempio, il PDF. <br/><br/>
