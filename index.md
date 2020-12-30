@@ -6,7 +6,7 @@
 ## Open Data nella città di Roseto degli Abruzzi
 
 
-<iframe src="https://datastudio.google.com/reporting/cfb57e1b-2774-46c1-b9ff-feac8aa5e14a" title="W3Schools Free Online Web Tutorials"></iframe>
+<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/cfb57e1b-2774-46c1-b9ff-feac8aa5e14a/page/AkyuB" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 ### L'importanza del pubblicare dati nel modo giusto
 
