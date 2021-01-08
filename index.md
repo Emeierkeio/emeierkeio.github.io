@@ -3,8 +3,6 @@
 <div style="margin-right: 0px;"> <b style='vertical-align:middle'>Mirko Tritella</b><br/> <a href = "mailto: mirkotritella1999@gmail.com" style="font-size:13px">mirkotritella1999@gmail.com</a> <br/> </div>	  
 </div>
 
-<iframe title="Roseto degli Abruzzi" aria-label="chart" id="datawrapper-chart-ab4z9" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="yes" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="100"></iframe>
-
 ## Open Data nella città di Roseto degli Abruzzi
 
 <iframe title="Roseto degli Abruzzi" aria-label="chart" id="datawrapper-chart-ab4z9" src="https://datawrapper.dwcdn.net/ab4z9/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="406"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"])for(var e in a.data["datawrapper-height"]){var t=document.getElementById("datawrapper-chart-"+e)||document.querySelector("iframe[src*='"+e+"']");t&&(t.style.height=a.data["datawrapper-height"][e]+"px")}}))}();
@@ -56,74 +54,8 @@ Sezione   |Località                       | Elettori| Schede Valide | Enio Pavo
 #### JSON
 Allo stesso modo, tramite questo [link](https://github.com/Emeierkeio/emeierkeio.github.io/blob/main/data/json/Comunali2016.json), sarà possibile scaricare il file JSON, un formato adatto all'interscambio di dati fra applicazioni client/server basato sul linguaggio JavaScript, contenente le stesse informazioni.
 
-```json
-{
-            "id" : 1,
-            "località" : "Scuola Elementare M. Schiazza",
-            "elettori" : 741,
-            "voti" : {
-                "validi" : {
-                    "numero" : 611,
-                    "Enio Pavone" : {
-                        "preferenze" : 137,
-                        "coalizione" : [
-                            {
-                                "nome" : "Futuro In",
-                                "preferenze" : 28,
-                                "candidati" : [
-                                    {
-                                        "nome" : "Alessandro Recchiuti",
-                                        "preferenze" : 5
-                                    },
-                                    ...
-                                ]
-                            },
-                            ...
-                         ]
-                      },
-                      "Rosaria Ciancaione" : {
-                          "preferenze" : 151,
-                           "coalizione" : [
-                               {
-                                   "nome" : "Un'Altra Idea Per Roseto",
-                                   "preferenze" : 24,
-                                   "candidati" : [
-                                       {
-                                           "nome" : "Augusto Azzariti",
-                                           "preferenze" : 0
-                                       },
-                                       ...
-                                   ]
-                               },
-                               ...
-                           ]
-                       },
-                       "Sabatino Di Girolamo" : {
-                          "preferenze" : 223,
-                          "coalizione" : [
-                              {
-                                  "nome" : "Partito Democratico",
-                                  "preferenze" : 119,
-                                  "candidati" : [
-                                      {
-                                          "nome" : "Simone Aloisi",
-                                          "preferenze" : 14
-                                      },
-                                      ...
-                                  ]
-                              },
-                              ...
-                          ]
-                      },
-                    "nonValidi" : {
-                        "totale" : 22,
-                        "bianchi" : 4,
-                        "nulle" : 18,
-                        "contestate" : 0
-                    }
-                }
-            }
-```
+<iframe id="datajson" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="yes" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="100"></iframe>
+
 <br/>
 <br/>
 <br/>
