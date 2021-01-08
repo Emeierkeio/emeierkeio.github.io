@@ -3,7 +3,7 @@
 <div style="margin-right: 0px;"> <b style='vertical-align:middle'>Mirko Tritella</b><br/> <a href = "mailto: mirkotritella1999@gmail.com" style="font-size:13px">mirkotritella1999@gmail.com</a> <br/> </div>	  
 </div>
 
-<iframe title="Roseto degli Abruzzi" aria-label="chart" id="datawrapper-chart-ab4z9" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="406"></iframe>
+<iframe title="Roseto degli Abruzzi" aria-label="chart" id="datawrapper-chart-ab4z9" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="yes" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="406"></iframe>
 
 ## Open Data nella città di Roseto degli Abruzzi
 
