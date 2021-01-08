@@ -54,7 +54,7 @@ Sezione   |Località                       | Elettori| Schede Valide | Enio Pavo
 #### JSON
 Allo stesso modo, tramite questo [link](https://github.com/Emeierkeio/emeierkeio.github.io/blob/main/data/json/Comunali2016.json), sarà possibile scaricare il file JSON, un formato adatto all'interscambio di dati fra applicazioni client/server basato sul linguaggio JavaScript, contenente le stesse informazioni.
 
-<iframe id="datajson" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="yes" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="100"></iframe>
+<iframe id="datajson" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="yes" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="500"></iframe>
 
 <br/>
 <br/>
