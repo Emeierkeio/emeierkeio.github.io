@@ -3,6 +3,8 @@
 <div style="margin-right: 0px;"> <b style='vertical-align:middle'>Mirko Tritella</b><br/> <a href = "mailto: mirkotritella1999@gmail.com" style="font-size:13px">mirkotritella1999@gmail.com</a> <br/> </div>	  
 </div>
 
+<iframe title="Roseto degli Abruzzi" aria-label="chart" id="datawrapper-chart-ab4z9" src="https://snapcode.now.sh/snippet/mfSvE7veHVJng2V_UgLwP" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="406"></iframe>
+
 ## Open Data nella città di Roseto degli Abruzzi
 
 <iframe title="Roseto degli Abruzzi" aria-label="chart" id="datawrapper-chart-ab4z9" src="https://datawrapper.dwcdn.net/ab4z9/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="406"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"])for(var e in a.data["datawrapper-height"]){var t=document.getElementById("datawrapper-chart-"+e)||document.querySelector("iframe[src*='"+e+"']");t&&(t.style.height=a.data["datawrapper-height"][e]+"px")}}))}();
