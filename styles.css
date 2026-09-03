@@ -131,6 +131,24 @@ a:focus-visible {
 
 .intro {
   padding: 4.5rem 0 4rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+.intro-text { min-width: 0; }
+.intro-photo {
+  width: 9.5rem;
+  height: 9.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  flex-shrink: 0;
+  margin-top: 0.6rem;
+}
+@media (max-width: 700px) {
+  .intro { flex-direction: column-reverse; gap: 1.6rem; }
+  .intro-photo { width: 6.5rem; height: 6.5rem; margin-top: 0; }
 }
 .intro h1 {
   font-family: var(--serif);
