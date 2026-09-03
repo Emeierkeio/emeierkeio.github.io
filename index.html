@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mirko Tritella · data scientist, retrieval-augmented generation over knowledge graphs</title>
-  <meta name="description" content="Mirko Tritella is a data scientist working on retrieval-augmented generation over knowledge graphs. Author of ParliamentRAG and of two ISWC 2026 papers on authority-aware, verifiable RAG over Italian parliamentary proceedings.">
+  <title>Mirko Tritella · AI systems for public data: explore, understand, verify</title>
+  <meta name="description" content="Mirko Tritella builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records and open government data. Creator of ParliamentRAG, an AI interface to the Italian Parliament (ISWC 2026).">
   <link rel="canonical" href="https://emeierkeio.github.io/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/newsreader-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/geist-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script>(function(){var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)})();</script>
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Mirko Tritella">
-  <meta property="og:description" content="Data scientist working on retrieval-augmented generation over knowledge graphs. Author of ParliamentRAG (ISWC 2026).">
+  <meta property="og:title" content="Mirko Tritella · AI systems for public data">
+  <meta property="og:description" content="AI systems that make public information easier to explore, understand and verify. Creator of ParliamentRAG, an AI interface to the Italian Parliament (ISWC 2026).">
   <meta property="og:url" content="https://emeierkeio.github.io/">
   <script type="application/ld+json">
   {
@@ -25,6 +26,17 @@
         "url": "https://emeierkeio.github.io/",
         "email": "mailto:mirkotritella1999@gmail.com",
         "jobTitle": "Data Scientist",
+        "description": "Builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records.",
+        "knowsAbout": [
+          "Artificial intelligence and public data",
+          "Retrieval-augmented generation",
+          "Knowledge graphs",
+          "Information retrieval",
+          "Open government data",
+          "Civic technology",
+          "Verifiable AI",
+          "Digital democracy"
+        ],
         "affiliation": { "@type": "CollegeOrUniversity", "name": "University of Milano-Bicocca" },
         "sameAs": [
           "https://github.com/Emeierkeio",
@@ -67,11 +79,15 @@
   <div class="container">
     <a class="site-name" href="/">Mirko Tritella</a>
     <nav class="site-nav" aria-label="Site">
+      <a href="#projects">Projects</a>
       <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a class="nav-secondary" href="#projects">Projects</a>
+      <a class="nav-secondary" href="#publications">Publications</a>
       <a class="nav-secondary" href="#about">About</a>
       <a href="https://github.com/Emeierkeio">GitHub</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch between light and dark theme">
+        <svg class="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M12.8 3.2l-1.1 1.1M4.3 11.7l-1.1 1.1"/></svg>
+      </button>
     </nav>
   </div>
 </header>
@@ -80,9 +96,9 @@
 
   <section class="intro container">
     <div class="intro-text">
-    <h1>Mirko Tritella</h1>
-    <p class="role">Data scientist working on retrieval-augmented generation over knowledge&nbsp;graphs.</p>
-    <p class="role-sub">I build systems whose answers can be checked against their sources: who said something, with what authority, and where in the official record.</p>
+    <h1>I build AI systems that make public information easier to explore, understand and&nbsp;verify.</h1>
+    <p class="role">I'm Mirko Tritella, researcher and engineer. I work on AI interfaces to official records and open government data, designed so that every answer can be traced back to its&nbsp;source.</p>
+    <p class="flow" aria-label="From public data to verifiable answers">public data <span aria-hidden="true">→</span> retrieval <span aria-hidden="true">→</span> AI <span aria-hidden="true">→</span> verifiable answers</p>
     <div class="contact-links">
       <a href="https://github.com/Emeierkeio">GitHub</a>
       <a href="https://www.linkedin.com/in/mirko-tritella-4406361a3">LinkedIn</a>
@@ -93,32 +109,34 @@
     <img class="intro-photo" src="assets/mirko-tritella.jpg" alt="Mirko Tritella" width="320" height="320">
   </section>
 
-  <section class="section" id="research">
+  <section class="section" id="why">
     <div class="container section-grid">
-      <p class="section-label">Featured research</p>
+      <p class="section-label">Why this work</p>
+      <div>
+        <h2>Public data is infrastructure for knowledge</h2>
+        <p>Parliaments, ministries and city councils publish enormous digital records: debates, votes, legislation, budgets, open datasets. This material is public in principle but hard to use in practice. It is scattered, verbose and disconnected, and most of it is never read.</p>
+        <p>AI can become a new way in. It lets anyone ask a question in plain language and get an answer drawn from thousands of documents. It also creates a new problem: the answer is easy to obtain and hard to check. A system that summarizes the public record without showing its sources replaces one opacity with another.</p>
+        <p>So I build systems where generation is the last step, not the whole product. Structured data and knowledge graphs keep track of who said what, in which role; retrieval finds the evidence; and every claim is checked against the official record before it reaches the reader.</p>
+        <p class="statement">Democracy depends not only on access to information, but on the ability to understand and question it.</p>
+        <p>As institutions produce ever larger digital records, AI can help citizens navigate them, provided its answers remain transparent, contextualized and verifiable. That is the space this work lives in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="container section-grid">
+      <p class="section-label">Featured project</p>
       <div>
         <h2>ParliamentRAG</h2>
-        <p class="feature-dek">Authority-aware, multi-view retrieval-augmented generation over the proceedings of the Italian Chamber of&nbsp;Deputies.</p>
+        <p class="feature-dek">An AI interface for exploring the Italian Parliament through its official&nbsp;records.</p>
 
-        <p>LLM summaries of parliamentary debate tend to favour dominant voices, quote out of context, and flatten disagreement. ParliamentRAG treats who speaks as seriously as what is said: answers cover every parliamentary group, majority and opposition alike, and the system checks every quotation verbatim against the stenographic record before it reaches the reader.</p>
+        <p>The Italian Chamber of Deputies publishes a stenographic report of every plenary session, and every roll-call vote, as open data. Together they can answer almost any question about what parliament actually does. In practice, finding who said what, in which debate and in which role means reading hundreds of pages.</p>
 
-        <ul class="contribs">
-          <li><strong>Knowledge graph from official open data.</strong> Built from stenographic reports (Akoma&nbsp;Ntoso XML) and the SPARQL endpoints of <a href="https://dati.camera.it/">dati.camera.it</a>, with EuroVoc subject links for parliamentary acts.</li>
-          <li><strong>Multi-view retrieval.</strong> A dense vector channel and a graph channel are fused by a merger that balances relevance, party coverage, speaker diversity and political salience.</li>
-          <li><strong>Authority-aware expert selection.</strong> A query-specific score with six components (profession, education, committee membership, legislative acts, interventions, institutional role) picks the most credible speaker per parliamentary group.</li>
-          <li><strong>Citation verification.</strong> Every quotation is matched verbatim against its source chunk; anything that cannot be verified is removed from the answer.</li>
-        </ul>
+        <p>ParliamentRAG lets you ask in plain language. It retrieves the relevant speeches and votes, writes an answer that covers every parliamentary group, majority and opposition alike, and links each quotation back to the exact passage in the official record.</p>
 
-        <p>In a blind study against Google NotebookLM judged by six domain experts, the system scored higher on parliamentary-group coverage and citation faithfulness, with human ratings favouring it on source and balance dimensions. The methodology and full results are in the <a href="papers/who-speaks-matters-iswc2026.pdf">paper</a>.</p>
+        <p class="statement">The answer should never be detached from the record.</p>
 
-        <p>The work is fully open: the knowledge graph is published as an <a href="https://doi.org/10.5281/zenodo.21560331">RDF dataset on Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) and in tabular form on <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, with project terms under the <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a> namespace. The system is also an <a href="https://github.com/Emeierkeio/ParliamentRAG/blob/main/mcp/README.md">MCP server</a>, so AI assistants can query the official records directly.</p>
-
-        <figure class="feature-figure">
-          <img src="assets/parliamentrag-pipeline.svg" alt="ParliamentRAG query pipeline in eight steps: query analysis, committee matching, expert selection, multi-view retrieval, balance metrics, ideological compass, generation, citation verification" width="1240" height="348" loading="lazy">
-          <figcaption>The query pipeline: from question to a balanced answer with verified citations.</figcaption>
-        </figure>
-
-        <p class="stat-line">705 plenary sessions&ensp;·&ensp;174k+ speech chunks&ensp;·&ensp;17.3k roll-call votes&ensp;·&ensp;6.9M individual vote records<br>XIX Legislature, updated continuously from official open data</p>
+        <p>In a blind evaluation against Google NotebookLM, judged by six domain experts, the system scored higher on parliamentary-group coverage and citation faithfulness, with human ratings favouring it on source and balance dimensions. The methodology and full results are in the <a href="papers/who-speaks-matters-iswc2026.pdf">research paper</a>.</p>
 
         <div class="feature-links">
           <a href="https://www.parliamentrag.it/">Live system</a>
@@ -128,7 +146,89 @@
           <a href="https://orkg.org/papers/R1909763">ORKG</a>
         </div>
 
+        <h3 class="subhead">How it works</h3>
+
+        <ul class="contribs">
+          <li><strong>One graph of everything parliament says and does.</strong> Stenographic reports (Akoma&nbsp;Ntoso XML) and the SPARQL endpoints of <a href="https://dati.camera.it/">dati.camera.it</a> become a single knowledge graph of speeches, speakers, votes and acts, with EuroVoc subject links.</li>
+          <li><strong>Retrieval that protects the diversity of voices.</strong> A dense vector channel and a graph channel are fused by a merger that balances relevance with party coverage, speaker diversity and political salience, so minority positions are less likely to disappear. Technically: multi-view hybrid retrieval.</li>
+          <li><strong>Speakers weighted by role, not volume.</strong> A query-specific authority score with six components (profession, education, committee membership, legislative acts, interventions, institutional role) selects the most credible voice for each parliamentary group.</li>
+          <li><strong>Every quotation verified.</strong> Generated quotes are matched verbatim against their source passage; anything that cannot be verified is removed before the answer is shown.</li>
+        </ul>
+
+        <figure class="feature-figure">
+          <img src="assets/parliamentrag-pipeline.svg" alt="ParliamentRAG query pipeline in eight steps: query analysis, committee matching, expert selection, multi-view retrieval, balance metrics, ideological compass, generation, citation verification" width="1240" height="348" loading="lazy">
+          <figcaption>The query pipeline: from question to a balanced answer with verified citations.</figcaption>
+        </figure>
+
+        <p class="stat-line">705 plenary sessions&ensp;·&ensp;174k+ speech chunks&ensp;·&ensp;17.3k roll-call votes&ensp;·&ensp;6.9M individual vote records<br>XIX Legislature, updated continuously from official open data</p>
+
+        <p>The work is fully open: the knowledge graph is published as an <a href="https://doi.org/10.5281/zenodo.21560331">RDF dataset on Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) and in tabular form on <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, with project terms under the <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a> namespace. The system is also an <a href="https://github.com/Emeierkeio/ParliamentRAG/blob/main/mcp/README.md">MCP server</a>, so AI assistants can query the official records directly.</p>
+
         <p class="meta-note">Python · FastAPI · Next.js · Neo4j · OpenAI · RDF · MCP. Supported by the EU Horizon Europe programme through grant 101189771 (<a href="https://datapact.eu/">DataPACT</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="origins">
+    <div class="container section-grid">
+      <p class="section-label">Where it started</p>
+      <div>
+        <h2>From local open data to AI over public knowledge</h2>
+        <p>My interest in public data started locally. In Roseto degli Abruzzi, my home town, election results existed only as PDFs on the municipal website; I extracted them and republished them as machine-readable data. During the pandemic I built a site that tracked the town's COVID-19 numbers day by day.</p>
+        <p>ParliamentRAG asks the same question at national scale: how can public information become easier to access and use? First publishing the data, then building the interfaces to understand it.</p>
+
+        <ol class="timeline">
+          <li>
+            <span class="timeline-year">2016</span>
+            <div>
+              <a class="project-name" href="https://github.com/Emeierkeio/opendata-roseto">Open election data · Roseto degli Abruzzi</a>
+              <p>Results of the 2016 municipal and 2019 regional elections, extracted from PDFs on the official website and republished as machine-readable CSV and JSON.</p>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-year">2020</span>
+            <div>
+              <a class="project-name" href="https://github.com/Emeierkeio/roseto-covid">Public health data · roseto-covid</a>
+              <p>A site that tracked up-to-date COVID-19 statistics for Roseto degli Abruzzi.</p>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-year">2026</span>
+            <div>
+              <a class="project-name" href="https://www.parliamentrag.it/">AI over parliamentary data · ParliamentRAG</a>
+              <p>An AI interface to the Italian Chamber of Deputies, with every answer linked back to the official record.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="research">
+    <div class="container section-grid">
+      <p class="section-label">Research</p>
+      <div>
+        <h2>The questions behind the systems</h2>
+
+        <div class="rq">
+          <h3>How can AI answers remain connected to evidence?</h3>
+          <p>Retrieval-augmented generation grounds generated text in retrieved sources; citation verification then checks each quotation against the record. Grounding without verification is a promise, not a guarantee.</p>
+        </div>
+        <div class="rq">
+          <h3>How can knowledge graphs improve access to public information?</h3>
+          <p>Representing speakers, roles, debates, votes and acts as entities and relationships makes it possible to answer questions that plain text search cannot, and to keep the context around every retrieved passage.</p>
+        </div>
+        <div class="rq">
+          <h3>How should a system represent who is speaking, and in what context?</h3>
+          <p>In institutional records, who speaks matters as much as what is said. Authority-aware retrieval models the speaker's role, expertise and mandate instead of treating all text as equal.</p>
+        </div>
+        <div class="rq">
+          <h3>How should we evaluate AI systems that summarize public records?</h3>
+          <p>A single accuracy number hides what matters: coverage of viewpoints, balance across groups, faithfulness of quotations. Evaluation of these systems is a research problem in its own right.</p>
+        </div>
+
+        <p class="fields-line">Retrieval-augmented generation · knowledge graphs · information retrieval · semantic web and linked open data · evaluation of LLM systems.</p>
+        <p class="now-line">Currently exploring semantic axes for political-position mapping, and how parliamentary stances evolve over time.</p>
       </div>
     </div>
   </section>
@@ -140,6 +240,7 @@
         <article class="pub">
           <span class="pub-year">2026</span>
           <h3>Who Speaks Matters: Authority-Aware Multi-View Retrieval-Augmented Generation over Italian Parliamentary Proceedings</h3>
+          <p class="pub-why">Can an AI system summarize parliamentary debate while preserving the diversity of voices and keeping every quotation faithful to the official record?</p>
           <p class="pub-authors">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari</p>
           <p class="pub-venue"><a href="https://iswc2026.semanticweb.org">ISWC 2026</a>, In-Use Track · Springer · to appear</p>
           <div class="pub-links">
@@ -153,6 +254,7 @@
         <article class="pub">
           <span class="pub-year">2026</span>
           <h3>ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings</h3>
+          <p class="pub-why">The system behind parliamentrag.it: a live AI interface to the Chamber of Deputies where each answer links back to the stenographic record.</p>
           <p class="pub-authors">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari</p>
           <p class="pub-venue"><a href="https://iswc2026.semanticweb.org">ISWC 2026</a>, Posters &amp; Demos · CEUR-WS · to appear</p>
           <div class="pub-links">
@@ -165,42 +267,13 @@
     </div>
   </section>
 
-  <section class="section" id="projects">
-    <div class="container section-grid">
-      <p class="section-label">Other work</p>
-      <div>
-        <ul class="project-list">
-          <li>
-            <a class="project-name" href="https://github.com/Emeierkeio/opendata-roseto">Open data for Roseto degli Abruzzi</a>
-            <p>Election results of my home town (2016 municipal, 2019 regional), extracted from PDFs on the official website and republished as machine-readable CSV and JSON.</p>
-          </li>
-          <li>
-            <a class="project-name" href="https://github.com/Emeierkeio/roseto-covid">roseto-covid</a>
-            <p>A site that tracked up-to-date COVID-19 statistics for Roseto degli Abruzzi.</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="interests">
-    <div class="container section-grid">
-      <p class="section-label">Research interests</p>
-      <div>
-        <p>I work across information retrieval, knowledge graphs and large language models. The questions I keep returning to: how to make generated text verifiable against its sources, how to represent who is speaking and with what authority, and how to evaluate systems beyond a single accuracy number.</p>
-        <p>Retrieval-augmented generation · knowledge graphs · information retrieval · semantic web and linked open data · evaluation of LLM systems.</p>
-        <p class="interest-line">Currently exploring semantic axes for political-position mapping, and how parliamentary stances evolve over time.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="about">
     <div class="container section-grid">
       <p class="section-label">About</p>
       <div>
-        <p>I grew up in Roseto degli Abruzzi, on the Adriatic coast. My first data projects were about my home town: republishing its 2016 election results in machine-readable formats, and tracking its COVID-19 numbers day by day. ParliamentRAG comes from the same instinct, applied to the national parliament.</p>
-        <p>I studied Computer Science at the University of Bologna and Data Science at the University of Milano-Bicocca, where the ParliamentRAG research was carried out. I live between Rome, Milan and Roseto.</p>
-        <p>I collect technical and research notes in <a href="notes/">Notes</a>.</p>
+        <p>I grew up in Roseto degli Abruzzi, on the Adriatic coast. My first projects were about my home town: republishing its election results in machine-readable formats, tracking its COVID-19 numbers day by day. The instinct was the same then as it is now: public information should be usable by the public.</p>
+        <p>That instinct scaled up. I studied Computer Science at the University of Bologna and Data Science at the University of Milano-Bicocca, where I carried out the ParliamentRAG research, presented at ISWC 2026. What holds the work together is a simple requirement: an answer about public life should be checkable against the public record.</p>
+        <p>I live between Rome, Milan and Roseto. I collect technical and research notes in <a href="notes/">Notes</a>.</p>
       </div>
     </div>
   </section>
@@ -210,9 +283,10 @@
 <footer class="site-footer">
   <div class="container">
     <div class="footer-links">
+      <a href="#projects">Projects</a>
+      <a href="#origins">Open data</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
-      <a href="#projects">Projects</a>
       <a href="#about">About</a>
     </div>
     <div class="footer-links">
@@ -223,6 +297,17 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.getElementById("theme-toggle").addEventListener("click", function () {
+  var root = document.documentElement;
+  var current = root.getAttribute("data-theme") ||
+    (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  var next = current === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+});
+</script>
 
 </body>
 </html>
