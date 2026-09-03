@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mirko Tritella · data scientist, retrieval-augmented generation over knowledge graphs</title>
+  <meta name="description" content="Mirko Tritella is a data scientist working on retrieval-augmented generation over knowledge graphs. Author of ParliamentRAG and of two ISWC 2026 papers on authority-aware, verifiable RAG over Italian parliamentary proceedings.">
+  <link rel="canonical" href="https://emeierkeio.github.io/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/newsreader-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/geist-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mirko Tritella">
+  <meta property="og:description" content="Data scientist working on retrieval-augmented generation over knowledge graphs. Author of ParliamentRAG (ISWC 2026).">
+  <meta property="og:url" content="https://emeierkeio.github.io/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://emeierkeio.github.io/#me",
+        "name": "Mirko Tritella",
+        "url": "https://emeierkeio.github.io/",
+        "email": "mailto:mirkotritella1999@gmail.com",
+        "jobTitle": "Data Scientist",
+        "affiliation": { "@type": "CollegeOrUniversity", "name": "University of Milano-Bicocca" },
+        "sameAs": [
+          "https://github.com/Emeierkeio",
+          "https://www.linkedin.com/in/mirko-tritella-4406361a3",
+          "https://orcid.org/0009-0000-8611-8189",
+          "https://x.com/tritella_mirko"
+        ]
+      },
+      {
+        "@type": "ScholarlyArticle",
+        "name": "Who Speaks Matters: Authority-Aware Multi-View Retrieval-Augmented Generation over Italian Parliamentary Proceedings",
+        "author": [
+          { "@id": "https://emeierkeio.github.io/#me" },
+          { "@type": "Person", "name": "Riccardo Pozzi" },
+          { "@type": "Person", "name": "Matteo Palmonari" }
+        ],
+        "url": "https://www.parliamentrag.it/who-speaks-matters-iswc2026.pdf",
+        "datePublished": "2026",
+        "isPartOf": { "@type": "PublicationVolume", "name": "The Semantic Web, ISWC 2026, In-Use Track" }
+      },
+      {
+        "@type": "ScholarlyArticle",
+        "name": "ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings",
+        "author": [
+          { "@id": "https://emeierkeio.github.io/#me" },
+          { "@type": "Person", "name": "Riccardo Pozzi" },
+          { "@type": "Person", "name": "Matteo Palmonari" }
+        ],
+        "url": "https://www.parliamentrag.it/parliamentrag-demo-iswc2026.pdf",
+        "datePublished": "2026",
+        "isPartOf": { "@type": "PublicationVolume", "name": "ISWC 2026 Companion Volume, Posters and Demos" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-name" href="/">Mirko Tritella</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a class="nav-secondary" href="#projects">Projects</a>
+      <a class="nav-secondary" href="#about">About</a>
+      <a href="https://github.com/Emeierkeio">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="intro container">
+    <h1>Mirko Tritella</h1>
+    <p class="role">Data scientist working on retrieval-augmented generation over knowledge&nbsp;graphs.</p>
+    <p class="role-sub">I build systems whose answers can be checked against their sources: who said something, with what authority, and where in the official record.</p>
+    <div class="contact-links">
+      <a href="https://github.com/Emeierkeio">GitHub</a>
+      <a href="https://www.linkedin.com/in/mirko-tritella-4406361a3">LinkedIn</a>
+      <a href="https://orcid.org/0009-0000-8611-8189">ORCID</a>
+      <a href="mailto:mirkotritella1999@gmail.com">Email</a>
+    </div>
+  </section>
+
+  <section class="section" id="research">
+    <div class="container section-grid">
+      <p class="section-label">Featured research</p>
+      <div>
+        <h2>ParliamentRAG</h2>
+        <p class="feature-dek">Authority-aware, multi-view retrieval-augmented generation over the proceedings of the Italian Chamber of&nbsp;Deputies.</p>
+
+        <p>LLM summaries of parliamentary debate tend to favour dominant voices, quote out of context, and flatten disagreement. ParliamentRAG treats who speaks as seriously as what is said: answers cover every parliamentary group, majority and opposition alike, and the system checks every quotation verbatim against the stenographic record before it reaches the reader.</p>
+
+        <ul class="contribs">
+          <li><strong>Knowledge graph from official open data.</strong> Built from stenographic reports (Akoma&nbsp;Ntoso XML) and the SPARQL endpoints of <a href="https://dati.camera.it/">dati.camera.it</a>, with EuroVoc subject links for parliamentary acts.</li>
+          <li><strong>Multi-view retrieval.</strong> A dense vector channel and a graph channel are fused by a merger that balances relevance, party coverage, speaker diversity and political salience.</li>
+          <li><strong>Authority-aware expert selection.</strong> A query-specific score with six components (profession, education, committee membership, legislative acts, interventions, institutional role) picks the most credible speaker per parliamentary group.</li>
+          <li><strong>Citation verification.</strong> Every quotation is matched verbatim against its source chunk; anything that cannot be verified is removed from the answer.</li>
+        </ul>
+
+        <p>In a blind study against Google NotebookLM judged by six domain experts, the system scored higher on parliamentary-group coverage and citation faithfulness, with human ratings favouring it on source and balance dimensions. The methodology and full results are in the <a href="https://www.parliamentrag.it/who-speaks-matters-iswc2026.pdf">paper</a>.</p>
+
+        <p>The work is fully open: the knowledge graph is published as an <a href="https://doi.org/10.5281/zenodo.21560331">RDF dataset on Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) and in tabular form on <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, with project terms under the <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a> namespace. The system is also an <a href="https://github.com/Emeierkeio/ParliamentRAG/blob/main/mcp/README.md">MCP server</a>, so AI assistants can query the official records directly.</p>
+
+        <figure class="feature-figure">
+          <img src="assets/parliamentrag-pipeline.svg" alt="ParliamentRAG query pipeline in eight steps: query analysis, committee matching, expert selection, multi-view retrieval, balance metrics, ideological compass, generation, citation verification" width="1240" height="348" loading="lazy">
+          <figcaption>The query pipeline: from question to a balanced answer with verified citations.</figcaption>
+        </figure>
+
+        <p class="stat-line">705 plenary sessions&ensp;·&ensp;174k+ speech chunks&ensp;·&ensp;17.3k roll-call votes&ensp;·&ensp;6.9M individual vote records<br>XIX Legislature, updated continuously from official open data</p>
+
+        <div class="feature-links">
+          <a href="https://www.parliamentrag.it/">Live system</a>
+          <a href="https://github.com/Emeierkeio/ParliamentRAG">Source code</a>
+          <a href="https://www.parliamentrag.it/who-speaks-matters-iswc2026.pdf">Research paper</a>
+          <a href="https://www.parliamentrag.it/parliamentrag-demo-iswc2026.pdf">Demo paper</a>
+          <a href="https://orkg.org/papers/R1909763">ORKG</a>
+        </div>
+
+        <p class="meta-note">Python · FastAPI · Next.js · Neo4j · OpenAI · RDF · MCP. Supported by the EU Horizon Europe programme through grant 101189771 (<a href="https://datapact.eu/">DataPACT</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="publications">
+    <div class="container section-grid">
+      <p class="section-label">Publications</p>
+      <div>
+        <article class="pub">
+          <span class="pub-year">2026</span>
+          <h3>Who Speaks Matters: Authority-Aware Multi-View Retrieval-Augmented Generation over Italian Parliamentary Proceedings</h3>
+          <p class="pub-authors">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari</p>
+          <p class="pub-venue"><a href="https://iswc2026.semanticweb.org">ISWC 2026</a>, In-Use Track · Springer · to appear</p>
+          <div class="pub-links">
+            <a href="https://www.parliamentrag.it/who-speaks-matters-iswc2026.pdf">PDF</a>
+            <a href="https://www.parliamentrag.it/">Project</a>
+            <a href="https://doi.org/10.5281/zenodo.21560332">Dataset</a>
+            <a href="https://orkg.org/papers/R1909763">ORKG</a>
+          </div>
+        </article>
+
+        <article class="pub">
+          <span class="pub-year">2026</span>
+          <h3>ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings</h3>
+          <p class="pub-authors">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari</p>
+          <p class="pub-venue"><a href="https://iswc2026.semanticweb.org">ISWC 2026</a>, Posters &amp; Demos · CEUR-WS · to appear</p>
+          <div class="pub-links">
+            <a href="https://www.parliamentrag.it/parliamentrag-demo-iswc2026.pdf">PDF</a>
+            <a href="https://www.parliamentrag.it/">Live demo</a>
+            <a href="https://github.com/Emeierkeio/ParliamentRAG">Code</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="container section-grid">
+      <p class="section-label">Other work</p>
+      <div>
+        <ul class="project-list">
+          <li>
+            <a class="project-name" href="https://github.com/Emeierkeio/emeierkeio.github.io/tree/main/data">Open data for Roseto degli Abruzzi</a>
+            <p>The 2016 municipal election results of my home town, extracted from PDFs on the official website and republished as machine-readable CSV and JSON.</p>
+          </li>
+          <li>
+            <a class="project-name" href="https://github.com/Emeierkeio/roseto-covid">roseto-covid</a>
+            <p>A site that tracked up-to-date COVID-19 statistics for Roseto degli Abruzzi.</p>
+          </li>
+          <li>
+            <a class="project-name" href="https://github.com/Emeierkeio/dataman-animerecommendation">Anime recommendation on a graph database</a>
+            <p>Data management project: an anime graph database with recommendation queries, University of Milano-Bicocca.</p>
+          </li>
+          <li>
+            <a class="project-name" href="https://github.com/Emeierkeio/harrypotter-textmining">Harry Potter text mining</a>
+            <p>Text processing, representation and mining over the Harry Potter books, University of Milano-Bicocca.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="interests">
+    <div class="container section-grid">
+      <p class="section-label">Research interests</p>
+      <div>
+        <p>I work across information retrieval, knowledge graphs and large language models. The questions I keep returning to: how to make generated text verifiable against its sources, how to represent who is speaking and with what authority, and how to evaluate systems beyond a single accuracy number.</p>
+        <p>Retrieval-augmented generation · knowledge graphs · information retrieval · semantic web and linked open data · evaluation of LLM systems.</p>
+        <p class="interest-line">Currently exploring semantic axes for political-position mapping, and how parliamentary stances evolve over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container section-grid">
+      <p class="section-label">About</p>
+      <div>
+        <p>I grew up in Roseto degli Abruzzi, on the Adriatic coast. My first data projects were about my home town: republishing its 2016 election results in machine-readable formats, and tracking its COVID-19 numbers day by day. ParliamentRAG comes from the same instinct, applied to the national parliament.</p>
+        <p>I studied Computer Science at the University of Bologna and Data Science at the University of Milano-Bicocca, where the ParliamentRAG research was carried out. I live between Rome, Milan and Roseto.</p>
+        <p>I collect technical and research notes in <a href="notes/">Notes</a>.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/Emeierkeio">GitHub</a>
+      <a href="https://www.linkedin.com/in/mirko-tritella-4406361a3">LinkedIn</a>
+      <a href="mailto:mirkotritella1999@gmail.com">Email</a>
+      <span>© 2026 Mirko Tritella</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+/* Mirko Tritella · personal academic site
+   Editorial, typographic, no JS. Two families: Newsreader (display) + Geist (text). */
+
+@font-face {
+  font-family: "Newsreader";
+  src: url("fonts/newsreader-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("fonts/newsreader-italic.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("fonts/geist-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #fbfaf8;
+  --ink: #21262e;
+  --muted: #6b7280;
+  --faint: #9aa0a8;
+  --hairline: #e4e1da;
+  --accent: #1e4d8c;
+  --accent-ink: #173e73;
+  --figure-bg: #ffffff;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Geist", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17191d;
+    --ink: #d9d6cf;
+    --muted: #9297a0;
+    --faint: #6e747d;
+    --hairline: #2c2f35;
+    --accent: #8db4e2;
+    --accent-ink: #a9c8ee;
+    --figure-bg: #fbfaf8;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.container {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+a:hover { color: var(--accent-ink); text-decoration-color: currentColor; }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+::selection { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--hairline);
+}
+.site-header .container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+}
+.site-name {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav {
+  display: flex;
+  gap: 1.4rem;
+  font-size: 0.88rem;
+}
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.site-nav a:hover { color: var(--ink); }
+@media (max-width: 640px) {
+  .site-nav { gap: 1rem; }
+  .site-nav .nav-secondary { display: none; }
+}
+
+/* ---------- Intro ---------- */
+
+.intro {
+  padding: 4.5rem 0 4rem;
+}
+.intro h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 480;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  margin: 0 0 1.4rem;
+}
+.intro .role {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  max-width: 36em;
+  margin: 0 0 0.7rem;
+}
+.intro .role-sub {
+  font-size: 1.02rem;
+  color: var(--muted);
+  max-width: 38em;
+  margin: 0 0 1.8rem;
+}
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.35rem;
+  font-size: 0.92rem;
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  border-top: 1px solid var(--hairline);
+  padding: 3.2rem 0 3.6rem;
+}
+@media (min-width: 900px) {
+  .section-grid {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+}
+.section-label {
+  font-size: 0.86rem;
+  color: var(--faint);
+  margin: 0.35rem 0 1.4rem;
+}
+@media (min-width: 900px) {
+  .section-label { margin-bottom: 0; }
+}
+.section h2 {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-weight: 520;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 0.4rem;
+}
+.section p { max-width: 62ch; }
+
+/* ---------- Featured: ParliamentRAG ---------- */
+
+.feature-dek {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  font-weight: 420;
+  line-height: 1.45;
+  color: var(--ink);
+  max-width: 34em;
+  margin: 0 0 1.3rem;
+  padding-bottom: 0.15rem; /* italic descender reserve */
+}
+.feature-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.35rem;
+  font-size: 0.92rem;
+  margin: 1.6rem 0 0.4rem;
+}
+.stat-line {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 1.6rem 0 0;
+  line-height: 1.9;
+}
+.contribs {
+  margin: 1.4rem 0;
+  padding: 0;
+  list-style: none;
+  max-width: 66ch;
+}
+.contribs li {
+  padding: 0.55rem 0 0.55rem 1.1rem;
+  border-left: 2px solid var(--hairline);
+  margin: 0.55rem 0;
+}
+.contribs strong { font-weight: 560; }
+.feature-figure {
+  margin: 2rem 0 0;
+  border: 1px solid var(--hairline);
+  background: var(--figure-bg);
+  padding: 1.1rem 1.1rem 0.7rem;
+}
+.feature-figure img { width: 100%; height: auto; display: block; }
+.feature-figure figcaption {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+.meta-note {
+  font-size: 0.86rem;
+  color: var(--muted);
+  max-width: 62ch;
+  margin-top: 1.4rem;
+}
+
+/* ---------- Publications ---------- */
+
+.pub {
+  max-width: 66ch;
+}
+.pub + .pub {
+  margin-top: 2.1rem;
+  padding-top: 2.1rem;
+  border-top: 1px solid var(--hairline);
+}
+.pub .pub-year {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--faint);
+}
+.pub h3 {
+  font-family: var(--serif);
+  font-size: 1.32rem;
+  font-weight: 520;
+  line-height: 1.3;
+  margin: 0.3rem 0 0.45rem;
+}
+.pub .pub-authors { margin: 0 0 0.15rem; font-size: 0.95rem; }
+.pub .pub-venue { margin: 0; font-size: 0.92rem; color: var(--muted); }
+.pub .pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.2rem;
+  font-size: 0.9rem;
+  margin-top: 0.7rem;
+}
+
+/* ---------- Projects ---------- */
+
+.project-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 66ch;
+}
+.project-list li {
+  padding: 1.05rem 0;
+}
+.project-list li + li { border-top: 1px solid var(--hairline); }
+.project-list .project-name {
+  font-weight: 560;
+}
+.project-list p {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* ---------- Research / Now ---------- */
+
+.interest-line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.12rem;
+  color: var(--ink);
+  max-width: 40em;
+  margin: 1.2rem 0 0;
+  line-height: 1.7;
+  padding-bottom: 0.15rem;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--hairline);
+  padding: 2.2rem 0 3rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem 2rem;
+}
+.site-footer a { color: var(--muted); }
+.site-footer a:hover { color: var(--ink); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
+
+/* ---------- Notes page ---------- */
+
+.page {
+  padding: 4rem 0 6rem;
+  min-height: 50vh;
+}
+.page h1 {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
