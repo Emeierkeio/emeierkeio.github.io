@@ -202,19 +202,8 @@ a:focus-visible {
   color: var(--muted);
   line-height: 1.65;
   max-width: 40em;
-  margin: 0 0 1.3rem;
+  margin: 0 0 1.8rem;
 }
-.intro .flow {
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  color: var(--muted);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.15rem 0.55rem;
-  align-items: baseline;
-  margin: 0 0 1.9rem;
-}
-.intro .flow span { color: var(--faint); }
 .contact-links {
   display: flex;
   flex-wrap: wrap;
