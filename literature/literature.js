@@ -1,873 +1,1104 @@
-/* Literature Knowledge Graph Explorer.
-   Vanilla JS + d3 v7 (global, loaded from CDN). No other dependencies.
-   Sections: config · state · boot · visibility model · simulation ·
-   rendering · interaction · context panel · filters · search · keyboard. */
+/* Literature map — literature-first landscape.
+   Areas are transversal attributes: 16 precomputed anchors, each node attracted
+   to the mean of its areas' anchors + real-edge links + collision. The layout
+   settles once and freezes; interaction changes visibility, never position. */
+
 (function () {
   "use strict";
 
-  /* ================= config ================= */
+  var DATA_URL = "../research/literature-graph.json";
+  var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const DATA_URL = "../research/literature-graph.json";
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $("lit-stage");
+  var statusEl = $("lit-status");
 
-  const TYPE_LABELS = {
-    component: "Component",
-    paper: "Paper",
-    method: "Method",
-    dataset: "Dataset",
-    metric: "Metric",
-    task: "Task",
-    concept: "Concept",
-    gap: "Gap",
-    experiment: "Experiment",
-    contribution: "Contribution",
-    groundtruth: "Ground truth"
-  };
-  const GAPS_PRESET_TYPES = new Set(["gap", "experiment", "contribution"]);
-  const ACCENT_EDGES = new Set(["FILLS_GAP", "TARGETS_COMPONENT", "COULD_VALIDATE"]);
-  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ================= state ================= */
-
-  const state = {
-    nodes: [],
-    edges: [],
-    byId: new Map(),
-    adj: new Map(),        // id -> Set of neighbor ids
-    degree: new Map(),     // id -> degree in full graph
-    componentIds: [],
-    expanded: new Set(),   // ids whose neighbors are revealed
-    pinned: new Set(),     // ids revealed via search / edge navigation
-    visible: new Set(),
-    parentOf: new Map(),   // newly revealed id -> revealer id (for warm-start positions)
-    showAll: false,
-    gapsMode: false,
-    selected: null,
-    history: [],
-    filters: {
-      types: new Set(),
-      areas: new Set(),
-      yearMin: 0,
-      peerOnly: false,
-      epistemics: new Set(["evidence", "interpretation", "recommendation"])
-    },
-    yearFloor: 0
-  };
-
-  const simCache = new Map(); // id -> persistent simulation node object
-
-  /* d3 handles, assigned in initGraph */
-  let svg, gRoot, gLinks, gNodes, zoom, sim;
-  let nodeSel = null, linkSel = null;
-  let stageEl, tooltipEl, panelEl;
-  let pendingFit = false; /* re-fit once the force layout settles */
-
-  /* ================= boot ================= */
-
-  document.addEventListener("DOMContentLoaded", () => {
-    stageEl = document.getElementById("lit-stage");
-    tooltipEl = document.getElementById("lit-tooltip");
-    panelEl = document.getElementById("lit-panel");
-
-    fetch(DATA_URL)
-      .then((r) => {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      })
-      .then((data) => {
-        indexData(data);
-        buildFilters();
-        initGraph();
-        initToolbar();
-        initSearch();
-        initKeyboard();
-        refresh({ fit: true });
-      })
-      .catch((err) => {
-        stageEl.querySelector("#lit-svg").remove();
-        const div = document.createElement("div");
-        div.className = "lit-error";
-        div.innerHTML =
-          "<p>Could not load the graph data (" + escapeHtml(String(err.message || err)) +
-          ").</p><p>If you are previewing this page from the local filesystem, serve it over HTTP first, e.g. <code>python3 -m http.server</code> in the site root, then open <code>http://localhost:8000/literature/</code>.</p>";
-        stageEl.appendChild(div);
-      });
-  });
-
-  function indexData(data) {
-    state.nodes = data.nodes;
-    state.edges = data.edges.map((e, i) => Object.assign({ _i: i }, e));
-    state.nodes.forEach((n) => {
-      state.byId.set(n.id, n);
-      state.adj.set(n.id, new Set());
-      state.degree.set(n.id, 0);
+  fetch(DATA_URL)
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(init)
+    .catch(function (err) {
+      stage.innerHTML =
+        '<div class="lit-error"><p><strong>Could not load the literature graph.</strong></p>' +
+        "<p>" + String(err.message || err).replace(/[<>&]/g, "") + "</p>" +
+        "<p>If you opened this page from disk, serve the site root instead:</p>" +
+        "<p><code>python3 -m http.server</code> &nbsp;then open&nbsp; <code>http://localhost:8000/literature/</code></p></div>";
     });
-    state.edges.forEach((e) => {
-      if (!state.byId.has(e.source) || !state.byId.has(e.target)) return;
-      state.adj.get(e.source).add(e.target);
-      state.adj.get(e.target).add(e.source);
-      state.degree.set(e.source, state.degree.get(e.source) + 1);
-      state.degree.set(e.target, state.degree.get(e.target) + 1);
+
+  /* ------------------------------------------------------------------ */
+
+  function init(data) {
+    var nodes = data.nodes;
+    var edges = data.edges;
+    var areas = data.areas;
+
+    var W = 1680, H = 1150;
+
+    /* ---------- indexes ---------- */
+
+    var byId = new Map();
+    nodes.forEach(function (n) { byId.set(n.id, n); });
+
+    var adj = new Map();
+    nodes.forEach(function (n) { adj.set(n.id, []); });
+    edges.forEach(function (e) {
+      adj.get(e.source).push({ e: e, other: e.target, dir: "out" });
+      adj.get(e.target).push({ e: e, other: e.source, dir: "in" });
     });
-    state.componentIds = state.nodes.filter((n) => n.type === "component").map((n) => n.id);
+    nodes.forEach(function (n) { n.deg = adj.get(n.id).length; });
 
-    const years = state.nodes.map((n) => n.year).filter((y) => y != null);
-    state.yearFloor = Math.min.apply(null, years);
-    state.filters.yearMin = state.yearFloor;
-    Object.keys(TYPE_LABELS).forEach((t) => state.filters.types.add(t));
-    state.nodes.forEach((n) => state.filters.areas.add(n.area));
+    var areaById = new Map();
+    areas.forEach(function (a) { areaById.set(a.id, a); });
 
-    document.querySelector(".lit-count-total").textContent = String(state.nodes.length);
-  }
+    /* ---------- intro counts ---------- */
 
-  /* ================= visibility model ================= */
+    var counts = (data.meta && data.meta.counts) || {};
+    var nByType = counts.nodesByType || {};
+    var nonProject = (counts.nodes || nodes.length) - (nByType.project || 0);
+    $("lit-count").textContent =
+      nonProject + " papers, methods, datasets and open questions, linked by " +
+      (counts.edges || edges.length) + " relations.";
 
-  /* Progressive disclosure: the 8 components are always the anchor set.
-     A node in `expanded` reveals its direct neighbors. `pinned` holds nodes
-     revealed by search or edge navigation. Closure is recomputed from
-     scratch so collapsing a branch cannot strand orphans. */
-  function computeVisible() {
-    const vis = new Set();
-    state.parentOf = new Map();
+    /* ---------- tiers: overview subset ---------- */
 
-    if (state.showAll) {
-      state.nodes.forEach((n) => vis.add(n.id));
-      state.visible = vis;
-      return;
+    var CORE = { method: 1, dataset: 1, concept: 1, gap: 1, question: 1, project: 1 };
+    var primary = new Set();
+    nodes.forEach(function (n) { if (CORE[n.type]) primary.add(n.id); });
+    var papersRanked = nodes
+      .filter(function (n) { return n.type === "paper"; })
+      .sort(function (a, b) { return b.deg - a.deg || (b.year || 0) - (a.year || 0); });
+    for (var pi = 0; pi < papersRanked.length && primary.size < 106; pi++) {
+      primary.add(papersRanked[pi].id);
     }
+    nodes.forEach(function (n) { if (n.seed) primary.add(n.id); });
 
-    if (state.gapsMode) {
-      state.nodes.forEach((n) => {
-        if (GAPS_PRESET_TYPES.has(n.type)) {
-          vis.add(n.id);
-          state.adj.get(n.id).forEach((nb) => {
-            if (!vis.has(nb)) state.parentOf.set(nb, n.id);
-            vis.add(nb);
-          });
+    /* ---------- area anchors: golden-angle seed + co-membership force ---------- */
+
+    var coCount = new Map();
+    nodes.forEach(function (n) {
+      var as = n.areas || [];
+      for (var i = 0; i < as.length; i++)
+        for (var j = i + 1; j < as.length; j++) {
+          var k = as[i] < as[j] ? as[i] + "|" + as[j] : as[j] + "|" + as[i];
+          coCount.set(k, (coCount.get(k) || 0) + 1);
         }
+    });
+    var maxCo = 1;
+    coCount.forEach(function (v) { if (v > maxCo) maxCo = v; });
+
+    var anchorNodes = areas.map(function (a, i) {
+      var ang = i * 2.399963, r = 70 * Math.sqrt(i + 1);
+      return { id: a.id, x: W / 2 + r * Math.cos(ang), y: H / 2 + r * Math.sin(ang) };
+    });
+    var anchorLinks = [];
+    coCount.forEach(function (v, k) {
+      var p = k.split("|");
+      anchorLinks.push({ source: p[0], target: p[1], w: v / maxCo });
+    });
+    var aSim = d3.forceSimulation(anchorNodes)
+      .force("link", d3.forceLink(anchorLinks).id(function (d) { return d.id; })
+        .distance(function (l) { return 480 - 330 * l.w; })
+        .strength(function (l) { return 0.25 + 0.6 * l.w; }))
+      .force("charge", d3.forceManyBody().strength(-1400))
+      .force("center", d3.forceCenter(W / 2, H / 2))
+      .stop();
+    for (var t = 0; t < 260; t++) aSim.tick();
+
+    /* scale anchors into the frame */
+    var ax0 = Infinity, ax1 = -Infinity, ay0 = Infinity, ay1 = -Infinity;
+    anchorNodes.forEach(function (a) {
+      ax0 = Math.min(ax0, a.x); ax1 = Math.max(ax1, a.x);
+      ay0 = Math.min(ay0, a.y); ay1 = Math.max(ay1, a.y);
+    });
+    var anchor = new Map();
+    anchorNodes.forEach(function (a) {
+      anchor.set(a.id, {
+        x: 0.14 * W + (a.x - ax0) / (ax1 - ax0 || 1) * 0.72 * W,
+        y: 0.16 * H + (a.y - ay0) / (ay1 - ay0 || 1) * 0.68 * H
       });
-      state.pinned.forEach((id) => vis.add(id));
-      if (state.selected) vis.add(state.selected);
-      state.visible = vis;
-      return;
-    }
+    });
 
-    state.componentIds.forEach((id) => vis.add(id));
-    state.pinned.forEach((id) => vis.add(id));
-    if (state.selected) vis.add(state.selected);
+    /* ---------- node geometry ---------- */
 
-    let grew = true;
-    while (grew) {
-      grew = false;
-      for (const id of Array.from(vis)) {
-        if (!state.expanded.has(id)) continue;
-        for (const nb of state.adj.get(id)) {
-          if (!vis.has(nb)) {
-            vis.add(nb);
-            state.parentOf.set(nb, id);
-            grew = true;
-          }
-        }
+    function nodeR(n) {
+      switch (n.type) {
+        case "paper": return 3 + Math.sqrt(n.deg) * 1.7;
+        case "method": return 4.6;
+        case "dataset": return 4.4;
+        case "project": return 4.6;
+        case "gap": return 5.6;
+        case "question": return 4.4;
+        case "concept": return 2.7;
+        default: return 2.4; /* metric, task */
       }
     }
-    state.visible = vis;
-  }
 
-  function matchesFilters(n) {
-    const f = state.filters;
-    if (n.id === state.selected) return true; // never break the selected path
-    if (!f.types.has(n.type)) return false;
-    if (!f.areas.has(n.area)) return false;
-    if (n.year != null && n.year < f.yearMin) return false;
-    if (f.peerOnly && n.type === "paper" && n.peerReviewed !== true) return false;
-    if (n.epistemics && !f.epistemics.has(n.epistemics)) return false;
-    return true;
-  }
+    nodes.forEach(function (n) {
+      var as = (n.areas || []).filter(function (a) { return anchor.has(a); });
+      var mx = 0, my = 0;
+      if (as.length) {
+        as.forEach(function (a) { mx += anchor.get(a).x; my += anchor.get(a).y; });
+        mx /= as.length; my /= as.length;
+      } else { mx = W / 2; my = H / 2; }
+      n.ax = mx; n.ay = my;
+      n.x = mx + (Math.random() - 0.5) * 150;
+      n.y = my + (Math.random() - 0.5) * 150;
+      n.r = nodeR(n);
+    });
 
-  function hiddenNeighborCount(id) {
-    if (state.showAll) return 0;
-    let k = 0;
-    state.adj.get(id).forEach((nb) => { if (!state.visible.has(nb)) k += 1; });
-    return k;
-  }
+    /* ---------- main layout: settle then freeze ---------- */
 
-  /* ================= simulation ================= */
+    var simLinks = edges.map(function (e) { return { source: e.source, target: e.target }; });
+    var sim = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(simLinks).id(function (d) { return d.id; })
+        .distance(58).strength(0.35))
+      .force("charge", d3.forceManyBody().strength(-34).distanceMax(320))
+      .force("ax", d3.forceX(function (d) { return d.ax; }).strength(0.075))
+      .force("ay", d3.forceY(function (d) { return d.ay; }).strength(0.075))
+      .force("collide", d3.forceCollide(function (d) {
+        return d.r + (primary.has(d.id) ? 7 : 3.5);
+      }).iterations(2))
+      .stop();
+    for (var s = 0; s < 320; s++) sim.tick();
 
-  function nodeRadius(n) {
-    if (n.type === "component") return 16;
-    if (n.type === "paper") {
-      return Math.min(11, 4.5 + Math.sqrt(state.degree.get(n.id) || 1) * 1.1);
+    /* area landmarks at the centroid of their (primary) members */
+    var landmarks = areas.map(function (a) {
+      var xs = 0, ys = 0, c = 0;
+      nodes.forEach(function (n) {
+        if ((n.areas || []).indexOf(a.id) >= 0 && primary.has(n.id)) {
+          xs += n.x; ys += n.y; c++;
+        }
+      });
+      if (!c) { var an = anchor.get(a.id); xs = an.x; ys = an.y; c = 1; }
+      return { id: a.id, label: a.label, x: xs / c, y: ys / c };
+    });
+    /* gentle repel so landmark texts do not sit on each other */
+    for (var it = 0; it < 60; it++) {
+      for (var i = 0; i < landmarks.length; i++)
+        for (var j = i + 1; j < landmarks.length; j++) {
+          var A = landmarks[i], B = landmarks[j];
+          var dx = B.x - A.x, dy = B.y - A.y;
+          var d = Math.sqrt(dx * dx + dy * dy) || 1;
+          var minD = 150;
+          if (d < minD) {
+            var push = (minD - d) / d * 0.5;
+            A.x -= dx * push; A.y -= dy * push;
+            B.x += dx * push; B.y += dy * push;
+          }
+        }
     }
-    if (n.type === "gap" || n.type === "experiment" || n.type === "contribution") return 8;
-    if (n.type === "dataset" || n.type === "groundtruth") return 7;
-    return 6;
-  }
 
-  function linkDistance(l) {
-    const s = l.source.data.type, t = l.target.data.type;
-    if (s === "component" && t === "component") return 165;
-    if (s === "component" || t === "component") return 95;
-    return 58;
-  }
+    /* ---------- labels ---------- */
 
-  function initGraph() {
-    svg = d3.select("#lit-svg");
-    gRoot = svg.append("g").attr("class", "lit-root");
-    gLinks = gRoot.append("g").attr("class", "lit-links");
-    gNodes = gRoot.append("g").attr("class", "lit-nodes");
+    function firstAuthor(a) {
+      if (!a) return null;
+      var f = a.split(/,|&| and /)[0].trim().replace(/\s+et al\.?$/, "");
+      return f || null;
+    }
+    function truncate(s, n) {
+      return s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, "") + "…" : s;
+    }
+    function labelText(n) {
+      if (n.type === "paper") {
+        var fa = firstAuthor(n.authors);
+        return fa ? fa + (n.year ? " " + n.year : "") : truncate(n.label, 24);
+      }
+      if (n.type === "question" || n.type === "gap") return truncate(n.label, 42);
+      return truncate(n.label, 26);
+    }
+    nodes.forEach(function (n) { n.lbl = labelText(n); });
 
-    zoom = d3.zoom()
-      .scaleExtent([0.15, 4])
-      .on("zoom", (event) => {
-        gRoot.attr("transform", event.transform);
-        svg.classed("labels-all", event.transform.k >= 1.25);
+    /* ---------- svg scaffold ---------- */
+
+    var svg = d3.select("#lit-svg");
+    var root = svg.append("g").attr("class", "lit-root");
+    var gAreas = root.append("g").attr("class", "layer-areas");
+    var gEdges = root.append("g").attr("class", "layer-edges");
+    var gNodes = root.append("g").attr("class", "layer-nodes");
+
+    gAreas.selectAll("text").data(landmarks).enter()
+      .append("text")
+      .attr("class", "area-label")
+      .attr("x", function (d) { return d.x; })
+      .attr("y", function (d) { return d.y; })
+      .text(function (d) { return d.label; });
+
+    var edgeSel = gEdges.selectAll("g").data(edges).enter()
+      .append("g")
+      .attr("data-type", function (d) { return d.type; });
+    edgeSel.append("line")
+      .attr("class", "edge-line")
+      .attr("x1", function (d) { return byId.get(d.source).x; })
+      .attr("y1", function (d) { return byId.get(d.source).y; })
+      .attr("x2", function (d) { return byId.get(d.target).x; })
+      .attr("y2", function (d) { return byId.get(d.target).y; });
+    edgeSel.append("line")
+      .attr("class", "edge-hit")
+      .attr("x1", function (d) { return byId.get(d.source).x; })
+      .attr("y1", function (d) { return byId.get(d.source).y; })
+      .attr("x2", function (d) { return byId.get(d.target).x; })
+      .attr("y2", function (d) { return byId.get(d.target).y; });
+
+    var nodeSel = gNodes.selectAll("g").data(nodes).enter()
+      .append("g")
+      .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("role", "button")
+      .attr("tabindex", -1)
+      .attr("aria-label", function (d) { return d.label + " (" + d.type + ")"; });
+
+    nodeSel.each(function (d) {
+      var g = d3.select(this);
+      if (d.type === "dataset" || d.type === "project") {
+        g.append("rect").attr("class", "shape")
+          .attr("x", -d.r).attr("y", -d.r)
+          .attr("width", d.r * 2).attr("height", d.r * 2);
+      } else {
+        g.append("circle").attr("class", "shape").attr("r", d.r);
+      }
+      g.append("text")
+        .attr("class", "lbl")
+        .attr("y", d.r + (d.type === "paper" ? 9.5 : 8.5))
+        .text(d.lbl);
+    });
+
+    /* ---------- state ---------- */
+
+    var state = {
+      trail: [],            /* selection path, last = current */
+      mode: null,           /* null | "gaps" | {area:id} */
+      revealed: new Set(),  /* secondary nodes surfaced this session */
+      showAll: false,
+      history: [],
+      filters: null
+    };
+
+    var yearsAll = nodes.map(function (n) { return n.year; })
+      .filter(function (y) { return y != null; });
+    var yMinData = Math.min.apply(null, yearsAll);
+    var yMaxData = Math.max.apply(null, yearsAll);
+    var ALL_TYPES = ["paper", "method", "dataset", "concept", "gap", "question", "metric", "task", "project"];
+    state.filters = {
+      types: new Set(ALL_TYPES),
+      areas: new Set(),
+      yMin: yMinData, yMax: yMaxData,
+      review: "all"
+    };
+
+    function tierVisible(id) {
+      return state.showAll || primary.has(id) || state.revealed.has(id);
+    }
+    function filtersActive() {
+      var f = state.filters;
+      return f.types.size < ALL_TYPES.length || f.areas.size > 0 ||
+        f.yMin > yMinData || f.yMax < yMaxData || f.review !== "all";
+    }
+    function passesFilter(n) {
+      var f = state.filters;
+      if (!f.types.has(n.type)) return false;
+      if (f.areas.size) {
+        var hit = (n.areas || []).some(function (a) { return f.areas.has(a); });
+        if (!hit) return false;
+      }
+      if (n.year != null && (n.year < f.yMin || n.year > f.yMax)) return false;
+      if (f.review === "peer" && n.type === "paper" && n.peerReviewed !== true) return false;
+      if (f.review === "preprint" && n.type === "paper" && n.peerReviewed !== false) return false;
+      return true;
+    }
+
+    function surfacedSet() {
+      if (state.trail.length) {
+        var S = new Set();
+        state.trail.forEach(function (id) {
+          S.add(id);
+          adj.get(id).forEach(function (a) { S.add(a.other); });
+        });
+        return S;
+      }
+      if (state.mode === "gaps") {
+        var G = new Set();
+        nodes.forEach(function (n) {
+          if (n.type === "gap" || n.type === "question") {
+            G.add(n.id);
+            adj.get(n.id).forEach(function (a) { G.add(a.other); });
+          }
+        });
+        return G;
+      }
+      return null;
+    }
+
+    function selectedId() {
+      return state.trail.length ? state.trail[state.trail.length - 1] : null;
+    }
+
+    /* ---------- render ---------- */
+
+    function render() {
+      var S = surfacedSet();
+      var areaMode = state.mode && typeof state.mode === "object" ? state.mode.area : null;
+      var fActive = filtersActive();
+      var sel = selectedId();
+
+      nodeSel.attr("class", function (d) {
+        var c = "node t-" + d.type + (d.seed ? " seed" : "");
+        if (S) c += S.has(d.id) ? " on" : " off";
+        else if (areaMode) {
+          var member = (d.areas || []).indexOf(areaMode) >= 0;
+          c += member ? (tierVisible(d.id) ? " on" : " mid") : " off";
+        } else c += tierVisible(d.id) ? " base" : " ghost";
+        if (fActive && !passesFilter(d) && !(S && S.has(d.id))) c += " fdim";
+        if (d.id === sel) c += " selected";
+        return c;
+      });
+
+      edgeSel.attr("class", function (d) {
+        var c = "edge";
+        var sOK, tOK;
+        if (S) c += (S.has(d.source) && S.has(d.target)) ? " on" : " off";
+        else if (areaMode) {
+          sOK = (byId.get(d.source).areas || []).indexOf(areaMode) >= 0;
+          tOK = (byId.get(d.target).areas || []).indexOf(areaMode) >= 0;
+          c += (sOK && tOK) ? " on" : " off";
+        } else {
+          c += (tierVisible(d.source) && tierVisible(d.target)) ? " base" : " ghost";
+        }
+        if (fActive && !(S && S.has(d.source) && S.has(d.target)) &&
+            (!passesFilter(byId.get(d.source)) || !passesFilter(byId.get(d.target)))) c += " fdim";
+        return c;
+      });
+
+      stage.classList.toggle("has-focus", !!(S || areaMode));
+      updateLabels();
+      $("lit-back").disabled = state.history.length === 0;
+      $("lit-gaps").setAttribute("aria-pressed", state.mode === "gaps" ? "true" : "false");
+      $("lit-showall").setAttribute("aria-pressed", state.showAll ? "true" : "false");
+      $("lit-showall").textContent = state.showAll ? "Show less" : "Show everything";
+    }
+
+    /* ---------- label decluttering (world-space, greedy by priority) ---------- */
+
+    var zoomBand = "far";
+
+    function labelPriority(d, S) {
+      var p = d.deg;
+      if (d.id === selectedId()) return 10000;
+      if (S && S.has(d.id)) return 5000 + p;
+      switch (d.type) {
+        case "paper": return 900 + p * 10;
+        case "gap": case "question": return 700 + p * 10;
+        case "method": case "dataset": case "project": return 600 + p * 10;
+        case "concept": return 300 + p * 10;
+        default: return 100 + p * 10;
+      }
+    }
+    function labelFs(d) {
+      if (d.type === "paper") return 9.5;
+      if (d.type === "concept" || d.type === "metric" || d.type === "task") return 7.5;
+      return 8.2;
+    }
+    function labelEligible(d, S) {
+      if (S) return S.has(d.id);
+      if (state.mode && typeof state.mode === "object")
+        return (d.areas || []).indexOf(state.mode.area) >= 0 && tierVisible(d.id);
+      if (!tierVisible(d.id)) return false;
+      if (d.type === "concept") return zoomBand !== "far" || d.deg >= 8;
+      if (d.type === "metric" || d.type === "task") return zoomBand === "near";
+      if (d.type === "paper" && !primary.has(d.id)) return zoomBand !== "far";
+      return true;
+    }
+
+    function updateLabels() {
+      var S = surfacedSet();
+      var placed = [];
+      var cands = [];
+      nodeSel.each(function (d) {
+        if (labelEligible(d, S)) cands.push(d);
+        else d._lblOn = false;
+      });
+      cands.sort(function (a, b) { return labelPriority(b, S) - labelPriority(a, S); });
+      cands.forEach(function (d) {
+        var fs = labelFs(d);
+        var w = d.lbl.length * fs * 0.56;
+        var box = { x0: d.x - w / 2, x1: d.x + w / 2, y0: d.y + d.r + 2, y1: d.y + d.r + 2 + fs * 1.25 };
+        var ok = true;
+        for (var i = 0; i < placed.length; i++) {
+          var b = placed[i];
+          if (box.x0 < b.x1 && box.x1 > b.x0 && box.y0 < b.y1 && box.y1 > b.y0) { ok = false; break; }
+        }
+        d._lblOn = ok;
+        if (ok) placed.push(box);
+      });
+      nodeSel.select("text.lbl").attr("class", function (d) {
+        return "lbl" + (d._lblOn ? "" : " lbl-hide");
+      });
+    }
+
+    /* ---------- zoom / pan ---------- */
+
+    var zoom = d3.zoom()
+      .scaleExtent([0.25, 6])
+      .on("zoom", function (ev) {
+        root.attr("transform", ev.transform);
+        var k = ev.transform.k;
+        var band = k < 1.45 ? "far" : k < 2.35 ? "mid" : "near";
+        if (band !== zoomBand) {
+          zoomBand = band;
+          stage.setAttribute("data-zoom", band);
+          updateLabels();
+        }
       });
     svg.call(zoom).on("dblclick.zoom", null);
 
-    svg.on("click", (event) => {
-      if (event.defaultPrevented) return;
-      if (event.target === svg.node()) deselect();
+    function stageSize() {
+      var r = stage.getBoundingClientRect();
+      return { w: r.width, h: r.height };
+    }
+    function zoomFit(subset, animate) {
+      var list = subset && subset.length ? subset : nodes.filter(function (n) { return primary.has(n.id); });
+      var x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+      list.forEach(function (n) {
+        x0 = Math.min(x0, n.x); x1 = Math.max(x1, n.x);
+        y0 = Math.min(y0, n.y); y1 = Math.max(y1, n.y);
+      });
+      if (!subset) {
+        /* keep the area landmark texts inside the frame */
+        landmarks.forEach(function (l) {
+          var hw = l.label.length * 8;
+          x0 = Math.min(x0, l.x - hw); x1 = Math.max(x1, l.x + hw);
+          y0 = Math.min(y0, l.y - 22); y1 = Math.max(y1, l.y + 12);
+        });
+      }
+      var sz = stageSize(), pad = 70;
+      var k = Math.min((sz.w - pad) / (x1 - x0 || 1), (sz.h - pad) / (y1 - y0 || 1));
+      k = Math.max(0.25, Math.min(k, 1.6));
+      var tf = d3.zoomIdentity
+        .translate(sz.w / 2 - k * (x0 + x1) / 2, sz.h / 2 - k * (y0 + y1) / 2)
+        .scale(k);
+      (animate && !RM ? svg.transition().duration(450) : svg).call(zoom.transform, tf);
+    }
+    function flyTo(n) {
+      var sz = stageSize();
+      var k = Math.max(d3.zoomTransform(svg.node()).k, 1.7);
+      var tf = d3.zoomIdentity.translate(sz.w / 2 - k * n.x, sz.h / 2 - k * n.y).scale(k);
+      (RM ? svg : svg.transition().duration(520)).call(zoom.transform, tf);
+    }
+
+    $("lit-zoom-in").addEventListener("click", function () {
+      (RM ? svg : svg.transition().duration(180)).call(zoom.scaleBy, 1.45);
+    });
+    $("lit-zoom-out").addEventListener("click", function () {
+      (RM ? svg : svg.transition().duration(180)).call(zoom.scaleBy, 1 / 1.45);
+    });
+    $("lit-zoom-fit").addEventListener("click", function () {
+      var S = surfacedSet();
+      zoomFit(S ? nodes.filter(function (n) { return S.has(n.id); }) : null, true);
     });
 
-    sim = d3.forceSimulation()
-      .force("link", d3.forceLink().id((d) => d.id).strength(0.45))
-      .force("charge", d3.forceManyBody().strength(-190).distanceMax(420))
-      .force("x", d3.forceX(0).strength(0.045))
-      .force("y", d3.forceY(0).strength(0.055))
-      .force("collide", d3.forceCollide()
-        /* components carry always-visible labels: reserve room for them */
-        .radius((d) => nodeRadius(d.data) + (d.data.type === "component" ? 24 : 7)))
-      .on("tick", ticked)
-      .on("end", () => {
-        if (pendingFit) { pendingFit = false; fitView(true); }
-      });
-    sim.stop();
-  }
+    /* ---------- history / selection ---------- */
 
-  function simNode(id) {
-    let s = simCache.get(id);
-    if (!s) {
-      s = { id: id, data: state.byId.get(id) };
-      const parent = simCache.get(state.parentOf.get(id));
-      const a = Math.random() * 2 * Math.PI;
-      if (parent && parent.x != null) {
-        s.x = parent.x + Math.cos(a) * 40;
-        s.y = parent.y + Math.sin(a) * 40;
+    function snapshot() {
+      return {
+        trail: state.trail.slice(),
+        mode: state.mode,
+        revealed: new Set(state.revealed)
+      };
+    }
+    function pushHistory() {
+      state.history.push(snapshot());
+      if (state.history.length > 60) state.history.shift();
+    }
+
+    function selectNode(id, opts) {
+      opts = opts || {};
+      var n = byId.get(id);
+      if (!n) return;
+      if (!opts.silentHistory) pushHistory();
+      var S = surfacedSet();
+      if (state.trail.length && S && S.has(id) && state.trail.indexOf(id) < 0) {
+        state.trail.push(id); /* deepen the trail */
       } else {
-        s.x = Math.cos(a) * 120;
-        s.y = Math.sin(a) * 120;
+        state.trail = [id];
       }
-      simCache.set(id, s);
-    }
-    return s;
-  }
-
-  function restartSim(simNodes, simLinks) {
-    sim.nodes(simNodes);
-    sim.force("link").links(simLinks).distance(linkDistance);
-    if (REDUCED) {
-      /* render the settled layout without animation */
-      sim.alpha(1);
-      for (let i = 0; i < 300; i += 1) sim.tick();
-      sim.stop();
-      ticked();
-    } else {
-      sim.alpha(0.65).restart(); /* decays and freezes on its own */
-    }
-  }
-
-  /* ================= rendering ================= */
-
-  function refresh(opts) {
-    computeVisible();
-
-    const simNodes = Array.from(state.visible, simNode);
-    const idSet = state.visible;
-    const simLinks = state.edges
-      .filter((e) => idSet.has(e.source) && idSet.has(e.target))
-      .map((e) => ({ i: e._i, data: e, source: simCache.get(e.source), target: simCache.get(e.target) }));
-
-    linkSel = gLinks.selectAll("line.lit-link")
-      .data(simLinks, (d) => d.i)
-      .join((enter) => enter.append("line")
-        .attr("class", (d) => "lit-link edge-" + d.data.type.toLowerCase().replace(/_/g, "-")));
-
-    nodeSel = gNodes.selectAll("g.lit-node")
-      .data(simNodes, (d) => d.id)
-      .join((enter) => {
-        const g = enter.append("g")
-          .attr("class", (d) => "lit-node t-" + d.data.type)
-          .attr("tabindex", -1);
-        g.each(function (d) { drawShape(d3.select(this), d.data); });
-        g.append("text").attr("class", "lit-count");
-        g.append("text")
-          .attr("class", (d) => "lit-label" + (d.data.type === "component" ? " lit-label-comp" : ""))
-          .attr("dy", (d) => nodeRadius(d.data) + 11)
-          .text((d) => trimLabel(d.data.label));
-        g.on("click", onNodeClick)
-          .on("dblclick", onNodeDblClick)
-          .on("mouseover", onNodeOver)
-          .on("mousemove", onNodeMove)
-          .on("mouseout", onNodeOut);
-        return g;
+      state.mode = null;
+      /* neighborhood surfaces: reveal hidden neighbors so they fade in */
+      state.revealed.add(id);
+      adj.get(id).forEach(function (a) {
+        if (!primary.has(a.other)) state.revealed.add(a.other);
       });
-
-    nodeSel.select("text.lit-count")
-      .attr("x", (d) => nodeRadius(d.data) + 1)
-      .attr("y", (d) => -nodeRadius(d.data) - 1)
-      .text((d) => {
-        const k = hiddenNeighborCount(d.id);
-        return k > 0 ? "+" + k : "";
-      });
-
-    updateClasses();
-    updateStatus();
-    restartSim(simNodes, simLinks);
-    if (opts && opts.fit) {
-      fitView(!REDUCED);
-      if (!REDUCED) pendingFit = true;
+      render();
+      renderPanel(n);
+      if (opts.fly) flyTo(n);
+      announce(n.label + " selected. " + adj.get(id).length + " connections surfaced.");
     }
-  }
 
-  function drawShape(g, n) {
-    const r = nodeRadius(n);
-    if (n.seed) g.append("circle").attr("class", "lit-ring").attr("r", r + 3.5);
-    if (n.type === "dataset" || n.type === "groundtruth") {
-      g.insert("rect", ".lit-ring")
-        .attr("class", "shape")
-        .attr("x", -r).attr("y", -r).attr("width", 2 * r).attr("height", 2 * r);
-    } else if (n.type === "experiment" || n.type === "contribution") {
-      g.insert("path", ".lit-ring")
-        .attr("class", "shape")
-        .attr("d", "M0," + (-r) + " L" + r + ",0 L0," + r + " L" + (-r) + ",0 Z");
-    } else {
-      g.insert("circle", ".lit-ring").attr("class", "shape").attr("r", r);
+    function clearSelection() {
+      state.trail = [];
+      state.mode = null;
+      render();
+      panelEmpty();
     }
-  }
 
-  function trimLabel(label) {
-    return label.length > 34 ? label.slice(0, 32) + "…" : label;
-  }
+    $("lit-back").addEventListener("click", function () {
+      var prev = state.history.pop();
+      if (!prev) return;
+      state.trail = prev.trail;
+      state.mode = prev.mode;
+      state.revealed = prev.revealed;
+      render();
+      var sel = selectedId();
+      if (sel) renderPanel(byId.get(sel)); else panelEmpty();
+    });
 
-  function ticked() {
-    if (linkSel) {
-      linkSel
-        .attr("x1", (d) => d.source.x).attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x).attr("y2", (d) => d.target.y);
-    }
-    if (nodeSel) {
-      nodeSel.attr("transform", (d) => "translate(" + d.x + "," + d.y + ")");
-    }
-  }
+    $("lit-reset").addEventListener("click", function () {
+      state.trail = [];
+      state.mode = null;
+      state.history = [];
+      state.revealed = new Set();
+      state.showAll = false;
+      state.filters.types = new Set(ALL_TYPES);
+      state.filters.areas = new Set();
+      state.filters.yMin = yMinData;
+      state.filters.yMax = yMaxData;
+      state.filters.review = "all";
+      syncFilterUI();
+      closeFilters();
+      searchInput.value = "";
+      closeResults();
+      render();
+      panelEmpty();
+      zoomFit(null, true);
+      announce("View reset.");
+    });
 
-  function updateClasses() {
-    const sel = state.selected;
-    const selNbs = sel ? state.adj.get(sel) : null;
-    svg.classed("has-sel", !!sel);
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "/" && document.activeElement !== searchInput &&
+          !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
+        ev.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      }
+      if (ev.key === "Escape") {
+        if (!resultsEl.hidden) { closeResults(); return; }
+        if (state.trail.length || state.mode) clearSelection();
+      }
+    });
+
+    /* node + edge interaction */
+
     nodeSel
-      .classed("is-dimmed", (d) => !matchesFilters(d.data))
-      .classed("is-selected", (d) => d.id === sel)
-      .classed("is-sel-nb", (d) => !!selNbs && selNbs.has(d.id));
-    linkSel
-      .classed("is-dimmed", (d) => !matchesFilters(d.source.data) || !matchesFilters(d.target.data))
-      .classed("is-sel-link", (d) => !!sel && (d.data.source === sel || d.data.target === sel));
-  }
-
-  function updateStatus() {
-    const shown = state.visible.size;
-    let match = 0;
-    state.nodes.forEach((n) => { if (matchesFilters(n)) match += 1; });
-    document.getElementById("lit-status").textContent =
-      shown + " shown · " + match + "/" + state.nodes.length + " match filters";
-  }
-
-  /* ================= zoom helpers ================= */
-
-  function stageSize() {
-    const b = stageEl.getBoundingClientRect();
-    return [b.width, b.height];
-  }
-
-  function fitView(animate) {
-    const nodes = sim.nodes();
-    if (!nodes.length) return;
-    const [w, h] = stageSize();
-    const xs = nodes.map((d) => d.x), ys = nodes.map((d) => d.y);
-    const x0 = Math.min.apply(null, xs) - 40, x1 = Math.max.apply(null, xs) + 40;
-    const y0 = Math.min.apply(null, ys) - 40, y1 = Math.max.apply(null, ys) + 40;
-    const k = Math.min(1.6, w / (x1 - x0), h / (y1 - y0));
-    const t = d3.zoomIdentity
-      .translate(w / 2 - k * (x0 + x1) / 2, h / 2 - k * (y0 + y1) / 2)
-      .scale(k);
-    (animate ? svg.transition().duration(350) : svg).call(zoom.transform, t);
-  }
-
-  function centerOn(id) {
-    const s = simCache.get(id);
-    if (!s) return;
-    const [w, h] = stageSize();
-    const k = Math.max(d3.zoomTransform(svg.node()).k, 0.9);
-    const t = d3.zoomIdentity.translate(w / 2 - k * s.x, h / 2 - k * s.y).scale(k);
-    (REDUCED ? svg : svg.transition().duration(350)).call(zoom.transform, t);
-  }
-
-  /* ================= interaction ================= */
-
-  function onNodeClick(event, d) {
-    event.stopPropagation();
-    selectNode(d.id, { push: true, center: false });
-  }
-
-  function onNodeDblClick(event, d) {
-    event.stopPropagation();
-    collapseNode(d.id);
-  }
-
-  function onNodeOver(event, d) {
-    svg.classed("has-hover", true);
-    const nbs = state.adj.get(d.id);
-    nodeSel.classed("is-hot", (o) => o.id === d.id || nbs.has(o.id));
-    linkSel.classed("is-hot", (o) => o.data.source === d.id || o.data.target === d.id);
-    tooltipEl.innerHTML =
-      "<span class='tt-type'>" + escapeHtml(TYPE_LABELS[d.data.type] || d.data.type) +
-      "</span><br>" + escapeHtml(d.data.label);
-    tooltipEl.hidden = false;
-    onNodeMove(event);
-  }
-
-  function onNodeMove(event) {
-    const b = stageEl.getBoundingClientRect();
-    let x = event.clientX - b.left + 14;
-    let y = event.clientY - b.top + 10;
-    if (x + 260 > b.width) x -= 280;
-    if (y + 60 > b.height) y -= 70;
-    tooltipEl.style.left = x + "px";
-    tooltipEl.style.top = y + "px";
-  }
-
-  function onNodeOut() {
-    svg.classed("has-hover", false);
-    nodeSel.classed("is-hot", false);
-    linkSel.classed("is-hot", false);
-    tooltipEl.hidden = true;
-  }
-
-  function selectNode(id, opts) {
-    opts = opts || {};
-    if (opts.push && state.selected && state.selected !== id) {
-      state.history.push(state.selected);
-    }
-    state.selected = id;
-    state.pinned.add(id);
-    state.expanded.add(id); /* click = select + expand */
-    refresh();
-    renderPanel(id);
-    panelEl.classList.add("open");
-    if (opts.center) centerOn(id);
-  }
-
-  function collapseNode(id) {
-    state.expanded.delete(id);
-    refresh();
-    if (state.selected === id) renderPanel(id);
-  }
-
-  function deselect() {
-    if (!state.selected) return;
-    state.selected = null;
-    refresh();
-    renderPanelEmpty();
-    panelEl.classList.remove("open");
-  }
-
-  function resetAll() {
-    state.expanded.clear();
-    state.pinned.clear();
-    state.history = [];
-    state.selected = null;
-    state.showAll = false;
-    state.gapsMode = false;
-    state.filters.types = new Set(Object.keys(TYPE_LABELS));
-    state.filters.areas = new Set(state.nodes.map((n) => n.area));
-    state.filters.yearMin = state.yearFloor;
-    state.filters.peerOnly = false;
-    state.filters.epistemics = new Set(["evidence", "interpretation", "recommendation"]);
-    syncControls();
-    renderPanelEmpty();
-    panelEl.classList.remove("open");
-    refresh({ fit: true });
-  }
-
-  function syncControls() {
-    document.getElementById("lit-showall").checked = state.showAll;
-    document.getElementById("lit-gaps").setAttribute("aria-pressed", String(state.gapsMode));
-    document.getElementById("lit-peer").checked = state.filters.peerOnly;
-    const yr = document.getElementById("lit-year");
-    yr.value = String(state.filters.yearMin);
-    document.getElementById("lit-year-out").textContent = String(state.filters.yearMin);
-    document.querySelectorAll("#lit-filter-types input").forEach((cb) => {
-      cb.checked = state.filters.types.has(cb.value);
-    });
-    document.querySelectorAll("#lit-filter-areas input").forEach((cb) => {
-      cb.checked = state.filters.areas.has(cb.value);
-    });
-    document.querySelectorAll("#lit-filter-epistemics input").forEach((cb) => {
-      cb.checked = state.filters.epistemics.has(cb.value);
-    });
-  }
-
-  /* ================= context panel ================= */
-
-  function renderPanelEmpty() {
-    const body = document.getElementById("lit-panel-body");
-    body.innerHTML = "";
-    const p = document.createElement("p");
-    p.className = "lit-panel-empty";
-    p.textContent = "Select a node to see its details: summary, why it matters for ParliamentRAG, and its connections.";
-    body.appendChild(p);
-    document.getElementById("lit-back").disabled = state.history.length === 0;
-    document.getElementById("lit-collapse").disabled = true;
-  }
-
-  function renderPanel(id) {
-    const n = state.byId.get(id);
-    const body = document.getElementById("lit-panel-body");
-    body.innerHTML = "";
-
-    const h = document.createElement("h2");
-    h.textContent = n.label;
-    body.appendChild(h);
-
-    const badges = document.createElement("div");
-    badges.className = "lit-badges";
-    badges.appendChild(badge(TYPE_LABELS[n.type] || n.type, "b-type"));
-    badges.appendChild(badge(n.area));
-    if (n.year != null) badges.appendChild(badge(String(n.year)));
-    if (n.type === "paper") {
-      if (n.peerReviewed === true) badges.appendChild(badge("peer-reviewed", "b-peer-yes"));
-      else if (n.peerReviewed === false) badges.appendChild(badge("preprint", "b-peer-no"));
-      else badges.appendChild(badge("unverified", "b-peer-null"));
-    }
-    if (n.epistemics) badges.appendChild(badge(n.epistemics, "b-ep-" + n.epistemics));
-    if (n.priority) badges.appendChild(badge("priority: " + n.priority));
-    if (n.seed) badges.appendChild(badge("seed"));
-    body.appendChild(badges);
-
-    if (n.venue) {
-      const v = document.createElement("p");
-      v.className = "lit-venue";
-      v.textContent = n.venue;
-      body.appendChild(v);
-    }
-
-    if (n.summary) {
-      const s = document.createElement("p");
-      s.className = "lit-summary";
-      s.textContent = n.summary;
-      body.appendChild(s);
-    }
-
-    if (n.relevance) {
-      const wh = document.createElement("p");
-      wh.className = "lit-why-h";
-      wh.textContent = "Why it matters for ParliamentRAG";
-      body.appendChild(wh);
-      const w = document.createElement("p");
-      w.className = "lit-why";
-      w.textContent = n.relevance;
-      body.appendChild(w);
-    }
-
-    if (n.url) {
-      const p = document.createElement("p");
-      p.className = "lit-url";
-      const a = document.createElement("a");
-      a.href = n.url;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = "Source ↗";
-      p.appendChild(a);
-      body.appendChild(p);
-    }
-
-    /* edges grouped by type */
-    const groups = new Map();
-    state.edges.forEach((e) => {
-      if (e.source !== id && e.target !== id) return;
-      if (!groups.has(e.type)) groups.set(e.type, []);
-      groups.get(e.type).push(e);
-    });
-    const wrap = document.createElement("div");
-    wrap.className = "lit-edges";
-    Array.from(groups.keys()).sort().forEach((type) => {
-      const h3 = document.createElement("h3");
-      h3.textContent = humanizeEdge(type) + " (" + groups.get(type).length + ")";
-      wrap.appendChild(h3);
-      groups.get(type).forEach((e) => {
-        const otherId = e.source === id ? e.target : e.source;
-        const other = state.byId.get(otherId);
-        if (!other) return;
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "lit-edge-item";
-        btn.setAttribute("aria-label", "Go to " + other.label);
-        const dir = document.createElement("span");
-        dir.className = "lit-edge-dir";
-        dir.textContent = e.source === id ? "→ " : "← ";
-        const tgt = document.createElement("span");
-        tgt.className = "lit-edge-target";
-        tgt.textContent = other.label;
-        btn.appendChild(dir);
-        btn.appendChild(tgt);
-        if (e.explanation) {
-          const ex = document.createElement("span");
-          ex.className = "lit-edge-expl";
-          ex.textContent = e.explanation;
-          btn.appendChild(ex);
-        }
-        btn.addEventListener("click", () => {
-          selectNode(otherId, { push: true, center: true });
-        });
-        wrap.appendChild(btn);
+      .on("click", function (ev, d) {
+        ev.stopPropagation();
+        selectNode(d.id);
+      })
+      .on("mouseenter", function (ev, d) {
+        d3.select(this).classed("hl", true);
+        edgeSel.classed("hl", function (e) { return e.source === d.id || e.target === d.id; });
+      })
+      .on("mouseleave", function () {
+        d3.select(this).classed("hl", false);
+        edgeSel.classed("hl", false);
       });
-    });
-    body.appendChild(wrap);
 
-    document.getElementById("lit-back").disabled = state.history.length === 0;
-    document.getElementById("lit-collapse").disabled = !state.expanded.has(id);
-    body.scrollTop = 0;
-  }
+    svg.on("click", function () { if (state.trail.length || state.mode) clearSelection(); });
 
-  function badge(text, cls) {
-    const s = document.createElement("span");
-    s.className = "lit-badge" + (cls ? " " + cls : "");
-    s.textContent = text;
-    return s;
-  }
+    var tooltip = $("lit-tooltip");
+    edgeSel
+      .on("mouseenter", function (ev, d) {
+        d3.select(this).classed("hl", true);
+        nodeSel.classed("hl", function (n) { return n.id === d.source || n.id === d.target; });
+        tooltip.innerHTML = "";
+        var tEl = document.createElement("span");
+        tEl.className = "tt-type";
+        tEl.textContent = byId.get(d.source).label + " " + relLabel(d.type, "out") + " " + byId.get(d.target).label;
+        var xEl = document.createElement("span");
+        xEl.className = "tt-expl";
+        xEl.textContent = d.explanation || "";
+        tooltip.appendChild(tEl);
+        tooltip.appendChild(xEl);
+        tooltip.hidden = false;
+      })
+      .on("mousemove", function (ev) {
+        var r = stage.getBoundingClientRect();
+        var x = ev.clientX - r.left, y = ev.clientY - r.top;
+        tooltip.style.left = Math.min(x + 14, r.width - 290) + "px";
+        tooltip.style.top = Math.min(y + 12, r.height - 90) + "px";
+      })
+      .on("mouseleave", function () {
+        d3.select(this).classed("hl", false);
+        nodeSel.classed("hl", false);
+        tooltip.hidden = true;
+      });
 
-  function humanizeEdge(type) {
-    const t = type.toLowerCase().replace(/_/g, " ");
-    return t.charAt(0).toUpperCase() + t.slice(1);
-  }
+    /* ---------- gaps preset / show everything ---------- */
 
-  /* ================= toolbar ================= */
-
-  function initToolbar() {
-    document.getElementById("lit-back").addEventListener("click", () => {
-      const prev = state.history.pop();
-      if (prev) selectNode(prev, { push: false, center: true });
-    });
-    document.getElementById("lit-collapse").addEventListener("click", () => {
-      if (state.selected) collapseNode(state.selected);
-    });
-    document.getElementById("lit-panel-close").addEventListener("click", () => {
-      panelEl.classList.remove("open");
-    });
-    document.getElementById("lit-reset").addEventListener("click", resetAll);
-
-    document.getElementById("lit-showall").addEventListener("change", (e) => {
-      state.showAll = e.target.checked;
-      if (state.showAll) {
-        state.gapsMode = false;
-        document.getElementById("lit-gaps").setAttribute("aria-pressed", "false");
-      }
-      refresh({ fit: true });
-    });
-
-    document.getElementById("lit-gaps").addEventListener("click", (e) => {
-      state.gapsMode = !state.gapsMode;
-      e.currentTarget.setAttribute("aria-pressed", String(state.gapsMode));
-      if (state.gapsMode) {
-        state.showAll = false;
-        document.getElementById("lit-showall").checked = false;
-      }
-      refresh({ fit: true });
-    });
-
-    const filtersEl = document.getElementById("lit-filters");
-    document.getElementById("lit-filters-toggle").addEventListener("click", (e) => {
-      const open = filtersEl.classList.toggle("open");
-      e.currentTarget.setAttribute("aria-expanded", String(open));
-    });
-
-    document.getElementById("lit-zoom-in").addEventListener("click", () => {
-      svg.transition().duration(200).call(zoom.scaleBy, 1.4);
-    });
-    document.getElementById("lit-zoom-out").addEventListener("click", () => {
-      svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.4);
-    });
-    document.getElementById("lit-zoom-fit").addEventListener("click", () => fitView(!REDUCED));
-  }
-
-  /* ================= filters ================= */
-
-  function buildFilters() {
-    const typeCounts = new Map(), areaCounts = new Map();
-    state.nodes.forEach((n) => {
-      typeCounts.set(n.type, (typeCounts.get(n.type) || 0) + 1);
-      areaCounts.set(n.area, (areaCounts.get(n.area) || 0) + 1);
-    });
-
-    const typesHost = document.getElementById("lit-filter-types");
-    Object.keys(TYPE_LABELS).forEach((t) => {
-      if (!typeCounts.has(t)) return;
-      typesHost.appendChild(checkbox(t, TYPE_LABELS[t], typeCounts.get(t), (val, on) => {
-        if (on) state.filters.types.add(val); else state.filters.types.delete(val);
-        onFilterChange();
-      }));
-    });
-
-    const areasHost = document.getElementById("lit-filter-areas");
-    Array.from(areaCounts.keys()).sort().forEach((a) => {
-      areasHost.appendChild(checkbox(a, a, areaCounts.get(a), (val, on) => {
-        if (on) state.filters.areas.add(val); else state.filters.areas.delete(val);
-        onFilterChange();
-      }));
-    });
-
-    const epHost = document.getElementById("lit-filter-epistemics");
-    ["evidence", "interpretation", "recommendation"].forEach((ep) => {
-      const count = state.nodes.filter((n) => n.epistemics === ep).length;
-      epHost.appendChild(checkbox(ep, ep, count, (val, on) => {
-        if (on) state.filters.epistemics.add(val); else state.filters.epistemics.delete(val);
-        onFilterChange();
-      }));
-    });
-
-    const years = state.nodes.map((n) => n.year).filter((y) => y != null);
-    const yr = document.getElementById("lit-year");
-    yr.min = String(Math.min.apply(null, years));
-    yr.max = String(Math.max.apply(null, years));
-    yr.value = yr.min;
-    document.getElementById("lit-year-out").textContent = yr.min;
-    yr.addEventListener("input", () => {
-      state.filters.yearMin = Number(yr.value);
-      document.getElementById("lit-year-out").textContent = yr.value;
-      onFilterChange();
-    });
-
-    document.getElementById("lit-peer").addEventListener("change", (e) => {
-      state.filters.peerOnly = e.target.checked;
-      onFilterChange();
-    });
-  }
-
-  function checkbox(value, label, count, onChange) {
-    const lab = document.createElement("label");
-    lab.className = "lit-check";
-    const input = document.createElement("input");
-    input.type = "checkbox";
-    input.checked = true;
-    input.value = value;
-    input.addEventListener("change", () => onChange(value, input.checked));
-    lab.appendChild(input);
-    lab.appendChild(document.createTextNode(" " + label + " "));
-    const n = document.createElement("span");
-    n.className = "n";
-    n.textContent = String(count);
-    lab.appendChild(n);
-    return lab;
-  }
-
-  function onFilterChange() {
-    /* filters only dim; visibility set is unchanged, so no sim restart */
-    updateClasses();
-    updateStatus();
-  }
-
-  /* ================= search ================= */
-
-  function initSearch() {
-    const input = document.getElementById("lit-search");
-    const list = document.getElementById("lit-search-results");
-
-    function close() {
-      list.hidden = true;
-      list.innerHTML = "";
-      input.setAttribute("aria-expanded", "false");
-    }
-
-    function run() {
-      const q = input.value.trim().toLowerCase();
-      list.innerHTML = "";
-      if (q.length < 2) { close(); return; }
-      const hits = state.nodes.filter((n) => {
-        return n.label.toLowerCase().includes(q) ||
-          (n.venue && n.venue.toLowerCase().includes(q));
-      }).slice(0, 9);
-      if (!hits.length) {
-        const d = document.createElement("div");
-        d.className = "lit-search-empty";
-        d.textContent = "No matching nodes.";
-        list.appendChild(d);
-      } else {
-        hits.forEach((n) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "lit-search-item";
-          btn.setAttribute("role", "option");
-          btn.textContent = n.label;
-          const meta = document.createElement("span");
-          meta.className = "meta";
-          meta.textContent = (TYPE_LABELS[n.type] || n.type) +
-            (n.year ? " · " + n.year : "") + (n.venue ? " · " + n.venue : "");
-          btn.appendChild(meta);
-          btn.addEventListener("click", () => {
-            close();
-            input.value = "";
-            selectNode(n.id, { push: true, center: true });
+    $("lit-gaps").addEventListener("click", function () {
+      pushHistory();
+      if (state.mode === "gaps") { state.mode = null; render(); announce("Gaps view closed."); return; }
+      state.trail = [];
+      state.mode = "gaps";
+      /* surface hidden members of gap/question neighborhoods */
+      nodes.forEach(function (n) {
+        if (n.type === "gap" || n.type === "question") {
+          adj.get(n.id).forEach(function (a) {
+            if (!primary.has(a.other)) state.revealed.add(a.other);
           });
-          list.appendChild(btn);
+        }
+      });
+      render();
+      panelEmpty();
+      var gs = nByType.gap || 0, qs = nByType.question || 0;
+      announce("Showing " + gs + " gaps and " + qs + " open questions with their neighborhoods.");
+    });
+
+    $("lit-showall").addEventListener("click", function () {
+      state.showAll = !state.showAll;
+      render();
+      announce(state.showAll ? "All " + nodes.length + " nodes shown." : "Back to the overview subset.");
+    });
+
+    function announce(msg) { statusEl.textContent = msg; }
+
+    /* ---------- filters ---------- */
+
+    var TYPE_LABEL = {
+      paper: "Papers", method: "Methods", dataset: "Datasets", concept: "Concepts",
+      gap: "Gaps", question: "Questions", metric: "Metrics", task: "Tasks", project: "Project"
+    };
+
+    buildFilters();
+    function buildFilters() {
+      var wrap = $("lit-filters");
+      var fTypes = document.createElement("div");
+      fTypes.className = "f-group";
+      fTypes.appendChild(fLegend("Type"));
+      ALL_TYPES.forEach(function (t) {
+        fTypes.appendChild(chip("type", t, TYPE_LABEL[t], true));
+      });
+      var fAreas = document.createElement("div");
+      fAreas.className = "f-group";
+      fAreas.appendChild(fLegend("Area"));
+      areas.forEach(function (a) {
+        fAreas.appendChild(chip("area", a.id, a.label, false));
+      });
+      var fYear = document.createElement("div");
+      fYear.className = "f-group f-year";
+      fYear.appendChild(fLegend("Years"));
+      fYear.appendChild(yearInput("lit-ymin", yMinData));
+      var dash = document.createElement("span"); dash.textContent = "to"; dash.className = "f-sep";
+      fYear.appendChild(dash);
+      fYear.appendChild(yearInput("lit-ymax", yMaxData));
+      var fRev = document.createElement("div");
+      fRev.className = "f-group";
+      fRev.appendChild(fLegend("Evidence"));
+      [["all", "All"], ["peer", "Peer-reviewed"], ["preprint", "Preprints"]].forEach(function (o) {
+        var l = document.createElement("label");
+        l.className = "f-chip";
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = "lit-review"; r.value = o[0]; r.checked = o[0] === "all";
+        r.addEventListener("change", onFilterChange);
+        l.appendChild(r);
+        l.appendChild(document.createTextNode(o[1]));
+        fRev.appendChild(l);
+      });
+      wrap.appendChild(fTypes); wrap.appendChild(fAreas); wrap.appendChild(fYear); wrap.appendChild(fRev);
+      var done = document.createElement("button");
+      done.type = "button";
+      done.className = "f-close";
+      done.textContent = "Done";
+      done.setAttribute("aria-label", "Close filters");
+      done.addEventListener("click", closeFilters);
+      wrap.appendChild(done);
+    }
+    function closeFilters() {
+      $("lit-filters").hidden = true;
+      $("lit-filters-toggle").setAttribute("aria-expanded", "false");
+    }
+    function fLegend(t) {
+      var s = document.createElement("span"); s.className = "f-legend"; s.textContent = t; return s;
+    }
+    function chip(kind, val, label, checked) {
+      var l = document.createElement("label");
+      l.className = "f-chip";
+      var c = document.createElement("input");
+      c.type = "checkbox"; c.checked = checked;
+      c.dataset.kind = kind; c.dataset.val = val;
+      c.addEventListener("change", onFilterChange);
+      l.appendChild(c);
+      l.appendChild(document.createTextNode(label));
+      return l;
+    }
+    function yearInput(id, val) {
+      var i = document.createElement("input");
+      i.type = "number"; i.id = id; i.min = yMinData; i.max = yMaxData; i.value = val;
+      i.setAttribute("aria-label", id === "lit-ymin" ? "From year" : "To year");
+      i.addEventListener("change", onFilterChange);
+      return i;
+    }
+    function onFilterChange() {
+      var f = state.filters;
+      f.types = new Set();
+      f.areas = new Set();
+      $("lit-filters").querySelectorAll("input[type=checkbox]").forEach(function (c) {
+        if (!c.checked) return;
+        if (c.dataset.kind === "type") f.types.add(c.dataset.val);
+        else f.areas.add(c.dataset.val);
+      });
+      f.yMin = +($("lit-ymin").value || yMinData);
+      f.yMax = +($("lit-ymax").value || yMaxData);
+      var rv = $("lit-filters").querySelector("input[name=lit-review]:checked");
+      f.review = rv ? rv.value : "all";
+      render();
+      if (filtersActive()) {
+        var m = nodes.filter(passesFilter).length;
+        announce(m + " of " + nodes.length + " nodes match the filters.");
+      } else announce("Filters cleared.");
+    }
+    function syncFilterUI() {
+      $("lit-filters").querySelectorAll("input[type=checkbox]").forEach(function (c) {
+        c.checked = c.dataset.kind === "type";
+      });
+      $("lit-ymin").value = yMinData;
+      $("lit-ymax").value = yMaxData;
+      var all = $("lit-filters").querySelector("input[name=lit-review][value=all]");
+      if (all) all.checked = true;
+    }
+    $("lit-filters-toggle").addEventListener("click", function () {
+      var f = $("lit-filters");
+      var open = f.hidden;
+      f.hidden = !open;
+      this.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    /* ---------- search ---------- */
+
+    var searchInput = $("lit-search");
+    var resultsEl = $("lit-search-results");
+    var searchIdx = nodes.map(function (n) {
+      var areaNames = (n.areas || []).map(function (a) {
+        return (areaById.get(a) || {}).label || a;
+      }).join(" ");
+      return {
+        n: n,
+        label: n.label.toLowerCase(),
+        rest: [(n.authors || ""), (n.venue || ""), areaNames, n.type, n.id].join(" ").toLowerCase()
+      };
+    });
+    var activeResult = -1;
+    var currentResults = [];
+
+    function runSearch(q) {
+      q = q.trim().toLowerCase();
+      if (q.length < 2) { closeResults(); return; }
+      var scored = [];
+      searchIdx.forEach(function (s) {
+        var sc = 0;
+        if (s.label.indexOf(q) === 0) sc = 120;
+        else if (s.label.indexOf(q) >= 0) sc = 80;
+        else if (s.rest.indexOf(q) >= 0) sc = 40;
+        if (sc) scored.push({ s: s, sc: sc + Math.min(s.n.deg, 20) });
+      });
+      scored.sort(function (a, b) { return b.sc - a.sc; });
+      currentResults = scored.slice(0, 14).map(function (x) { return x.s.n; });
+      paintResults();
+    }
+    function paintResults() {
+      resultsEl.innerHTML = "";
+      activeResult = -1;
+      if (!currentResults.length) {
+        var none = document.createElement("div");
+        none.className = "sr-none";
+        none.textContent = "No matches.";
+        resultsEl.appendChild(none);
+      } else {
+        var groups = new Map();
+        currentResults.forEach(function (n) {
+          var g = TYPE_LABEL[n.type] || n.type;
+          if (!groups.has(g)) groups.set(g, []);
+          groups.get(g).push(n);
+        });
+        var idx = 0;
+        groups.forEach(function (list, gname) {
+          var h = document.createElement("div");
+          h.className = "sr-group";
+          h.textContent = gname;
+          resultsEl.appendChild(h);
+          list.forEach(function (n) {
+            var o = document.createElement("div");
+            o.className = "sr-item";
+            o.setAttribute("role", "option");
+            o.id = "sr-" + idx;
+            o.dataset.idx = idx;
+            o.dataset.node = n.id;
+            var t = document.createElement("span");
+            t.className = "sr-label";
+            t.textContent = n.label;
+            o.appendChild(t);
+            var sub = document.createElement("span");
+            sub.className = "sr-sub";
+            sub.textContent = n.type === "paper"
+              ? [firstAuthor(n.authors), n.year, n.venue].filter(Boolean).join(" · ")
+              : (n.areas || []).slice(0, 3).map(function (a) {
+                  return (areaById.get(a) || {}).label || a;
+                }).join(" · ");
+            o.appendChild(sub);
+            o.addEventListener("mousedown", function (ev) {
+              ev.preventDefault();
+              chooseResult(n.id);
+            });
+            resultsEl.appendChild(o);
+            idx++;
+          });
         });
       }
-      list.hidden = false;
-      input.setAttribute("aria-expanded", "true");
+      resultsEl.hidden = false;
+      searchInput.setAttribute("aria-expanded", "true");
+    }
+    function closeResults() {
+      resultsEl.hidden = true;
+      searchInput.setAttribute("aria-expanded", "false");
+      searchInput.removeAttribute("aria-activedescendant");
+      activeResult = -1;
+    }
+    function chooseResult(id) {
+      closeResults();
+      searchInput.blur();
+      selectNode(id, { fly: true });
+    }
+    searchInput.addEventListener("input", function () { runSearch(this.value); });
+    searchInput.addEventListener("keydown", function (ev) {
+      var items = resultsEl.querySelectorAll(".sr-item");
+      if (ev.key === "ArrowDown" || ev.key === "ArrowUp") {
+        if (!items.length) return;
+        ev.preventDefault();
+        activeResult = ev.key === "ArrowDown"
+          ? Math.min(activeResult + 1, items.length - 1)
+          : Math.max(activeResult - 1, 0);
+        items.forEach(function (elm, i) { elm.classList.toggle("active", i === activeResult); });
+        searchInput.setAttribute("aria-activedescendant", "sr-" + activeResult);
+        items[activeResult].scrollIntoView({ block: "nearest" });
+      } else if (ev.key === "Enter") {
+        if (activeResult >= 0 && items[activeResult]) chooseResult(items[activeResult].dataset.node);
+        else if (items.length) chooseResult(items[0].dataset.node);
+      } else if (ev.key === "Escape") {
+        closeResults();
+        this.blur();
+      }
+    });
+    searchInput.addEventListener("blur", function () {
+      setTimeout(closeResults, 120);
+    });
+
+    /* ---------- detail panel ---------- */
+
+    var panel = $("lit-panel");
+    var panelBody = $("lit-panel-body");
+
+    var REL = {
+      ADDRESSES: ["addresses", "addressed by"],
+      BUILDS_ON: ["builds on", "built on by"],
+      CITES: ["cites", "cited by"],
+      COMPARES_WITH: ["compares with", "compared with"],
+      CONTRADICTS: ["contradicts", "contradicted by"],
+      COULD_VALIDATE: ["could validate", "could be validated by"],
+      EVALUATES: ["evaluates", "evaluated by"],
+      EXTENDS: ["extends", "extended by"],
+      IDENTIFIES_LIMITATION_OF: ["identifies a limitation of", "limitation identified by"],
+      INSPIRES: ["inspires", "inspired by"],
+      INSTANCE_OF: ["instance of", "has instance"],
+      INTRODUCES: ["introduces", "introduced by"],
+      SUPPORTS: ["supports", "supported by"],
+      SUPPORTS_TASK: ["supports task", "supported by"],
+      USED_FOR: ["used for", "uses"],
+      USES: ["uses", "used by"],
+      USES_DATASET: ["uses dataset", "dataset used by"],
+      USES_METRIC: ["uses metric", "metric used by"],
+      VALIDATES: ["validates", "validated by"]
+    };
+    function relLabel(type, dir) {
+      var r = REL[type];
+      if (!r) return type.toLowerCase().replace(/_/g, " ");
+      return dir === "out" ? r[0] : r[1];
     }
 
-    input.addEventListener("input", run);
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") { close(); input.blur(); }
-      if (e.key === "ArrowDown") {
-        const first = list.querySelector(".lit-search-item");
-        if (first) { first.focus(); e.preventDefault(); }
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    function section(title, cls) {
+      var s = el("section", "p-section" + (cls ? " " + cls : ""));
+      s.appendChild(el("h3", "p-h", title));
+      return s;
+    }
+
+    function panelEmpty() {
+      panelBody.innerHTML = "";
+      panelBody.appendChild(el("p", "lit-panel-empty",
+        "Select a node to read what it does, its findings and how it connects."));
+      panel.classList.remove("open");
+    }
+
+    function renderPanel(n) {
+      panelBody.innerHTML = "";
+
+      var head = el("header", "p-head");
+      head.appendChild(el("h2", "p-title", n.label));
+      if (n.authors) head.appendChild(el("p", "p-authors", n.authors));
+      var metaBits = [];
+      if (n.year) metaBits.push(String(n.year));
+      if (n.venue) metaBits.push(n.venue);
+      if (metaBits.length) head.appendChild(el("p", "p-meta", metaBits.join(" · ")));
+      var badges = el("p", "p-badges");
+      if (n.type === "paper") {
+        if (n.peerReviewed === true) badges.appendChild(el("span", "badge", "peer-reviewed"));
+        else if (n.peerReviewed === false) badges.appendChild(el("span", "badge", "preprint"));
+        else badges.appendChild(el("span", "badge", "unverified"));
+      } else {
+        badges.appendChild(el("span", "badge badge-type", n.type));
       }
-      if (e.key === "Enter") {
-        const first = list.querySelector(".lit-search-item");
-        if (first) first.click();
+      if (n.seed) badges.appendChild(el("span", "badge badge-seed", "seed"));
+      if ((n.type === "gap" || n.type === "question") && n.priority)
+        badges.appendChild(el("span", "badge badge-prio", n.priority + " priority"));
+      head.appendChild(badges);
+      if (n.url) {
+        var link = el("p", "p-link");
+        var a = el("a", null, n.url.replace(/^https?:\/\//, "").replace(/\/$/, ""));
+        a.href = n.url; a.target = "_blank"; a.rel = "noopener";
+        link.appendChild(a);
+        head.appendChild(link);
       }
-    });
-    list.addEventListener("keydown", (e) => {
-      const items = Array.from(list.querySelectorAll(".lit-search-item"));
-      const i = items.indexOf(document.activeElement);
-      if (e.key === "ArrowDown" && i < items.length - 1) { items[i + 1].focus(); e.preventDefault(); }
-      if (e.key === "ArrowUp") {
-        if (i > 0) items[i - 1].focus(); else input.focus();
-        e.preventDefault();
+      panelBody.appendChild(head);
+
+      if (n.summary) {
+        var s1 = section("What it does");
+        s1.appendChild(el("p", null, n.summary));
+        panelBody.appendChild(s1);
       }
-      if (e.key === "Escape") { close(); input.focus(); }
-    });
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".lit-search-wrap")) close();
+
+      if (n.areas && n.areas.length) {
+        var s2 = section("Research areas");
+        var chips = el("div", "p-chips");
+        n.areas.forEach(function (aid) {
+          var area = areaById.get(aid);
+          if (!area) return;
+          var b = el("button", "p-chip", area.label);
+          b.type = "button";
+          b.setAttribute("aria-label", "Highlight nodes in " + area.label);
+          b.addEventListener("click", function () {
+            pushHistory();
+            state.mode = { area: aid };
+            render();
+            announce("Highlighting " + area.label + ".");
+          });
+          chips.appendChild(b);
+        });
+        s2.appendChild(chips);
+        panelBody.appendChild(s2);
+      }
+
+      if (n.type === "paper") {
+        var methods = [], datasets = [];
+        adj.get(n.id).forEach(function (a) {
+          var o = byId.get(a.other);
+          if (o.type === "method" && methods.indexOf(o) < 0) methods.push(o);
+          if (o.type === "dataset" && datasets.indexOf(o) < 0) datasets.push(o);
+        });
+        [["Methods", methods], ["Datasets", datasets]].forEach(function (pair) {
+          if (!pair[1].length) return;
+          var sx = section(pair[0]);
+          var cw = el("div", "p-chips");
+          pair[1].forEach(function (o) {
+            var b = el("button", "p-chip", o.label);
+            b.type = "button";
+            b.addEventListener("click", function () { selectNode(o.id, { fly: true }); });
+            cw.appendChild(b);
+          });
+          sx.appendChild(cw);
+          panelBody.appendChild(sx);
+        });
+      }
+
+      if (n.findings) {
+        var s3 = section("Key findings");
+        s3.appendChild(el("p", null, n.findings));
+        panelBody.appendChild(s3);
+      }
+      if (n.limitations) {
+        var s4 = section("Limitations");
+        s4.appendChild(el("p", null, n.limitations));
+        panelBody.appendChild(s4);
+      }
+
+      var conns = adj.get(n.id);
+      if (conns.length) {
+        var s5 = section("Connections");
+        var groups = new Map();
+        conns.forEach(function (a) {
+          var key = relLabel(a.e.type, a.dir);
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(a);
+        });
+        var shown = 0, LIMIT = 10, hiddenRows = [];
+        groups.forEach(function (list, key) {
+          var gEl = el("div", "p-conn-group");
+          gEl.appendChild(el("h4", "p-conn-type", key));
+          list.forEach(function (a) {
+            var o = byId.get(a.other);
+            var row = el("div", "p-conn");
+            var b = el("button", "p-conn-target", o.label);
+            b.type = "button";
+            b.addEventListener("click", function () { selectNode(o.id, { fly: true }); });
+            row.appendChild(b);
+            if (a.e.explanation) row.appendChild(el("p", "p-conn-expl", a.e.explanation));
+            if (a.e.evidence) row.appendChild(el("p", "p-conn-ev", a.e.evidence));
+            shown++;
+            if (shown > LIMIT) { row.classList.add("conn-hidden"); hiddenRows.push(row); }
+            gEl.appendChild(row);
+          });
+          s5.appendChild(gEl);
+        });
+        if (hiddenRows.length) {
+          var more = el("button", "p-more", hiddenRows.length + " more connections · show");
+          more.type = "button";
+          more.addEventListener("click", function () {
+            hiddenRows.forEach(function (r) { r.classList.remove("conn-hidden"); });
+            more.remove();
+            /* reveal the corresponding nodes on the canvas too */
+            conns.forEach(function (a) { state.revealed.add(a.other); });
+            render();
+          });
+          s5.appendChild(more);
+        }
+        panelBody.appendChild(s5);
+      }
+
+      if (n.significance) {
+        var s6 = section(n.type === "paper" ? "Why this paper matters" : "Why it matters");
+        s6.appendChild(el("p", null, n.significance));
+        panelBody.appendChild(s6);
+      }
+
+      if (n.application) {
+        var s7 = section("Potential relevance to current research", "p-quiet");
+        s7.appendChild(el("p", null, n.application));
+        panelBody.appendChild(s7);
+      }
+
+      panel.classList.add("open");
+      panel.focus({ preventScroll: true });
+    }
+
+    $("lit-panel-close").addEventListener("click", function () { clearSelection(); });
+
+    /* ---------- boot ---------- */
+
+    render();
+    zoomFit(null, false);
+    window.addEventListener("resize", function () {
+      if (!state.trail.length && !state.mode) zoomFit(null, false);
     });
   }
-
-  /* ================= keyboard ================= */
-
-  function initKeyboard() {
-    document.addEventListener("keydown", (e) => {
-      const inField = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
-      if (e.key === "Escape" && !inField) deselect();
-      if (e.key === "/" && !inField) {
-        e.preventDefault();
-        document.getElementById("lit-search").focus();
-      }
-    });
-  }
-
-  /* ================= util ================= */
-
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    }[c]));
-  }
-}());
+})();

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Literature · Mirko Tritella</title>
-  <meta name="description" content="A navigable map of the literature behind ParliamentRAG: papers, methods, datasets, gaps and planned experiments.">
+  <meta name="description" content="A navigable map of the research I study: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.">
   <link rel="canonical" href="https://emeierkeio.github.io/literature/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
@@ -32,67 +32,54 @@
 <main class="lit-page">
   <div class="lit-wide">
     <h1 class="lit-title">Literature</h1>
-    <p class="lit-intro">A navigable map of the literature behind ParliamentRAG: papers, methods, datasets, gaps and planned experiments. Start from the eight system components and expand outward.</p>
+    <p class="lit-intro">A navigable map of the research I study: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.</p>
+    <p class="lit-count" id="lit-count"></p>
 
-    <div class="lit-toolbar">
+    <div class="lit-instruments">
       <div class="lit-search-wrap">
-        <input type="search" id="lit-search" class="lit-search" placeholder="Search papers, venues… ( / )"
-               autocomplete="off" aria-label="Search nodes by label or venue" role="combobox"
-               aria-expanded="false" aria-controls="lit-search-results">
-        <div id="lit-search-results" class="lit-search-results" role="listbox" hidden></div>
+        <input type="search" id="lit-search" class="lit-search"
+               placeholder="Search papers, methods, datasets, authors, areas&hellip;  /"
+               autocomplete="off" role="combobox" aria-expanded="false"
+               aria-controls="lit-search-results"
+               aria-label="Search the literature map by title, author, venue, area or type">
+        <div id="lit-search-results" class="lit-search-results" role="listbox"
+             aria-label="Search results" hidden></div>
       </div>
-      <button type="button" id="lit-gaps" class="lit-btn" aria-pressed="false"
-              title="Filter the view to gaps, planned experiments and contributions">Gaps &amp; next experiments</button>
-      <label class="lit-showall" title="Renders the full graph. It is dense.">
-        <input type="checkbox" id="lit-showall" aria-label="Show all nodes, dense view">
-        Show all <span class="lit-count-total"></span> nodes <span class="lit-warn">(dense)</span>
-      </label>
-      <button type="button" id="lit-reset" class="lit-btn" aria-label="Reset view, filters and selection">Reset</button>
-      <button type="button" id="lit-filters-toggle" class="lit-btn lit-filters-toggle" aria-expanded="false" aria-controls="lit-filters">Filters</button>
-      <span class="lit-status" id="lit-status" aria-live="polite"></span>
+      <div class="lit-tools">
+        <button type="button" id="lit-filters-toggle" class="lit-tool"
+                aria-expanded="false" aria-controls="lit-filters">Filter</button>
+        <button type="button" id="lit-gaps" class="lit-tool lit-textlink" aria-pressed="false">Open gaps &amp; questions</button>
+        <button type="button" id="lit-showall" class="lit-tool lit-textlink" aria-pressed="false">Show everything</button>
+        <button type="button" id="lit-reset" class="lit-tool" aria-label="Reset view, selection and filters">Reset</button>
+      </div>
     </div>
 
-    <div class="lit-layout">
-      <aside class="lit-filters" id="lit-filters" aria-label="Graph filters">
-        <div class="lit-filter-group">
-          <h2>Type</h2>
-          <div id="lit-filter-types"></div>
-        </div>
-        <div class="lit-filter-group">
-          <h2>Area</h2>
-          <div id="lit-filter-areas"></div>
-        </div>
-        <div class="lit-filter-group">
-          <h2>Year</h2>
-          <label class="lit-year-label" for="lit-year">From <output id="lit-year-out"></output></label>
-          <input type="range" id="lit-year" aria-label="Minimum publication year">
-        </div>
-        <div class="lit-filter-group">
-          <h2>Evidence</h2>
-          <label class="lit-check"><input type="checkbox" id="lit-peer"> Peer-reviewed only</label>
-          <div id="lit-filter-epistemics"></div>
-        </div>
-      </aside>
+    <div class="lit-filters" id="lit-filters" role="group" aria-label="Filters" hidden></div>
+    <p class="lit-status" id="lit-status" aria-live="polite"></p>
 
-      <div class="lit-stage" id="lit-stage">
-        <svg id="lit-svg" role="img" aria-label="Literature knowledge graph. Use the search box and context panel to navigate its content."></svg>
+    <div class="lit-layout">
+      <div class="lit-stage" id="lit-stage" data-zoom="far">
+        <svg id="lit-svg" role="img"
+             aria-label="Literature map: papers, methods, datasets, concepts, gaps and questions positioned by their research areas and relations. Use the search box and the details panel to navigate its content."></svg>
         <div class="lit-zoomctl">
           <button type="button" id="lit-zoom-in" aria-label="Zoom in">+</button>
           <button type="button" id="lit-zoom-out" aria-label="Zoom out">&minus;</button>
-          <button type="button" id="lit-zoom-fit" aria-label="Fit graph to view">fit</button>
+          <button type="button" id="lit-zoom-fit" aria-label="Fit map to view">fit</button>
         </div>
-        <div class="lit-hint" id="lit-hint">Click a node to select and expand it. Double-click collapses. Esc deselects.</div>
+        <div class="lit-hint" id="lit-hint">
+          <span class="hint-legend" aria-hidden="true">&#9679; paper &nbsp;&#9675; method &nbsp;&#9632; dataset &nbsp;&#9676; gap &nbsp;&middot; concept</span>
+          <span>Click a node to surface its neighborhood &middot; Esc deselects &middot; / searches</span>
+        </div>
         <div class="lit-tooltip" id="lit-tooltip" hidden></div>
       </div>
 
-      <aside class="lit-panel" id="lit-panel" tabindex="-1" aria-label="Node details" aria-live="polite">
+      <aside class="lit-panel" id="lit-panel" tabindex="-1" aria-label="Node details">
         <div class="lit-panel-bar">
-          <button type="button" id="lit-back" class="lit-btn" aria-label="Back to previous node" disabled>&larr; Back</button>
-          <button type="button" id="lit-collapse" class="lit-btn" aria-label="Collapse this node's branch" disabled>Collapse branch</button>
-          <button type="button" id="lit-panel-close" class="lit-btn lit-panel-close" aria-label="Close details panel">&times;</button>
+          <button type="button" id="lit-back" aria-label="Back to previous view" disabled>&larr; Back</button>
+          <button type="button" id="lit-panel-close" class="lit-panel-close" aria-label="Close details panel">&times;</button>
         </div>
         <div id="lit-panel-body" class="lit-panel-body">
-          <p class="lit-panel-empty">Select a node to see its details: summary, why it matters for ParliamentRAG, and its connections.</p>
+          <p class="lit-panel-empty">Select a node to read what it does, its findings and how it connects.</p>
         </div>
       </aside>
     </div>
