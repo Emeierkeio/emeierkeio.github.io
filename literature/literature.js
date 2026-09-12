@@ -660,44 +660,16 @@ function renderArea(scene, W, H) {
       .attr("x2", l.target.x).attr("y2", l.target.y);
   });
 
-  // adjacent-area placements are computed first so member labels avoid them
-  var areaPos = computeAreaLayout(W, H);
-  var here = areaPos.get(area.id) || { x: W / 2, y: H / 2 };
-  var adjPlacements = [];
-  (area.adjacent || []).forEach(function (aid) {
-    var adj = G.areasById.get(aid);
-    if (!adj) return;
-    var p = areaPos.get(aid);
-    var ang = Math.atan2(p.y - here.y, p.x - here.x);
-    var right = Math.cos(ang) >= 0;
-    var text = right ? adj.label + " →" : "← " + adj.label;
-    var w = textW(text, F_SANS) + 6;
-    var x = W / 2 + Math.cos(ang) * (W / 2 - 84);
-    var y = clamp(H / 2 + Math.sin(ang) * (H / 2 - 46), 58, H - 26);
-    if (Math.abs(x - W / 2) < 190 && y < 72) y = 72; // clear the area title
-    var lo = right ? x - w : x, hi = right ? x : x + w;
-    var tries = 0;
-    while (tries++ < 8 && adjPlacements.some(function (b) {
-      return lo < b.hi && hi > b.lo && Math.abs(y - b.y) < 17;
-    })) { y += 18; }
-    y = clamp(y, 58, H - 26);
-    adjPlacements.push({ aid: aid, adj: adj, x: x, y: y, right: right, text: text,
-                         w: w, lo: lo, hi: hi });
-  });
-
-  // members
+  // members (the area name and counts live in the breadcrumb and side panel,
+  // so no title, count, or adjacent-area labels are drawn on the canvas)
   var nodesG = scene.append("g");
-  var reserved = adjPlacements.map(function (b) {
-    return { x: (b.lo + b.hi) / 2, y: b.y - 11, w: b.w, h: 15, pri: 900 };
-  });
-  reserved.push({ x: W / 2, y: 14, w: 320, h: 42, pri: 1200 }); // area title zone
   var labels = simNodes.map(function (s) {
     var w = textW(shortLabel(s.n), labelFont(s.n));
     var sx = edgeShift(s.x, w, W);
     return { x: s.x + sx, y: s.y + paperRadius(s.n) + 4, w: w, h: 13, sx: sx,
              pri: nodeImportance(s.n, G.degree) };
   });
-  occlude(reserved.concat(labels));
+  occlude(labels);
   simNodes.forEach(function (s, idx) {
     var g = nodeGroup(nodesG, s.n, s.x, s.y, 1);
     if (labels[idx].visible) {
@@ -705,30 +677,6 @@ function renderArea(scene, W, H) {
         .attr("x", labels[idx].sx)
         .attr("y", paperRadius(s.n) + 13.5).text(shortLabel(s.n));
     }
-  });
-
-  // area title, top-center
-  var title = scene.append("g").attr("class", "area-title")
-    .attr("transform", "translate(" + W / 2 + ",32)");
-  title.append("text").attr("class", "area-name area-name-lg").text(area.label);
-  title.append("text").attr("class", "area-count").attr("y", 16)
-    .text(members.length + " of " + area.count + " items" +
-          (visible.length < members.length ? " · " + visible.length + " on map, all in the panel" : ""));
-
-  // adjacent areas at the periphery
-  var adjG = scene.append("g").attr("class", "adjacents");
-  adjPlacements.forEach(function (pl) {
-    var g = adjG.append("g").attr("class", "adj-label")
-      .attr("transform", "translate(" + pl.x + "," + pl.y + ")")
-      .attr("tabindex", 0).attr("role", "button")
-      .attr("aria-label", "Go to adjacent area " + pl.adj.label);
-    g.append("text").attr("class", "adj-name")
-      .attr("text-anchor", pl.right ? "end" : "start")
-      .text(pl.text);
-    g.on("click", function (ev) { ev.stopPropagation(); gotoArea(pl.aid); })
-     .on("keydown", function (ev) {
-       if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); gotoArea(pl.aid); }
-     });
   });
 }
 
