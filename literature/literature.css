@@ -287,6 +287,8 @@
 }
 .edge-hop { opacity: 0.3; }
 .edge-faint { opacity: 0.16; }
+.edge-ghost { opacity: 0.09; stroke-width: 0.7; }
+.edge-dashed { stroke-dasharray: 3 3; }
 .edge-hover { opacity: 0.85; stroke: var(--ink); }
 .edge-hit {
   stroke: transparent;
@@ -334,7 +336,17 @@
 }
 .nlabel-serif { font-family: var(--serif); font-size: 11px; }
 .nlabel-sans { font-family: var(--sans); font-size: 10.5px; }
+.nlabel-up {
+  letter-spacing: 0.05em;
+  fill: var(--muted);
+}
 .nlabel-mono { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); }
+
+/* overview: faint ghost dots for the bulk of the graph */
+.overview-nodes .node.ghost .shape { opacity: 0.3; }
+.overview-nodes .node.ghost .seed-ring { opacity: 0.3; }
+.overview-nodes .node.ghost:hover .shape,
+.overview-nodes .node.ghost:focus-visible .shape { opacity: 1; }
 
 .center-label { font-size: 13px; font-weight: 500; }
 .center-sub {

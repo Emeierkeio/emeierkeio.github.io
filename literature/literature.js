@@ -1,5 +1,5 @@
 /* Literature map — view-state machine over a research knowledge graph.
-   Views: overview (areas + representatives) · area · node neighborhood · gaps.
+   Views: overview (full organic network) · area · node neighborhood · gaps.
    The full graph stays in memory; the stage renders only what the view needs. */
 (function () {
 "use strict";
@@ -398,111 +398,146 @@ function computeAreaLayout(W, H) {
   return pos;
 }
 
-function computeOverviewReps(areaPos, W, H) {
-  var reps = [];
-  G.repAreas.forEach(function (areaIds, id) {
-    var n = G.nodesById.get(id);
-    if (!n || !passes(n)) return;
-    var cx = 0, cy = 0;
-    areaIds.forEach(function (aid) { var p = areaPos.get(aid); cx += p.x; cy += p.y; });
-    cx /= areaIds.length; cy /= areaIds.length;
-    var jx = hashJitter(id) * 132, jy = hashJitter(id + "y") * 98;
-    if (areaIds.length === 1) { cx += jx; cy += jy + 26; } // ring your own area
-    reps.push({ n: n, tx: cx, ty: cy, x: cx + jx * 0.3, y: cy + jy * 0.3 });
+/* Full organic network layout for the overview: every node attracted to the
+   mean of its areas' anchors + real-edge links + collision, settled once and
+   frozen. Cached by stage size. No area labels — areas live in the panel. */
+function computeFullLayout(W, H) {
+  var key = "full|" + Math.round(W) + "x" + Math.round(H);
+  if (layoutCache[key]) return layoutCache[key];
+  var areaPos = computeAreaLayout(W, H);
+
+  var nodes = G.nodes.map(function (n) {
+    var as = (n.areas || []).filter(function (id) { return areaPos.has(id); });
+    var ax = 0, ay = 0;
+    if (as.length) {
+      as.forEach(function (id) { var p = areaPos.get(id); ax += p.x; ay += p.y; });
+      ax /= as.length; ay /= as.length;
+    } else { ax = W / 2; ay = H / 2; }
+    var d = { id: n.id, n: n, ax: ax, ay: ay,
+              x: ax + hashJitter(n.id) * 150, y: ay + hashJitter(n.id + "y") * 150 };
+    return d;
   });
-  // area labels act as fixed obstacles
-  var obstacles = G.areas.map(function (a) {
-    var p = areaPos.get(a.id);
-    return { x: p.x, y: p.y, fx: p.x, fy: p.y, obstacle: true,
-             r: textW(areaText(a, W), areaFont(W)) / 2 + 18 };
-  });
-  var simNodes = reps.concat(obstacles);
-  var sim = d3.forceSimulation(simNodes)
-    .force("x", d3.forceX(function (d) { return d.obstacle ? d.fx : d.tx; }).strength(0.22))
-    .force("y", d3.forceY(function (d) { return d.obstacle ? d.fy : d.ty; }).strength(0.22))
+  var byId = new Map();
+  nodes.forEach(function (d) { byId.set(d.id, d); });
+  var links = G.edges.filter(function (e) {
+    return byId.has(e.source) && byId.has(e.target);
+  }).map(function (e) { return { source: e.source, target: e.target }; });
+
+  var sim = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(function (d) { return d.id; })
+      .distance(52).strength(0.32))
+    .force("charge", d3.forceManyBody().strength(-32).distanceMax(300))
+    .force("ax", d3.forceX(function (d) { return d.ax; }).strength(0.08))
+    .force("ay", d3.forceY(function (d) { return d.ay; }).strength(0.08))
     .force("collide", d3.forceCollide(function (d) {
-      if (d.obstacle) return d.r;
-      return clamp(textW(shortLabel(d.n), labelFont(d.n)) / 2 * 0.8, 15, 50);
-    }).strength(0.95))
+      return overviewRadius(d.n) + 3.5;
+    }).iterations(2))
     .stop();
-  for (var i = 0; i < 220; i++) sim.tick();
-  reps.forEach(function (r) {
-    r.x = clamp(r.x, 26, W - 26);
-    r.y = clamp(r.y, 42, H - 50);
-  });
-  return reps;
+  for (var i = 0; i < 320; i++) sim.tick();
+  fitPositions(nodes, W, H, 46);
+
+  var pos = new Map();
+  nodes.forEach(function (d) { pos.set(d.id, { x: d.x, y: d.y }); });
+  layoutCache[key] = pos;
+  return pos;
 }
 
-function overviewArcs() {
-  var arcs = G.areaPairs.filter(function (p) { return p.mutual; });
-  var rest = G.areaPairs.filter(function (p) { return !p.mutual; })
-    .sort(function (a, b) { return b.co - a.co; });
-  return arcs.concat(rest.slice(0, Math.max(0, 25 - arcs.length)));
+function overviewRadius(n) {
+  if (n.type === "paper") return paperRadius(n);
+  if (n.type === "method") return 4.6;
+  if (n.type === "dataset" || n.type === "project") return 4.2;
+  if (n.type === "gap" || n.type === "question") return 4.8;
+  return 2.6; // concept, metric, task
+}
+
+/* which nodes carry a readable label on the overview */
+function overviewLabelSet() {
+  var ids = new Set();
+  G.areas.forEach(function (a) {
+    a.representatives.forEach(function (id) { ids.add(id); });
+  });
+  G.nodes.forEach(function (n) {
+    if (n.seed || n.role === "foundational") ids.add(n.id);
+  });
+  return ids;
+}
+
+/* upper-cased sans label for method/dataset/concept-style reps; papers stay
+   serif; gaps/questions keep plain sans sentence case (truncated) */
+function overviewUpper(n) {
+  return n.type === "method" || n.type === "dataset" || n.type === "project" ||
+         n.type === "concept" || n.type === "metric" || n.type === "task";
+}
+function overviewLabelText(n) {
+  var s = String(shortLabel(n));
+  if (overviewUpper(n)) return s.toUpperCase();
+  if (n.type === "gap" || n.type === "question") {
+    return s.length > 26 ? s.slice(0, 25).replace(/\s+\S*$/, "") + "…" : s;
+  }
+  return s; // papers
+}
+function overviewLabelClass(n) {
+  if (n.type === "paper") return "nlabel nlabel-serif";
+  if (n.type === "concept" || n.type === "metric" || n.type === "task")
+    return "nlabel nlabel-mono nlabel-up";
+  if (n.type === "gap" || n.type === "question") return "nlabel nlabel-sans";
+  return "nlabel nlabel-sans nlabel-up";
+}
+function overviewLabelFont(n) {
+  if (n.type === "paper") return F_SERIF;
+  if (n.type === "concept" || n.type === "metric" || n.type === "task") return F_MONO;
+  return F_SANS;
 }
 
 /* ---------------------------------------------------------- view: overview */
 
 function renderOverview(scene, W, H) {
-  var areaPos = computeAreaLayout(W, H);
-  var reps = computeOverviewReps(areaPos, W, H);
+  var pos = computeFullLayout(W, H);
+  var labelIds = overviewLabelSet();
 
-  // hairline arcs between adjacent areas
-  var maxCo = d3.max(G.areaPairs, function (p) { return p.co; }) || 1;
-  var arcsG = scene.append("g").attr("class", "arcs");
-  overviewArcs().forEach(function (p) {
-    var a = areaPos.get(p.a), b = areaPos.get(p.b);
-    var mx = (a.x + b.x) / 2 + (b.y - a.y) * 0.12;
-    var my = (a.y + b.y) / 2 - (b.x - a.x) * 0.12;
-    arcsG.append("path")
-      .attr("class", "area-arc")
-      .attr("d", "M" + a.x + "," + a.y + " Q" + mx + "," + my + " " + b.x + "," + b.y)
-      .style("opacity", 0.1 + 0.16 * (p.co / maxCo));
+  // hairline edges between every pair present on stage
+  var edgesG = scene.append("g").attr("class", "edges edges-overview");
+  G.edges.forEach(function (e) {
+    var a = pos.get(e.source), b = pos.get(e.target);
+    if (!a || !b) return;
+    var dashed = (e.type === "CONTRADICTS" || e.type === "IDENTIFIES_LIMITATION_OF");
+    edgesG.append("line")
+      .attr("class", "edge edge-ghost" + (dashed ? " edge-dashed" : ""))
+      .attr("x1", a.x).attr("y1", a.y).attr("x2", b.x).attr("y2", b.y);
   });
 
-  // representative nodes, labels collision-resolved
-  var repsG = scene.append("g").attr("class", "reps");
-  var labelBoxes = G.areas.map(function (a) {
-    var p = areaPos.get(a.id);
-    return { x: p.x, y: p.y - 14, w: textW(areaText(a, W), areaFont(W)) + 14, h: 34, pri: 1000 };
-  });
-  var repLabels = reps.map(function (r) {
-    var w = textW(shortLabel(r.n), labelFont(r.n));
-    var sx = edgeShift(r.x, w, W);
-    return { x: r.x + sx, y: r.y + paperRadius(r.n) + 4, w: w, h: 13, sx: sx,
-             pri: nodeImportance(r.n, G.degree) };
-  });
-  occlude(labelBoxes.concat(repLabels));
-  reps.forEach(function (r, i) {
-    var g = nodeGroup(repsG, r.n, r.x, r.y, 1);
-    if (repLabels[i].visible) {
-      g.append("text").attr("class", labelClass(r.n))
-        .attr("x", repLabels[i].sx)
-        .attr("y", paperRadius(r.n) + 13.5)
-        .text(shortLabel(r.n));
+  var nodesG = scene.append("g").attr("class", "overview-nodes");
+
+  // place all nodes; ghost dots for the bulk, full shape for labeled ones
+  var labelCandidates = [];
+  G.nodes.forEach(function (n) {
+    if (!passes(n)) return;
+    var p = pos.get(n.id);
+    if (!p) return;
+    var labeled = labelIds.has(n.id);
+    var g = nodeGroup(nodesG, n, p.x, p.y, 1);
+    if (!labeled) {
+      g.classed("ghost", true);
+      return;
     }
+    var txt = overviewLabelText(n);
+    var w = textW(txt, overviewLabelFont(n));
+    var sx = edgeShift(p.x, w, W);
+    labelCandidates.push({
+      g: g, n: n, txt: txt, sx: sx,
+      x: p.x + sx, y: p.y + overviewRadius(n) + 4, w: w, h: 13,
+      pri: nodeImportance(n, G.degree)
+    });
   });
 
-  // area labels on top
-  var areasG = scene.append("g").attr("class", "areas");
-  G.areas.forEach(function (a) {
-    var p = areaPos.get(a.id);
-    var g = areasG.append("g")
-      .attr("class", "area-label")
-      .attr("transform", "translate(" + p.x + "," + p.y + ")")
-      .attr("tabindex", 0)
-      .attr("role", "button")
-      .attr("aria-label", a.label + " area, " + a.count + " items");
-    var w = textW(areaText(a, W), areaFont(W)) + 16;
-    g.append("rect").attr("class", "area-halo")
-      .attr("x", -w / 2).attr("y", -13).attr("width", w).attr("height", 22).attr("rx", 3);
-    g.append("text")
-      .attr("class", "area-name" + (isNarrow(W) ? " area-name-sm" : ""))
-      .text(areaText(a, W));
-    g.append("text").attr("class", "area-count").attr("y", 16).text(a.count);
-    g.on("click", function (ev) { ev.stopPropagation(); gotoArea(a.id); })
-     .on("keydown", function (ev) {
-       if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); gotoArea(a.id); }
-     });
+  // collision-managed labels: keep in priority order, drop the rest
+  occlude(labelCandidates);
+  labelCandidates.forEach(function (c) {
+    if (!c.visible) return;
+    c.g.append("text").attr("class", overviewLabelClass(c.n))
+      .attr("x", c.sx)
+      .attr("y", overviewRadius(c.n) + 13.5)
+      .text(c.txt);
   });
 }
 
@@ -1228,12 +1263,8 @@ function viewUniverse() {
   if (S.view === "gaps") {
     return G.nodes.filter(function (n) { return n.type === "gap" || n.type === "question"; });
   }
-  var reps = [];
-  G.repAreas.forEach(function (_, id) {
-    var n = G.nodesById.get(id);
-    if (n) reps.push(n);
-  });
-  return reps;
+  // overview shows the whole graph
+  return G.nodes;
 }
 
 function updateStatus() {
@@ -1522,6 +1553,7 @@ function bindUI() {
       ev.preventDefault();
       if (searchState.active >= 0) activateSearch(searchState.active);
     } else if (ev.key === "Escape") {
+      ev.preventDefault();
       ev.stopPropagation();
       closeSearch();
       input.blur();
@@ -1535,9 +1567,13 @@ function bindUI() {
       ev.preventDefault();
       input.focus();
     } else if (ev.key === "Escape") {
-      if (searchState.open) { closeSearch(); return; }
-      if (!$("lit-filters").hidden) { toggleFilters(false); return; }
-      goBack();
+      // Consume Escape only when it drives an in-app "go back" step, so the
+      // browser does not treat it as an exit-fullscreen shortcut mid-navigation.
+      var acted = false;
+      if (searchState.open) { closeSearch(); acted = true; }
+      else if (!$("lit-filters").hidden) { toggleFilters(false); acted = true; }
+      else if (S.trail.length) { goBack(); acted = true; }
+      if (acted) { ev.preventDefault(); ev.stopPropagation(); }
     }
   });
 
