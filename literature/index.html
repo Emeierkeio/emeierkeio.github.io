@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Literature · Mirko Tritella</title>
-  <meta name="description" content="A navigable map of the research I study: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.">
+  <meta name="description" content="A research literature map: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.">
   <link rel="canonical" href="https://emeierkeio.github.io/literature/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
@@ -32,55 +32,51 @@
 <main class="lit-page">
   <div class="lit-wide">
     <h1 class="lit-title">Literature</h1>
-    <p class="lit-intro">A navigable map of the research I study: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.</p>
+    <p class="lit-intro">The research literature I work in: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.</p>
     <p class="lit-count" id="lit-count"></p>
 
     <div class="lit-instruments">
       <div class="lit-search-wrap">
         <input type="search" id="lit-search" class="lit-search"
-               placeholder="Search papers, methods, datasets, authors, areas&hellip;  /"
+               placeholder="Search papers, authors, methods, areas"
                autocomplete="off" role="combobox" aria-expanded="false"
-               aria-controls="lit-search-results"
-               aria-label="Search the literature map by title, author, venue, area or type">
+               aria-controls="lit-search-results" aria-autocomplete="list"
+               aria-label="Search papers, authors, methods, areas">
         <div id="lit-search-results" class="lit-search-results" role="listbox"
              aria-label="Search results" hidden></div>
       </div>
       <div class="lit-tools">
         <button type="button" id="lit-filters-toggle" class="lit-tool"
                 aria-expanded="false" aria-controls="lit-filters">Filter</button>
-        <button type="button" id="lit-gaps" class="lit-tool lit-textlink" aria-pressed="false">Open gaps &amp; questions</button>
-        <button type="button" id="lit-showall" class="lit-tool lit-textlink" aria-pressed="false">Show everything</button>
-        <button type="button" id="lit-reset" class="lit-tool" aria-label="Reset view, selection and filters">Reset</button>
+        <button type="button" id="lit-gaps" class="lit-tool" aria-pressed="false">Gaps &amp; questions</button>
+        <button type="button" id="lit-reset" class="lit-tool" aria-label="Reset view, path and filters">Reset</button>
       </div>
     </div>
 
     <div class="lit-filters" id="lit-filters" role="group" aria-label="Filters" hidden></div>
-    <p class="lit-status" id="lit-status" aria-live="polite"></p>
+    <p class="lit-status" id="lit-status" role="status" aria-live="polite"></p>
 
-    <div class="lit-layout">
-      <div class="lit-stage" id="lit-stage" data-zoom="far">
-        <svg id="lit-svg" role="img"
-             aria-label="Literature map: papers, methods, datasets, concepts, gaps and questions positioned by their research areas and relations. Use the search box and the details panel to navigate its content."></svg>
-        <div class="lit-zoomctl">
+    <div class="lit-layout" id="lit-layout">
+      <div class="lit-stage" id="lit-stage">
+        <nav class="lit-crumbs" id="lit-crumbs" aria-label="Map path" hidden></nav>
+        <svg id="lit-svg" role="application"
+             aria-label="Literature map. The overview shows sixteen research areas and their anchor papers; click an area or a node to explore, or use the search box."></svg>
+        <div class="lit-zoomctl" role="group" aria-label="Zoom">
           <button type="button" id="lit-zoom-in" aria-label="Zoom in">+</button>
           <button type="button" id="lit-zoom-out" aria-label="Zoom out">&minus;</button>
           <button type="button" id="lit-zoom-fit" aria-label="Fit map to view">fit</button>
         </div>
-        <div class="lit-hint" id="lit-hint">
-          <span class="hint-legend" aria-hidden="true">&#9679; paper &nbsp;&#9675; method &nbsp;&#9632; dataset &nbsp;&#9676; gap &nbsp;&middot; concept</span>
-          <span>Click a node to surface its neighborhood &middot; Esc deselects &middot; / searches</span>
-        </div>
+        <div class="lit-hint" id="lit-hint">Click an area or node &middot; Esc goes back &middot; / searches</div>
         <div class="lit-tooltip" id="lit-tooltip" hidden></div>
+        <button type="button" id="lit-panel-open" class="lit-panel-open" hidden>Details</button>
       </div>
 
-      <aside class="lit-panel" id="lit-panel" tabindex="-1" aria-label="Node details">
+      <aside class="lit-panel" id="lit-panel" tabindex="-1" aria-label="Research context panel">
         <div class="lit-panel-bar">
-          <button type="button" id="lit-back" aria-label="Back to previous view" disabled>&larr; Back</button>
-          <button type="button" id="lit-panel-close" class="lit-panel-close" aria-label="Close details panel">&times;</button>
+          <span class="lit-panel-kicker" aria-hidden="true">Research context</span>
+          <button type="button" id="lit-panel-close" class="lit-panel-close" aria-label="Close the research context panel">&times;</button>
         </div>
-        <div id="lit-panel-body" class="lit-panel-body">
-          <p class="lit-panel-empty">Select a node to read what it does, its findings and how it connects.</p>
-        </div>
+        <div id="lit-panel-body" class="lit-panel-body"></div>
       </aside>
     </div>
   </div>
