@@ -1,0 +1,6 @@
+# Private research material: only literature-graph.json is published (explorer data)
+research/LITERATURE_KNOWLEDGE_GRAPH.md
+research/.litreview/
+
+# Local Claude Code tooling
+.claude/

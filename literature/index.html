@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Literature · Mirko Tritella</title>
+  <meta name="description" content="A navigable map of the literature behind ParliamentRAG: papers, methods, datasets, gaps and planned experiments.">
+  <link rel="canonical" href="https://emeierkeio.github.io/literature/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="literature.css">
+  <script>(function(){var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-name" href="/">Mirko Tritella</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/#projects">Projects</a>
+      <a href="/#research">Research</a>
+      <a href="/literature/" aria-current="page">Literature</a>
+      <a href="https://github.com/Emeierkeio">GitHub</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch between light and dark theme">
+        <svg class="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M12.8 3.2l-1.1 1.1M4.3 11.7l-1.1 1.1"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="lit-page">
+  <div class="lit-wide">
+    <h1 class="lit-title">Literature</h1>
+    <p class="lit-intro">A navigable map of the literature behind ParliamentRAG: papers, methods, datasets, gaps and planned experiments. Start from the eight system components and expand outward.</p>
+
+    <div class="lit-toolbar">
+      <div class="lit-search-wrap">
+        <input type="search" id="lit-search" class="lit-search" placeholder="Search papers, venues… ( / )"
+               autocomplete="off" aria-label="Search nodes by label or venue" role="combobox"
+               aria-expanded="false" aria-controls="lit-search-results">
+        <div id="lit-search-results" class="lit-search-results" role="listbox" hidden></div>
+      </div>
+      <button type="button" id="lit-gaps" class="lit-btn" aria-pressed="false"
+              title="Filter the view to gaps, planned experiments and contributions">Gaps &amp; next experiments</button>
+      <label class="lit-showall" title="Renders the full graph. It is dense.">
+        <input type="checkbox" id="lit-showall" aria-label="Show all nodes, dense view">
+        Show all <span class="lit-count-total"></span> nodes <span class="lit-warn">(dense)</span>
+      </label>
+      <button type="button" id="lit-reset" class="lit-btn" aria-label="Reset view, filters and selection">Reset</button>
+      <button type="button" id="lit-filters-toggle" class="lit-btn lit-filters-toggle" aria-expanded="false" aria-controls="lit-filters">Filters</button>
+      <span class="lit-status" id="lit-status" aria-live="polite"></span>
+    </div>
+
+    <div class="lit-layout">
+      <aside class="lit-filters" id="lit-filters" aria-label="Graph filters">
+        <div class="lit-filter-group">
+          <h2>Type</h2>
+          <div id="lit-filter-types"></div>
+        </div>
+        <div class="lit-filter-group">
+          <h2>Area</h2>
+          <div id="lit-filter-areas"></div>
+        </div>
+        <div class="lit-filter-group">
+          <h2>Year</h2>
+          <label class="lit-year-label" for="lit-year">From <output id="lit-year-out"></output></label>
+          <input type="range" id="lit-year" aria-label="Minimum publication year">
+        </div>
+        <div class="lit-filter-group">
+          <h2>Evidence</h2>
+          <label class="lit-check"><input type="checkbox" id="lit-peer"> Peer-reviewed only</label>
+          <div id="lit-filter-epistemics"></div>
+        </div>
+      </aside>
+
+      <div class="lit-stage" id="lit-stage">
+        <svg id="lit-svg" role="img" aria-label="Literature knowledge graph. Use the search box and context panel to navigate its content."></svg>
+        <div class="lit-zoomctl">
+          <button type="button" id="lit-zoom-in" aria-label="Zoom in">+</button>
+          <button type="button" id="lit-zoom-out" aria-label="Zoom out">&minus;</button>
+          <button type="button" id="lit-zoom-fit" aria-label="Fit graph to view">fit</button>
+        </div>
+        <div class="lit-hint" id="lit-hint">Click a node to select and expand it. Double-click collapses. Esc deselects.</div>
+        <div class="lit-tooltip" id="lit-tooltip" hidden></div>
+      </div>
+
+      <aside class="lit-panel" id="lit-panel" tabindex="-1" aria-label="Node details" aria-live="polite">
+        <div class="lit-panel-bar">
+          <button type="button" id="lit-back" class="lit-btn" aria-label="Back to previous node" disabled>&larr; Back</button>
+          <button type="button" id="lit-collapse" class="lit-btn" aria-label="Collapse this node's branch" disabled>Collapse branch</button>
+          <button type="button" id="lit-panel-close" class="lit-btn lit-panel-close" aria-label="Close details panel">&times;</button>
+        </div>
+        <div id="lit-panel-body" class="lit-panel-body">
+          <p class="lit-panel-empty">Select a node to see its details: summary, why it matters for ParliamentRAG, and its connections.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="/">Home</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/Emeierkeio">GitHub</a>
+      <span>© 2026 Mirko Tritella</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById("theme-toggle").addEventListener("click", function () {
+  var root = document.documentElement;
+  var current = root.getAttribute("data-theme") ||
+    (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  var next = current === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="literature.js" defer></script>
+
+</body>
+</html>
