@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mirko Tritella · Sistemi AI per i dati pubblici: esplorare, capire, verificare</title>
-  <meta name="description" content="Mirko Tritella costruisce sistemi di intelligenza artificiale che rendono l'informazione pubblica più facile da esplorare, capire e verificare: retrieval-augmented generation, knowledge graph e verifica delle citazioni su atti ufficiali e open data. Autore di ParliamentRAG, un'interfaccia AI al Parlamento italiano (ISWC 2026).">
+  <meta name="description" content="Mirko Tritella costruisce sistemi di intelligenza artificiale che rendono l'informazione pubblica più facile da esplorare, capire e verificare: retrieval-augmented generation, knowledge graph e verifica delle citazioni su atti ufficiali e open data. Autore di ParliamentRAG e Stenografo, interfacce AI al Parlamento italiano (ISWC 2026).">
   <link rel="canonical" href="https://emeierkeio.github.io/it/">
   <link rel="alternate" hreflang="en" href="https://emeierkeio.github.io/">
   <link rel="alternate" hreflang="it" href="https://emeierkeio.github.io/it/">
@@ -53,6 +53,19 @@
       <a href="https://orcid.org/0009-0000-8611-8189">ORCID</a>
       <a href="mailto:mirkotritella1999@gmail.com">Email</a>
     </div>
+    <nav class="my-sites" aria-label="Siti che ho realizzato">
+      <p class="my-sites-label">Siti che ho realizzato</p>
+      <ul>
+        <li><a class="site-tile" href="https://www.parliamentrag.it/" target="_blank" rel="noopener">
+          <img src="/assets/site-parliamentrag.svg" alt="" width="40" height="40">
+          <span><b>ParliamentRAG</b><small>Confronta le posizioni dei partiti</small></span>
+        </a></li>
+        <li><a class="site-tile" href="https://stenografo.it/" target="_blank" rel="noopener">
+          <img src="/assets/site-stenografo.svg" alt="" width="40" height="40">
+          <span><b>Stenografo</b><small>Domande sulla Camera</small></span>
+        </a></li>
+      </ul>
+    </nav>
     </div>
     <img class="intro-photo" src="/assets/mirko-tritella.jpg" alt="Mirko Tritella" width="320" height="320">
   </section>
@@ -113,6 +126,16 @@
 
         <p>Il lavoro è interamente aperto: il knowledge graph è pubblicato come <a href="https://doi.org/10.5281/zenodo.21560331">dataset RDF su Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) e in forma tabellare su <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, con i termini del progetto nel namespace <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a>. Il sistema è anche un <a href="https://github.com/Emeierkeio/ParliamentRAG/blob/main/mcp/README.md">server MCP</a>, così gli assistenti AI possono interrogare direttamente gli atti ufficiali.</p>
 
+        <h3 class="subhead" id="stenografo">Stenografo: domande dirette, fonti ufficiali</h3>
+
+        <p>Molti usavano ParliamentRAG per un altro tipo di domanda. Non chiedevano come si posizionano i partiti su un tema, ma come ha votato un deputato, chi presiede una commissione, di cosa ha discusso la Camera in un certo giorno. Stenografo risponde a queste domande.</p>
+
+        <p>Legge lo stesso knowledge graph con diciassette strumenti tipizzati, mai con query libere, e risponde in poche frasi, ognuna numerata con la sua pagina su camera.it. Prima che la risposta arrivi al lettore, ogni numero, data e nome viene confrontato con i dati restituiti dagli strumenti; se un voto era segreto, lo dice invece di tirare a indovinare.</p>
+
+        <div class="feature-links">
+          <a href="https://stenografo.it/">Stenografo</a>
+        </div>
+
         <p class="meta-note">Python · FastAPI · Next.js · Neo4j · OpenAI · RDF · MCP. Sostenuto dal programma Horizon Europe dell'Unione Europea, grant 101189771 (<a href="https://datapact.eu/">DataPACT</a>).</p>
       </div>
     </div>
@@ -146,6 +169,13 @@
             <div>
               <a class="project-name" href="https://www.parliamentrag.it/">AI sui dati parlamentari · ParliamentRAG</a>
               <p>Un'interfaccia AI alla Camera dei deputati, con ogni risposta collegata al resoconto ufficiale.</p>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-year">2026</span>
+            <div>
+              <a class="project-name" href="https://stenografo.it/">Domande dirette sul Parlamento · Stenografo</a>
+              <p>Risposte brevi alle domande sui fatti della Camera, ogni frase collegata alla sua fonte ufficiale. Un progetto di ParliamentRAG.</p>
             </div>
           </li>
         </ol>

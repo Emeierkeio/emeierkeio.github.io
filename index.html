@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mirko Tritella · AI systems for public data: explore, understand, verify</title>
-  <meta name="description" content="Mirko Tritella builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records and open government data. Creator of ParliamentRAG, an AI interface to the Italian Parliament (ISWC 2026).">
+  <meta name="description" content="Mirko Tritella builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records and open government data. Creator of ParliamentRAG and Stenografo, AI interfaces to the Italian Parliament (ISWC 2026).">
   <link rel="canonical" href="https://emeierkeio.github.io/">
   <link rel="alternate" hreflang="en" href="https://emeierkeio.github.io/">
   <link rel="alternate" hreflang="it" href="https://emeierkeio.github.io/it/">
@@ -109,6 +109,19 @@
       <a href="https://orcid.org/0009-0000-8611-8189">ORCID</a>
       <a href="mailto:mirkotritella1999@gmail.com">Email</a>
     </div>
+    <nav class="my-sites" aria-label="Sites I built">
+      <p class="my-sites-label">Sites I built</p>
+      <ul>
+        <li><a class="site-tile" href="https://www.parliamentrag.it/" target="_blank" rel="noopener">
+          <img src="/assets/site-parliamentrag.svg" alt="" width="40" height="40">
+          <span><b>ParliamentRAG</b><small>Compare party positions</small></span>
+        </a></li>
+        <li><a class="site-tile" href="https://stenografo.it/" target="_blank" rel="noopener">
+          <img src="/assets/site-stenografo.svg" alt="" width="40" height="40">
+          <span><b>Stenografo</b><small>Ask about the Chamber</small></span>
+        </a></li>
+      </ul>
+    </nav>
     </div>
     <img class="intro-photo" src="assets/mirko-tritella.jpg" alt="Mirko Tritella" width="320" height="320">
   </section>
@@ -169,6 +182,16 @@
 
         <p>The work is fully open: the knowledge graph is published as an <a href="https://doi.org/10.5281/zenodo.21560331">RDF dataset on Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) and in tabular form on <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, with project terms under the <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a> namespace. The system is also an <a href="https://github.com/Emeierkeio/ParliamentRAG/blob/main/mcp/README.md">MCP server</a>, so AI assistants can query the official records directly.</p>
 
+        <h3 class="subhead" id="stenografo">Stenografo: direct questions, official sources</h3>
+
+        <p>People used ParliamentRAG for a second kind of question. They did not ask how the parties position themselves on a topic; they asked how a deputy voted, who chairs a committee, what the Chamber discussed on a given day. Stenografo answers those questions.</p>
+
+        <p>It reads the same knowledge graph through seventeen typed tools, never through free-form queries, and replies in a few sentences, each numbered to its page on camera.it. Before an answer reaches the reader, every number, date and name is checked against the data the tools returned; when a vote was secret, it says so instead of guessing.</p>
+
+        <div class="feature-links">
+          <a href="https://stenografo.it/">Stenografo</a>
+        </div>
+
         <p class="meta-note">Python · FastAPI · Next.js · Neo4j · OpenAI · RDF · MCP. Supported by the EU Horizon Europe programme through grant 101189771 (<a href="https://datapact.eu/">DataPACT</a>).</p>
       </div>
     </div>
@@ -202,6 +225,13 @@
             <div>
               <a class="project-name" href="https://www.parliamentrag.it/">AI over parliamentary data · ParliamentRAG</a>
               <p>An AI interface to the Italian Chamber of Deputies, with every answer linked back to the official record.</p>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-year">2026</span>
+            <div>
+              <a class="project-name" href="https://stenografo.it/">Direct questions about parliament · Stenografo</a>
+              <p>Short answers to factual questions about the Chamber, each sentence linked to its official source. A ParliamentRAG project.</p>
             </div>
           </li>
         </ol>
