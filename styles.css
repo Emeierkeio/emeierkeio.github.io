@@ -211,33 +211,16 @@ a:focus-visible {
   font-size: 0.92rem;
 }
 
-/* ---------- Sites I built ---------- */
+/* ---------- Sites I built (icons under the photo) ---------- */
 
-.my-sites { margin-top: 1.8rem; }
-.my-sites-label {
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 0.6rem;
+.intro-aside { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; flex-shrink: 0; }
+.my-sites { display: flex; gap: 0.6rem; }
+.my-sites a { display: block; border-radius: 10px; transition: transform .15s, box-shadow .15s; }
+.my-sites a:hover { transform: translateY(-2px); box-shadow: 0 6px 14px -8px rgba(0,0,0,.35); }
+.my-sites img { display: block; width: 36px; height: 36px; border-radius: 10px; box-shadow: 0 0 0 1px var(--hairline); }
+@media (max-width: 700px) {
+  .intro-aside { flex-direction: row; align-self: flex-start; gap: 1rem; }
 }
-.my-sites ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.7rem; }
-.site-tile {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.55rem 1rem 0.55rem 0.55rem;
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  color: var(--ink);
-  text-decoration: none;
-  transition: border-color .15s, transform .15s;
-}
-.site-tile:hover { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
-.site-tile img { width: 40px; height: 40px; border-radius: 10px; flex: none; }
-.site-tile span { display: flex; flex-direction: column; line-height: 1.25; }
-.site-tile b { font-weight: 600; font-size: 0.95rem; }
-.site-tile small { color: var(--muted); font-size: 0.8rem; }
 
 /* ---------- Sections ---------- */
 
