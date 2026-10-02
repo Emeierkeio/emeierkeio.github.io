@@ -214,10 +214,10 @@ a:focus-visible {
 /* ---------- Sites I built (icons under the photo) ---------- */
 
 .intro-aside { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; flex-shrink: 0; }
-.my-sites { display: flex; gap: 0.6rem; }
-.my-sites a { display: block; border-radius: 10px; transition: transform .15s, box-shadow .15s; }
-.my-sites a:hover { transform: translateY(-2px); box-shadow: 0 6px 14px -8px rgba(0,0,0,.35); }
-.my-sites img { display: block; width: 36px; height: 36px; border-radius: 10px; box-shadow: 0 0 0 1px var(--hairline); }
+.my-sites { display: flex; gap: 1.1rem; align-items: center; }
+.my-sites a { display: block; color: var(--muted); line-height: 0; transition: color .15s, transform .15s; }
+.my-sites a:hover { color: var(--accent); transform: translateY(-1px); }
+.my-sites svg { display: block; width: 26px; height: 26px; }
 @media (max-width: 700px) {
   .intro-aside { flex-direction: row; align-self: flex-start; gap: 1rem; }
 }
