@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mirko Tritella · AI systems for public data: explore, understand, verify</title>
-  <meta name="description" content="Mirko Tritella builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records and open government data. Creator of ParliamentRAG, Stenografo and Scranno, AI interfaces to the Italian Parliament (ISWC 2026).">
+  <meta name="description" content="Mirko Tritella builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records and open government data. Creator of ParliamentRAG, Stenografo, Fascicoli and Scranno, AI interfaces to the Italian Parliament (ISWC 2026).">
   <link rel="canonical" href="https://emeierkeio.github.io/">
   <link rel="alternate" hreflang="en" href="https://emeierkeio.github.io/">
   <link rel="alternate" hreflang="it" href="https://emeierkeio.github.io/it/">
@@ -113,9 +113,15 @@
     <div class="intro-aside">
       <img class="intro-photo" src="assets/mirko-tritella.jpg" alt="Mirko Tritella" width="320" height="320">
       <nav class="my-sites" aria-label="Sites I built">
-        <a href="https://www.parliamentrag.it/" target="_blank" rel="noopener" title="ParliamentRAG · parliamentrag.it" aria-label="ParliamentRAG"><svg viewBox="0 8 224 166" width="30" height="30" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" d="M 35.91 139.73 A 81 81 0 1 1 188.09 139.73"/><circle cx="112" cy="146" r="22" fill="currentColor"/></svg></a>
-        <a href="https://www.stenografo.it/" target="_blank" rel="noopener" title="Stenografo · www.stenografo.it" aria-label="Stenografo"><svg viewBox="4 5 54 56" width="30" height="30" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M10 42C12 23 29 16 33.5 27C37 36 24 42 27.5 49.5C31 56.5 46 52 48.5 28"/><circle cx="50" cy="15" r="5.6" fill="currentColor"/></svg></a>
-        <a href="https://www.scranno.it/" target="_blank" rel="noopener" title="Scranno · www.scranno.it" aria-label="Scranno"><svg viewBox="8 6 46 50" width="30" height="30" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M18 12C18 24 18 32 20 36C22 40 30 40 42 40C46 40 47 43 47 50M24 40V50"/><circle cx="34" cy="24" r="5.6" fill="currentColor"/></svg></a>
+        <a class="my-sites-parent" href="https://www.parliamentrag.it/" target="_blank" rel="noopener" title="ParliamentRAG" aria-label="ParliamentRAG"><svg class="mark-parent" viewBox="0 8 224 166" aria-hidden="true"><path d="M 35.91 139.73 A 81 81 0 1 1 188.09 139.73" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round"/><circle cx="112" cy="146" r="22" fill="currentColor"/></svg></a>
+        <div class="my-sites-systems">
+          <p class="my-sites-label">Systems</p>
+          <div class="my-sites-children">
+            <a href="https://www.stenografo.it/" target="_blank" rel="noopener" title="Stenografo" aria-label="Stenografo"><svg class="mark-child" viewBox="3 4 56 58" aria-hidden="true"><path d="M10 42C12 23 29 16 33.5 27C37 36 24 42 27.5 49.5C31 56.5 46 52 48.5 28" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="15" r="6.6" fill="currentColor"/></svg></a>
+            <a href="https://www.fascicoli.it/" target="_blank" rel="noopener" title="Fascicoli" aria-label="Fascicoli"><svg class="mark-child" viewBox="-6 -4 64 70" aria-hidden="true"><g transform="rotate(-30 28 32)"><path d="M14 14V44a14 14 0 0 0 28 0V18a7 7 0 0 0-14 0V40" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="2" r="6.6" fill="currentColor"/></g></svg></a>
+            <a href="https://www.scranno.it/" target="_blank" rel="noopener" title="Scranno" aria-label="Scranno"><svg class="mark-child" viewBox="3 1 56 60" aria-hidden="true"><path d="M18 12C18 24 18 32 20 36C22 40 30 40 42 40C46 40 47 43 47 50M24 40V50" fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="24" r="6.4" fill="currentColor"/></svg></a>
+          </div>
+        </div>
       </nav>
     </div>
   </section>
@@ -138,8 +144,38 @@
     <div class="container section-grid">
       <p class="section-label">Featured project</p>
       <div>
-        <h2>ParliamentRAG</h2>
-        <p class="feature-dek">An AI interface for exploring the Italian Parliament through its official&nbsp;records.</p>
+        <div class="family-card">
+          <h2 class="project-title"><svg class="mark" viewBox="0 8 224 166" width="29.7" height="22" aria-hidden="true"><path d="M 35.91 139.73 A 81 81 0 1 1 188.09 139.73" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round"/><circle cx="112" cy="146" r="22" fill="currentColor"/></svg>ParliamentRAG</h2>
+          <p class="project-meta">Research project, University of <span class="nowrap">Milano-Bicocca</span> · ISWC 2026, In-Use Track and Posters &amp; Demos</p>
+          <p class="feature-dek">An AI interface for exploring the Italian Parliament through its official&nbsp;records.</p>
+          <div class="family-systems">
+            <h3 class="family-label" id="systems">Three systems on the same data</h3>
+            <p>ParliamentRAG holds the data, the method and the publications. Three systems read the same knowledge graph, each for a different kind of question.</p>
+            <ul class="systems" aria-labelledby="systems">
+              <li id="stenografo">
+                <a class="system" href="https://www.stenografo.it/">
+                  <svg class="mark" viewBox="3 4 56 58" width="21.2" height="22" aria-hidden="true"><path d="M10 42C12 23 29 16 33.5 27C37 36 24 42 27.5 49.5C31 56.5 46 52 48.5 28" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="15" r="6.6" fill="currentColor"/></svg>
+                  <span class="system-head"><span class="system-name">Stenografo</span> <span class="system-domain">stenografo.it</span></span>
+                  <span class="system-q">How did a deputy vote? Who chairs a committee? Precise answers from the official records, each sentence linked to its source.</span>
+                </a>
+              </li>
+              <li id="fascicoli">
+                <a class="system" href="https://www.fascicoli.it/">
+                  <svg class="mark" viewBox="-6 -4 64 70" width="20.1" height="22" aria-hidden="true"><g transform="rotate(-30 28 32)"><path d="M14 14V44a14 14 0 0 0 28 0V18a7 7 0 0 0-14 0V40" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="2" r="6.6" fill="currentColor"/></g></svg>
+                  <span class="system-head"><span class="system-name">Fascicoli</span> <span class="system-domain">fascicoli.it</span></span>
+                  <span class="system-q">What does each group say on a topic, and how does it vote? One dossier per topic.</span>
+                </a>
+              </li>
+              <li id="scranno">
+                <a class="system" href="https://www.scranno.it/">
+                  <svg class="mark" viewBox="3 1 56 60" width="20.5" height="22" aria-hidden="true"><path d="M18 12C18 24 18 32 20 36C22 40 30 40 42 40C46 40 47 43 47 50M24 40V50" fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="24" r="6.4" fill="currentColor"/></svg>
+                  <span class="system-head"><span class="system-name">Scranno</span> <span class="system-domain">scranno.it</span></span>
+                  <span class="system-q">Who sits where? The Chamber in 3D, with every deputy in their real seat.</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
         <p>The Italian Chamber of Deputies publishes a stenographic report of every plenary session, and every roll-call vote, as open data. Together they can answer almost any question about what parliament actually does. In practice, finding who said what, in which debate and in which role means reading hundreds of pages.</p>
 
@@ -175,24 +211,6 @@
         <p class="stat-line">705 plenary sessions&ensp;·&ensp;174k+ speech chunks&ensp;·&ensp;17.3k roll-call votes&ensp;·&ensp;6.9M individual vote records<br>XIX Legislature, updated continuously from official open data</p>
 
         <p>The work is fully open: the knowledge graph is published as an <a href="https://doi.org/10.5281/zenodo.21560331">RDF dataset on Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) and in tabular form on <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, with project terms under the <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a> namespace. The system is also an <a href="https://github.com/Emeierkeio/ParliamentRAG/blob/main/mcp/README.md">MCP server</a>, so AI assistants can query the official records directly.</p>
-
-        <h3 class="subhead" id="stenografo">Stenografo: direct questions, official sources</h3>
-
-        <p>People used ParliamentRAG for a second kind of question. They did not ask how the parties position themselves on a topic; they asked how a deputy voted, who chairs a committee, what the Chamber discussed on a given day. Stenografo answers those questions.</p>
-
-        <p>It reads the same knowledge graph through seventeen typed tools, never through free-form queries, and replies in a few sentences, each numbered to its page on camera.it. Before an answer reaches the reader, every number, date and name is checked against the data the tools returned; when a vote was secret, it says so instead of guessing.</p>
-
-        <div class="feature-links">
-          <a href="https://www.stenografo.it/">Stenografo</a>
-        </div>
-
-        <h3 class="subhead" id="scranno">Scranno: the Chamber in 3D, seat by seat</h3>
-
-        <p>Scranno rebuilds the Transatlantico and the Aula of Palazzo Montecitorio in 3D. You walk the hall, enter the chamber and sit in any of the 400 seats, placed as in the Chamber's official seating plan. Each seat opens the record of the deputy who sits there: groups, committees, speeches and votes, from the same knowledge graph.</p>
-
-        <div class="feature-links">
-          <a href="https://www.scranno.it/">Scranno</a>
-        </div>
 
         <p class="meta-note">Python · FastAPI · Next.js · Neo4j · OpenAI · RDF · MCP. Supported by the EU Horizon Europe programme through grant 101189771 (<a href="https://datapact.eu/">DataPACT</a>).</p>
       </div>
@@ -234,6 +252,13 @@
             <div>
               <a class="project-name" href="https://www.stenografo.it/">Direct questions about parliament · Stenografo</a>
               <p>Short answers to factual questions about the Chamber, each sentence linked to its official source. A ParliamentRAG project.</p>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-year">2026</span>
+            <div>
+              <a class="project-name" href="https://www.fascicoli.it/">Topic dossiers · Fascicoli</a>
+              <p>What each parliamentary group says on a topic, and how it votes. A ParliamentRAG project.</p>
             </div>
           </li>
           <li>
