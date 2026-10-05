@@ -2,40 +2,40 @@
  "meta": {
   "title": "Literature Research Map",
   "generated": "2026-09-12",
-  "lastUpdated": "2026-09-12",
+  "lastUpdated": "2026-10-05",
   "counts": {
-   "nodes": 349,
-   "edges": 629,
+   "nodes": 371,
+   "edges": 712,
    "nodesByType": {
     "concept": 12,
-    "dataset": 35,
+    "dataset": 36,
     "gap": 11,
     "method": 29,
     "metric": 11,
-    "paper": 224,
+    "paper": 245,
     "project": 1,
     "question": 15,
     "task": 11
    },
    "edgesByType": {
-    "ADDRESSES": 31,
-    "BUILDS_ON": 31,
+    "ADDRESSES": 38,
+    "BUILDS_ON": 35,
     "CITES": 6,
-    "COMPARES_WITH": 68,
+    "COMPARES_WITH": 86,
     "CONTRADICTS": 4,
     "COULD_VALIDATE": 6,
-    "EVALUATES": 25,
-    "EXTENDS": 14,
-    "IDENTIFIES_LIMITATION_OF": 6,
-    "INSPIRES": 77,
-    "INSTANCE_OF": 22,
+    "EVALUATES": 32,
+    "EXTENDS": 20,
+    "IDENTIFIES_LIMITATION_OF": 11,
+    "INSPIRES": 84,
+    "INSTANCE_OF": 25,
     "INTRODUCES": 41,
-    "SUPPORTS": 137,
-    "SUPPORTS_TASK": 45,
+    "SUPPORTS": 151,
+    "SUPPORTS_TASK": 50,
     "USED_FOR": 37,
-    "USES": 45,
-    "USES_DATASET": 14,
-    "USES_METRIC": 19,
+    "USES": 48,
+    "USES_DATASET": 16,
+    "USES_METRIC": 21,
     "VALIDATES": 1
    }
   }
@@ -6385,13 +6385,14 @@
    "venue": "ISWC 2026",
    "peerReviewed": null,
    "authors": null,
-   "url": "https://parliamentrag.it",
+   "url": "https://arxiv.org/abs/2608.13410",
    "summary": "Authority-aware retrieval-augmented generation system over the records of the Italian Chamber of Deputies, XIX legislature. It combines dense and graph-based retrieval over a Neo4j knowledge graph, per-party balanced answer assembly, deterministic verbatim quote verification, and a per-query two-axis ideological compass.",
    "significance": "One of the few deployed parliamentary RAG systems, and the source of open resources (a Camera XIX corpus and deterministic citation metrics) for parliamentary NLP research.",
    "findings": "On a 15-topic benchmark: Groups-with-Quotation 0.97, Quote Fidelity 1.00 (by construction), Completeness 0.99; a 6-expert blind A/B against NotebookLM (N=67) found no significant differences after Holm-Bonferroni correction.",
    "limitations": "Compared only end-to-end against a single baseline, with no component ablations; the human evaluation was underpowered with very low inter-rater agreement; prose around quotes is not entailment-checked; the ideological compass lacks external validation.",
    "application": null,
-   "short": "ParliamentRAG"
+   "short": "ParliamentRAG",
+   "homepage": "https://parliamentrag.it"
   },
   {
    "id": "camera-xix-corpus",
@@ -7743,6 +7744,506 @@
    "significance": "Shows that supervised learning-to-rank combining heterogeneous evidence can improve expert retrieval over single-signal baselines, contributing to expertise-retrieval methodology.",
    "findings": null,
    "limitations": "Evaluated on a single academic domain (DBLP), and effectiveness depends on the availability of labeled training data and engineered features.",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "parllawspeech-2026",
+   "type": "dataset",
+   "label": "ParlLawSpeech parliamentary text collection",
+   "short": "ParlLawSpeech",
+   "areas": [
+    "parliamentary-corpora",
+    "parliamentary-nlp",
+    "political-nlp"
+   ],
+   "year": 2026,
+   "venue": "Scientific Data 13",
+   "peerReviewed": true,
+   "authors": "Christian Rauh, Lukas Hetzer, Sven-Oliver Proksch, Jan Schwalbach, Miklós Sebők",
+   "url": "https://doi.org/10.1038/s41597-026-08335-4",
+   "role": "dataset",
+   "summary": "A collection of more than three million bills, laws and parliamentary speeches from Austria, Czechia, Croatia, Denmark, Germany, Hungary, Spain and the European Parliament. Documents of the same legislative procedure share a procedure identifier, so speeches link to the bills they debate and the laws that result. Released through GESIS (DOI 10.7802/2824).",
+   "significance": "The largest cross-national resource that links parliamentary speech to legislative output. Italy is not covered.",
+   "findings": "Contributions: harmonised multi-country bill, law and speech corpora with procedure-level linkage. The linkage design is a template for connecting debate to legislative outcomes.",
+   "limitations": "Italy and the Italian Chamber are not included (from the dataset description).",
+   "application": null,
+   "priority": null,
+   "isParliamentaryCorpus": true
+  },
+  {
+   "id": "trace-2026",
+   "type": "paper",
+   "label": "TRACE: accountable agentic retrieval for archives",
+   "short": "TRACE",
+   "areas": [
+    "information-retrieval",
+    "rag",
+    "parliamentary-nlp",
+    "question-answering"
+   ],
+   "year": 2026,
+   "venue": "CIKM 2026 (accepted)",
+   "peerReviewed": true,
+   "authors": "Donghan Bian, Marie Puren, Florian Cafiero",
+   "url": "https://arxiv.org/abs/2609.19897",
+   "role": "method",
+   "summary": "A training-free agentic retrieval system with source traceability, built for French Third Republic parliamentary debates and press in the DECIDON project. Evaluated on the HistoriQA benchmark against sparse, dense, graph and agentic RAG baselines.",
+   "significance": "The first retrieval system reporting effectiveness numbers on a parliamentary QA benchmark, with accountability of sources as a design goal.",
+   "findings": "On HistoriQA: R@10 0.856 and MRR 0.653, ahead of sparse, dense, graph-based and agentic RAG baselines.",
+   "limitations": "Historical corpus (Third Republic); evaluation on a single benchmark (from the abstract).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "parschan-scaling-2026",
+   "type": "paper",
+   "label": "Political text scaling comparability: 17 algorithms",
+   "short": "Parschan 2026",
+   "areas": [
+    "ideology",
+    "political-nlp",
+    "evaluation"
+   ],
+   "year": 2026,
+   "venue": "CPSS 2026 workshop (accepted)",
+   "peerReviewed": true,
+   "authors": "Patrick Parschan",
+   "url": "https://arxiv.org/abs/2609.17602",
+   "role": "benchmark",
+   "summary": "Builds shared infrastructure to run 17 political text-scaling algorithms under comparable conditions, with 5,537 runs producing about 4.25 million left-right estimates, and measures how sensitive each algorithm is to its hyperparameters.",
+   "significance": "A large-scale sensitivity analysis of text-scaling methods: it locates where configuration choices actually change ideological estimates.",
+   "findings": "For 13 of 17 algorithms hyperparameters explain little variance (ICC < .10). Where sensitivity exists it comes from the choice of embedding model, seed keyword lists and the number of topics.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "blamebert-2026",
+   "type": "paper",
+   "label": "Blame attribution in the Danish Parliament",
+   "short": "Jensen 2026",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Markus Lundsfryd Jensen, Rune Egeskov Trust, Kenneth Christian Enevoldsen, et al.",
+   "url": "https://arxiv.org/abs/2609.26346",
+   "role": "application",
+   "summary": "Trains BlameBERT (F1 0.80) to detect political contrasting and blame attribution, and applies it to Folketing debates from 1997 to 2026.",
+   "significance": "Large-scale evidence on how government and opposition differ in adversarial rhetoric in a European parliament.",
+   "findings": "Opposition parties blame far more than government parties; ideology moderates the effect.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "bundestag-wikidata-2026",
+   "type": "paper",
+   "label": "Linking Bundestag speakers to Wikidata",
+   "short": "Haider 2026",
+   "areas": [
+    "parliamentary-corpora",
+    "knowledge-graphs",
+    "information-extraction"
+   ],
+   "year": 2026,
+   "venue": "EADH 2026 (accepted; review type unverified)",
+   "peerReviewed": true,
+   "authors": "Thomas Haider, Arne Cypionka, Maximilian Teich",
+   "url": "https://arxiv.org/abs/2609.18289",
+   "role": "dataset",
+   "summary": "Links every speaker of the German Bundestag from 1949 to 2021 to Wikidata and audits the scope and coverage of the resulting biographical metadata.",
+   "significance": "A route to external biographical signals for parliamentary speakers, together with an audit of how unevenly such metadata is covered.",
+   "findings": "Coverage of attributes such as gender and profession is uneven across speakers, which can bias any downstream use.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "swedish-issue-bias-2026",
+   "type": "paper",
+   "label": "Issue bias in AI writing assistance: Swedish 2026 election",
+   "short": "Bruinsma 2026",
+   "areas": [
+    "political-bias-fairness",
+    "ideology",
+    "evaluation"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Bastiaan Bruinsma, Annika Fredén, Paul Röttger, et al.",
+   "url": "https://arxiv.org/abs/2609.15207",
+   "role": "benchmark",
+   "summary": "Collects 148k responses from six LLMs to 107 policy propositions in a writing-assistance setting and compares them with the positions of Sweden's eight parliamentary parties.",
+   "significance": "A party-level, non-US measurement of political issue bias in LLM writing assistance.",
+   "findings": "The Social Democrats sit closest to every model, but no within-model difference between parties survives multiple-comparison correction.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "retrieval-identity-2026",
+   "type": "paper",
+   "label": "Retrieval sensitivity to identity signals in queries",
+   "short": "Tang 2026",
+   "areas": [
+    "information-retrieval",
+    "political-bias-fairness",
+    "rag"
+   ],
+   "year": 2026,
+   "venue": "EMNLP 2026 (accepted)",
+   "peerReviewed": true,
+   "authors": "Andrew Tang, Nicholas Deas, Kathleen McKeown, et al.",
+   "url": "https://arxiv.org/abs/2609.36534",
+   "role": "method",
+   "summary": "Tests whether retrievers change what they return when a query carries political identity signals, across five dense retrievers and BM25, and probes query embeddings for political lean.",
+   "significance": "Shows that political bias enters at the retrieval stage, before any generation.",
+   "findings": "All five dense retrievers and BM25 return articles matching the political lean signalled in the query. Linear probes recover that lean from query embeddings beyond token-level features.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "ideological-mimicry-2026",
+   "type": "paper",
+   "label": "Ideological mimicry in LLMs (Poli-SHIFT)",
+   "short": "Macmillan-Scott 2026",
+   "areas": [
+    "political-bias-fairness",
+    "evaluation"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Olivia Macmillan-Scott, Michael Jacobs, Nils Metternich, et al.",
+   "url": "https://arxiv.org/abs/2609.38256",
+   "role": "benchmark",
+   "summary": "Introduces the Poli-SHIFT dataset to measure how user terminology and premises shift the political stance an LLM expresses.",
+   "significance": "Quantifies framing sensitivity: the wording of a political question can flip the side a model supports.",
+   "findings": "Changing terminology alone reverses the supported side in 16.9% of matched comparisons.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "itcolbert-2026",
+   "type": "paper",
+   "label": "ItColBERT: Italian late-interaction retriever",
+   "short": "ItColBERT",
+   "areas": [
+    "information-retrieval",
+    "domain-adaptation",
+    "multilingual-nlp"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Enrico Nello",
+   "url": "https://arxiv.org/abs/2609.26856",
+   "role": "method",
+   "summary": "Trains the first Italian-specialised ColBERT retriever (135M parameters) and reports what helped and what did not.",
+   "significance": "A language-specific late-interaction baseline for Italian retrieval.",
+   "findings": "Inference-time chunking gave +0.06 nDCG@10 and beat further training; pre-registered hard-negative mining failed to help.",
+   "limitations": "General-domain Italian; no parliamentary evaluation.",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "who-judges-matters-2026",
+   "type": "paper",
+   "label": "Family-conditioned preference in LLM-as-judge panels",
+   "short": "Awuni 2026",
+   "areas": [
+    "evaluation",
+    "factuality"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "David Ababio Awuni, Luke E. K. Achenie, Benjamin Tei Partey, et al.",
+   "url": "https://arxiv.org/abs/2609.17857",
+   "role": "method",
+   "summary": "Measures, over 9,312 crossed judgments, whether LLM judges prefer outputs from models of their own family, using a corrected estimator, and how panel composition changes outcomes.",
+   "significance": "Direct evidence that judge panel composition is itself a source of bias in LLM-based evaluation.",
+   "findings": "A 3.4-8.4 percentage-point same-family lift for every family; 55% of AB/BA pairs reverse; panel composition changes 18.5% of outcomes.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "gauge-2026",
+   "type": "paper",
+   "label": "GAUGE: when not to trust LLM judges in user-simulated evaluation",
+   "short": "GAUGE",
+   "areas": [
+    "evaluation"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Umesh Bodhwani, Thanh Tran, Kai Wei",
+   "url": "https://arxiv.org/abs/2609.12191",
+   "role": "method",
+   "summary": "Audits the LLM user-simulator and LLM-judge gates used to evaluate task-oriented agents against verifiable rewards, and proposes calibrating the judge against those rewards.",
+   "significance": "An audit of judge reliability against ground truth, with a calibration recipe.",
+   "findings": "Judges rate agents from their own model family higher; \"satisfied\" ratings miss 57.5% of failed tasks; close comparisons are picked wrong 31% of the time (as reported in the NLP Newsletter summary; unverified against the full text).",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "evalstats-2026",
+   "type": "paper",
+   "label": "Statistics over LLM judges (evalstats)",
+   "short": "Arawjo 2026",
+   "areas": [
+    "evaluation"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Ian Arawjo",
+   "url": "https://arxiv.org/abs/2609.35815",
+   "role": "method",
+   "summary": "Shows that standard tests run on raw LLM-judge scores inflate false positives and adds prediction-powered corrections for rank tests (Wilcoxon, Mann-Whitney), with guidance for small-sample evaluation.",
+   "significance": "Practical calibrated inference for evaluations that rely on LLM judges and few human labels.",
+   "findings": "Raw-score testing inflates false positives; PPI-corrected rank tests restore calibrated error rates.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "synthetic-vs-authentic-queries-2026",
+   "type": "paper",
+   "label": "Synthetic vs authentic query distributions in RAG evaluation",
+   "short": "Kucia 2026",
+   "areas": [
+    "evaluation",
+    "rag",
+    "information-retrieval"
+   ],
+   "year": 2026,
+   "venue": "CIKM 2026 short (accepted)",
+   "peerReviewed": true,
+   "authors": "Filip J. Kucia, Barbara M. Gawlik",
+   "url": "https://arxiv.org/abs/2609.14579",
+   "role": "benchmark",
+   "summary": "Compares synthetic and authentic query distributions in RAG evaluation and tests whether system choices tuned on synthetic queries carry over to real ones.",
+   "significance": "Shows that synthetic test queries can lead to the wrong retrieval configuration.",
+   "findings": "Synthetic queries average 15.7 words, real ones 6.8. Tuning on synthetic queries selected a hybrid retriever, because BM25 helped only long queries.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "attribution-compression-2026",
+   "type": "paper",
+   "label": "The attribution-compression frontier in RAG",
+   "short": "Mody 2026",
+   "areas": [
+    "citation-verification",
+    "rag"
+   ],
+   "year": 2026,
+   "venue": "GroundLM workshop @ EMNLP 2026 (accepted)",
+   "peerReviewed": true,
+   "authors": "Deepanshu Mody",
+   "url": "https://arxiv.org/abs/2609.14245",
+   "role": "method",
+   "summary": "Measures how context compression before generation affects citation attribution, checking citations both against compressed summaries and against original source spans.",
+   "significance": "Shows a trade-off between compressing retrieved context and keeping citations attributable to the source text.",
+   "findings": "Abstractive compression keeps citations that look precise against summaries (0.86) but not against source spans (0.12).",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "evident-2026",
+   "type": "paper",
+   "label": "EvidenT: evidence groundedness and traceability",
+   "short": "EvidenT",
+   "areas": [
+    "citation-verification",
+    "rag",
+    "factuality"
+   ],
+   "year": 2026,
+   "venue": "EMNLP 2026 Industry Track (accepted)",
+   "peerReviewed": true,
+   "authors": "Anubha Kabra, Katie Jooyoung Kim, Colin Zhiwei Kou, et al.",
+   "url": "https://arxiv.org/abs/2609.22537",
+   "role": "method",
+   "summary": "An enterprise assistant that deterministically aligns extracted evidence to retrieved text before generation, so every cited span exists in the sources.",
+   "significance": "A deployed verbatim-span grounding system; it has no entailment check on top of the lexical alignment.",
+   "findings": "No citations to non-retrieved URLs; +29% gold-source hits.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "citechoice-2026",
+   "type": "paper",
+   "label": "CITECHOICE: presentation and citation credit",
+   "short": "CITECHOICE",
+   "areas": [
+    "citation-verification",
+    "political-bias-fairness",
+    "rag"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Sriram Selvam, Anneswa Ghosh",
+   "url": "https://arxiv.org/abs/2609.15164",
+   "role": "method",
+   "summary": "A causal audit of how the way documents are presented to an agentic search system redistributes which sources get cited.",
+   "significance": "Shows that citation exposure depends on presentation and rank, not only on relevance.",
+   "findings": "Structured rendering concentrates citation credit (+0.50 citations per answer); citation gap between rank 1 and rank 5 is 42 points.",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "astabrief-2026",
+   "type": "paper",
+   "label": "AstaBrief 8B: cited scientific report generation",
+   "short": "AstaBrief",
+   "areas": [
+    "citation-verification",
+    "rag",
+    "summarization"
+   ],
+   "year": 2026,
+   "venue": "Ai2 technical release (blog)",
+   "peerReviewed": false,
+   "authors": "Allen Institute for AI",
+   "url": "https://allenai.org/blog/astabrief",
+   "role": "method",
+   "summary": "An open-weights 8B model (built on Qwen3-8B) that writes a fully cited scientific report from a question and retrieved literature excerpts in a single pass. Trained with SFT on 47K examples and DPO on 6K preference pairs from real Asta queries; weights and data on Hugging Face under Apache 2.0.",
+   "significance": "An open baseline for citation-grounded long-form generation from retrieved documents.",
+   "findings": "About 3.5x faster than the frontier-model mode it replaces (51 s vs 178 s per report). A simple data-filtering heuristic mattered more for citation quality than the training algorithm.",
+   "limitations": "Not peer-reviewed; scientific-literature domain.",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "world-avatar-parl-2025",
+   "type": "paper",
+   "label": "Parliamentary debates in The World Avatar: hybrid RAG",
+   "short": "Mosbach 2025",
+   "areas": [
+    "rag",
+    "knowledge-graphs",
+    "parliamentary-nlp",
+    "question-answering"
+   ],
+   "year": 2025,
+   "venue": "Cambridge CoMo preprint 338",
+   "peerReviewed": false,
+   "authors": "Sebastian Mosbach, Jiawei Lai, Kushagar Rustagi, Dan N. Tran",
+   "url": "https://como.ceb.cam.ac.uk/media/preprints/c4e-preprint-338.pdf",
+   "role": "application",
+   "summary": "A hybrid RAG system for questions about German Bundestag debates that combines retrieval over speech text with retrieval over structured metadata in a knowledge graph, embedded in The World Avatar dynamic knowledge graph.",
+   "significance": "A parliamentary RAG system that mixes text and knowledge-graph retrieval to answer relational questions about parties and debates.",
+   "findings": "Answers questions beyond keyword search, such as which parties most often supported one another or when topics drew strong audience reactions.",
+   "limitations": "Preprint; no quantitative evaluation reported in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "italian-vlm-transcription-2026",
+   "type": "paper",
+   "label": "Transcribing Italian parliamentary speeches with VLMs",
+   "short": "Curini 2026",
+   "areas": [
+    "parliamentary-corpora",
+    "parliamentary-nlp",
+    "information-extraction"
+   ],
+   "year": 2026,
+   "venue": "ParlaCLARIN V @ LREC 2026 (accepted)",
+   "peerReviewed": true,
+   "authors": "Luigi Curini, Alfio Ferrara, Giovanni Pagano, et al.",
+   "url": "https://arxiv.org/abs/2603.28103",
+   "role": "method",
+   "summary": "Uses vision-language models to transcribe and recognise speeches from scanned Italian parliamentary records.",
+   "significance": "A digitisation route for historical Italian parliamentary records that are only available as scans.",
+   "findings": "Shows VLMs can transcribe and segment Italian parliamentary speech records (details not verified beyond the abstract).",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "kim-embedder-bias-2025",
+   "type": "paper",
+   "label": "Mitigating bias in RAG by controlling the embedder",
+   "short": "Kim 2025",
+   "areas": [
+    "political-bias-fairness",
+    "rag",
+    "information-retrieval"
+   ],
+   "year": 2025,
+   "venue": "arXiv preprint (venue unverified)",
+   "peerReviewed": false,
+   "authors": "Taeyoun Kim, Jacob Springer, Aditi Raghunathan, Maarten Sap",
+   "url": "https://arxiv.org/abs/2502.17390",
+   "role": "method",
+   "summary": "Studies how bias in RAG output, including political bias, depends on the embedder, and whether adjusting the embedder can offset bias coming from the generator.",
+   "significance": "Places the embedder, not only the LLM, at the centre of bias control in RAG.",
+   "findings": "RAG output bias tracks embedder bias; tuning the embedder can counteract generator bias (from the abstract).",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "pareto-neutrality-2026",
+   "type": "paper",
+   "label": "Political neutrality as balanced approval (PARETO)",
+   "short": "Stray 2026",
+   "areas": [
+    "political-bias-fairness",
+    "evaluation"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Jonathan Stray, David Zhai Yang, Steven Luo, et al.",
+   "url": "https://arxiv.org/abs/2605.28911",
+   "role": "benchmark",
+   "summary": "Defines political neutrality of AI responses as balanced approval across the political spectrum and measures it with a large-scale human evaluation.",
+   "significance": "An operational, human-grounded definition of a politically balanced answer.",
+   "findings": "Large-scale human ratings make it possible to compare responses by how evenly they are approved across political groups (details not verified beyond the abstract).",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
+   "application": null,
+   "priority": null
+  },
+  {
+   "id": "acl-verbatim-2026",
+   "type": "paper",
+   "label": "ACL-Verbatim: hallucination-free QA for research",
+   "short": "ACL-Verbatim",
+   "areas": [
+    "citation-verification",
+    "question-answering",
+    "rag"
+   ],
+   "year": 2026,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Gábor Recski, Szilveszter Tóth, Nadia Verdha, et al.",
+   "url": "https://arxiv.org/abs/2605.21102",
+   "role": "method",
+   "summary": "An extractive question-answering system over research papers that answers only with verbatim spans from the sources.",
+   "significance": "An extractive alternative to generative citation: answers are quoted, not paraphrased.",
+   "findings": "Verbatim extraction removes hallucinated content by construction (details not verified beyond the abstract).",
+   "limitations": "Specific limitations not enumerated in the abstract (unverified).",
    "application": null,
    "priority": null
   }
@@ -12150,6 +12651,587 @@
    "type": "USED_FOR",
    "explanation": "The method directly performs expert finding via learning-to-rank over candidate experts.",
    "evidence": "Moreira et al. rank academic experts in DBLP, an instance of the expert-finding task."
+  },
+  {
+   "source": "parllawspeech-2026",
+   "target": "parliamentary-corpora-family",
+   "type": "INSTANCE_OF",
+   "explanation": "A multi-country parliamentary speech and legislation corpus.",
+   "evidence": "doi:10.1038/s41597-026-08335-4"
+  },
+  {
+   "source": "parllawspeech-2026",
+   "target": "parlspeech",
+   "type": "EXTENDS",
+   "explanation": "Shares authors and design lineage with ParlSpeech and adds bill and law linkage.",
+   "evidence": "doi:10.1038/s41597-026-08335-4"
+  },
+  {
+   "source": "parllawspeech-2026",
+   "target": "parlamint-5",
+   "type": "COMPARES_WITH",
+   "explanation": "Another harmonised multi-country parliamentary corpus.",
+   "evidence": "doi:10.1038/s41597-026-08335-4"
+  },
+  {
+   "source": "parllawspeech-2026",
+   "target": "gap-no-camera-xix-corpus",
+   "type": "SUPPORTS",
+   "explanation": "The newest large cross-national collection still omits Italy.",
+   "evidence": "doi:10.1038/s41597-026-08335-4"
+  },
+  {
+   "source": "parllawspeech-2026",
+   "target": "q-vote-stance-dataset",
+   "type": "INSPIRES",
+   "explanation": "Procedure-level linking of speeches to bills is a template for vote-linked stance data.",
+   "evidence": "doi:10.1038/s41597-026-08335-4"
+  },
+  {
+   "source": "trace-2026",
+   "target": "historiqa",
+   "type": "EVALUATES",
+   "explanation": "Evaluated on HistoriQA.",
+   "evidence": "arXiv:2609.19897"
+  },
+  {
+   "source": "trace-2026",
+   "target": "t-parliamentary-qa",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Agentic retrieval for questions over parliamentary debates.",
+   "evidence": "arXiv:2609.19897"
+  },
+  {
+   "source": "trace-2026",
+   "target": "m-graph-retrieval",
+   "type": "COMPARES_WITH",
+   "explanation": "Compared against graph-based RAG baselines.",
+   "evidence": "arXiv:2609.19897"
+  },
+  {
+   "source": "trace-2026",
+   "target": "graphrag-2024",
+   "type": "COMPARES_WITH",
+   "explanation": "GraphRAG-style baselines in the comparison.",
+   "evidence": "arXiv:2609.19897"
+  },
+  {
+   "source": "trace-2026",
+   "target": "gap-no-retrieval-benchmark",
+   "type": "ADDRESSES",
+   "explanation": "Reports retrieval effectiveness on parliamentary QA, but on an existing historical benchmark; the gap stays open for contemporary parliaments.",
+   "evidence": "arXiv:2609.19897"
+  },
+  {
+   "source": "parschan-scaling-2026",
+   "target": "t-text-scaling",
+   "type": "EVALUATES",
+   "explanation": "Benchmarks 17 text-scaling algorithms.",
+   "evidence": "arXiv:2609.17602"
+  },
+  {
+   "source": "parschan-scaling-2026",
+   "target": "m-wordfish",
+   "type": "EVALUATES",
+   "explanation": "Wordfish is among the compared scaling algorithms.",
+   "evidence": "arXiv:2609.17602"
+  },
+  {
+   "source": "parschan-scaling-2026",
+   "target": "m-wordscores",
+   "type": "EVALUATES",
+   "explanation": "Wordscores is among the compared scaling algorithms.",
+   "evidence": "arXiv:2609.17602"
+  },
+  {
+   "source": "parschan-scaling-2026",
+   "target": "m-party-embeddings",
+   "type": "EVALUATES",
+   "explanation": "Embedding-based scaling sensitivity is driven by the embedding model.",
+   "evidence": "arXiv:2609.17602"
+  },
+  {
+   "source": "parschan-scaling-2026",
+   "target": "q-compass-validation",
+   "type": "INSPIRES",
+   "explanation": "Identifies which configuration choices change ideological estimates.",
+   "evidence": "arXiv:2609.17602"
+  },
+  {
+   "source": "blamebert-2026",
+   "target": "c-govt-vs-opposition",
+   "type": "SUPPORTS",
+   "explanation": "Opposition parties blame far more than government parties.",
+   "evidence": "arXiv:2609.26346"
+  },
+  {
+   "source": "blamebert-2026",
+   "target": "t-sentiment-analysis",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Classifier for adversarial rhetoric in parliamentary speech.",
+   "evidence": "arXiv:2609.26346"
+  },
+  {
+   "source": "blamebert-2026",
+   "target": "parliamentary-corpora-family",
+   "type": "USES_DATASET",
+   "explanation": "Applied to Danish Folketing debates 1997-2026.",
+   "evidence": "arXiv:2609.26346"
+  },
+  {
+   "source": "bundestag-wikidata-2026",
+   "target": "gap-no-endorsement-authority",
+   "type": "INSPIRES",
+   "explanation": "External biographical metadata is a candidate source of authority signals.",
+   "evidence": "arXiv:2609.18289"
+  },
+  {
+   "source": "bundestag-wikidata-2026",
+   "target": "c-activity-based-authority",
+   "type": "COMPARES_WITH",
+   "explanation": "Offers biography-based signals as an alternative to activity-based authority.",
+   "evidence": "arXiv:2609.18289"
+  },
+  {
+   "source": "bundestag-wikidata-2026",
+   "target": "open-discourse",
+   "type": "USES_DATASET",
+   "explanation": "Bundestag speaker records 1949-2021.",
+   "evidence": "arXiv:2609.18289"
+  },
+  {
+   "source": "bundestag-wikidata-2026",
+   "target": "gerparcor",
+   "type": "COMPARES_WITH",
+   "explanation": "Another German parliamentary resource.",
+   "evidence": "arXiv:2609.18289"
+  },
+  {
+   "source": "swedish-issue-bias-2026",
+   "target": "rottger-2024",
+   "type": "EXTENDS",
+   "explanation": "Shares an author and extends issue-bias measurement to a writing-assistance setting.",
+   "evidence": "arXiv:2609.15207"
+  },
+  {
+   "source": "swedish-issue-bias-2026",
+   "target": "m-llm-positioning",
+   "type": "USES",
+   "explanation": "Places LLM outputs relative to party positions.",
+   "evidence": "arXiv:2609.15207"
+  },
+  {
+   "source": "swedish-issue-bias-2026",
+   "target": "parl-voting-bias-2026",
+   "type": "COMPARES_WITH",
+   "explanation": "Both measure LLM bias against real parliamentary parties.",
+   "evidence": "arXiv:2609.15207"
+  },
+  {
+   "source": "swedish-issue-bias-2026",
+   "target": "rozado-2024",
+   "type": "COMPARES_WITH",
+   "explanation": "Party-level rather than questionnaire-level bias measurement.",
+   "evidence": "arXiv:2609.15207"
+  },
+  {
+   "source": "retrieval-identity-2026",
+   "target": "kim-diaz-2025",
+   "type": "EXTENDS",
+   "explanation": "Moves from exposure fairness to political-lean sensitivity of retrievers.",
+   "evidence": "arXiv:2609.36534"
+  },
+  {
+   "source": "retrieval-identity-2026",
+   "target": "deas-mckeown-2025",
+   "type": "BUILDS_ON",
+   "explanation": "Shares authors; continues the line on political perspective in retrieval.",
+   "evidence": "arXiv:2609.36534"
+  },
+  {
+   "source": "retrieval-identity-2026",
+   "target": "m-open-multilingual-embedders",
+   "type": "EVALUATES",
+   "explanation": "Tests five dense retrievers.",
+   "evidence": "arXiv:2609.36534"
+  },
+  {
+   "source": "retrieval-identity-2026",
+   "target": "q-fairness-calibration",
+   "type": "SUPPORTS",
+   "explanation": "Shows retrieval itself skews toward the query's political lean.",
+   "evidence": "arXiv:2609.36534"
+  },
+  {
+   "source": "ideological-mimicry-2026",
+   "target": "rottger-2024",
+   "type": "EXTENDS",
+   "explanation": "Measures stance shift under user framing.",
+   "evidence": "arXiv:2609.38256"
+  },
+  {
+   "source": "ideological-mimicry-2026",
+   "target": "q-answer-balance",
+   "type": "SUPPORTS",
+   "explanation": "Framing alone can flip the supported side.",
+   "evidence": "arXiv:2609.38256"
+  },
+  {
+   "source": "ideological-mimicry-2026",
+   "target": "c-prior-leakage",
+   "type": "SUPPORTS",
+   "explanation": "User premises leak into expressed stance.",
+   "evidence": "arXiv:2609.38256"
+  },
+  {
+   "source": "itcolbert-2026",
+   "target": "colbert-2020",
+   "type": "BUILDS_ON",
+   "explanation": "Italian adaptation of ColBERT late interaction.",
+   "evidence": "arXiv:2609.26856"
+  },
+  {
+   "source": "itcolbert-2026",
+   "target": "m-open-multilingual-embedders",
+   "type": "COMPARES_WITH",
+   "explanation": "Language-specific alternative to multilingual embedders.",
+   "evidence": "arXiv:2609.26856"
+  },
+  {
+   "source": "itcolbert-2026",
+   "target": "q-parl-encoder-retrieval",
+   "type": "INSPIRES",
+   "explanation": "An Italian retriever, but not parliamentary-adapted; the gap stays open.",
+   "evidence": "arXiv:2609.26856"
+  },
+  {
+   "source": "who-judges-matters-2026",
+   "target": "c-self-preference",
+   "type": "SUPPORTS",
+   "explanation": "Same-family lift for every model family.",
+   "evidence": "arXiv:2609.17857"
+  },
+  {
+   "source": "who-judges-matters-2026",
+   "target": "panickssery-2024",
+   "type": "EXTENDS",
+   "explanation": "From self-preference to family-level preference in panels.",
+   "evidence": "arXiv:2609.17857"
+  },
+  {
+   "source": "who-judges-matters-2026",
+   "target": "poll-2024",
+   "type": "IDENTIFIES_LIMITATION_OF",
+   "explanation": "Panel composition changes 18.5% of outcomes.",
+   "evidence": "arXiv:2609.17857"
+  },
+  {
+   "source": "who-judges-matters-2026",
+   "target": "m-poll-panel",
+   "type": "IDENTIFIES_LIMITATION_OF",
+   "explanation": "Cross-family panels still carry family-conditioned bias.",
+   "evidence": "arXiv:2609.17857"
+  },
+  {
+   "source": "who-judges-matters-2026",
+   "target": "q-judge-calibration",
+   "type": "SUPPORTS",
+   "explanation": "Quantifies judge bias to calibrate against.",
+   "evidence": "arXiv:2609.17857"
+  },
+  {
+   "source": "gauge-2026",
+   "target": "c-self-preference",
+   "type": "SUPPORTS",
+   "explanation": "Judges favour agents from their own model family.",
+   "evidence": "arXiv:2609.12191"
+  },
+  {
+   "source": "gauge-2026",
+   "target": "m-llm-as-judge",
+   "type": "IDENTIFIES_LIMITATION_OF",
+   "explanation": "Judge \"satisfied\" ratings miss many failed tasks.",
+   "evidence": "arXiv:2609.12191"
+  },
+  {
+   "source": "gauge-2026",
+   "target": "q-judge-calibration",
+   "type": "ADDRESSES",
+   "explanation": "Calibrates judges against verifiable rewards.",
+   "evidence": "arXiv:2609.12191"
+  },
+  {
+   "source": "evalstats-2026",
+   "target": "m-ppi",
+   "type": "BUILDS_ON",
+   "explanation": "Prediction-powered corrections for rank tests.",
+   "evidence": "arXiv:2609.35815"
+  },
+  {
+   "source": "evalstats-2026",
+   "target": "boyeau-ppi-2024",
+   "type": "EXTENDS",
+   "explanation": "Extends PPI to judge-based rank tests.",
+   "evidence": "arXiv:2609.35815"
+  },
+  {
+   "source": "evalstats-2026",
+   "target": "gap-underpowered-human-eval",
+   "type": "ADDRESSES",
+   "explanation": "Guidance for small-sample evaluation with LLM judges.",
+   "evidence": "arXiv:2609.35815"
+  },
+  {
+   "source": "evalstats-2026",
+   "target": "q-human-eval-power",
+   "type": "SUPPORTS",
+   "explanation": "Addresses inference with few human labels.",
+   "evidence": "arXiv:2609.35815"
+  },
+  {
+   "source": "synthetic-vs-authentic-queries-2026",
+   "target": "q-parliamentary-qrels",
+   "type": "INSPIRES",
+   "explanation": "Warns against synthetic-only query sets when building qrels.",
+   "evidence": "arXiv:2609.14579"
+  },
+  {
+   "source": "synthetic-vs-authentic-queries-2026",
+   "target": "ragas-2024",
+   "type": "IDENTIFIES_LIMITATION_OF",
+   "explanation": "Synthetic test sets can select the wrong retriever.",
+   "evidence": "arXiv:2609.14579"
+  },
+  {
+   "source": "synthetic-vs-authentic-queries-2026",
+   "target": "promptagator-2023",
+   "type": "COMPARES_WITH",
+   "explanation": "Synthetic query generation lineage.",
+   "evidence": "arXiv:2609.14579"
+  },
+  {
+   "source": "synthetic-vs-authentic-queries-2026",
+   "target": "m-hybrid-retrieval",
+   "type": "EVALUATES",
+   "explanation": "Hybrid retriever selection flips between synthetic and real queries.",
+   "evidence": "arXiv:2609.14579"
+  },
+  {
+   "source": "attribution-compression-2026",
+   "target": "c-verbatim-grounding",
+   "type": "SUPPORTS",
+   "explanation": "Compression destroys source-span attribution; verbatim context keeps it.",
+   "evidence": "arXiv:2609.14245"
+  },
+  {
+   "source": "attribution-compression-2026",
+   "target": "alce-2023",
+   "type": "USES_METRIC",
+   "explanation": "Citation precision measured against summaries and source spans.",
+   "evidence": "arXiv:2609.14245"
+  },
+  {
+   "source": "attribution-compression-2026",
+   "target": "q-claim-entailment",
+   "type": "INSPIRES",
+   "explanation": "Citations must be checked against source spans, not summaries.",
+   "evidence": "arXiv:2609.14245"
+  },
+  {
+   "source": "evident-2026",
+   "target": "c-verbatim-grounding",
+   "type": "INSTANCE_OF",
+   "explanation": "Deterministic lexical alignment of evidence to sources.",
+   "evidence": "arXiv:2609.22537"
+  },
+  {
+   "source": "evident-2026",
+   "target": "met-quote-fidelity",
+   "type": "USES_METRIC",
+   "explanation": "Gold-source hits and grounding of cited spans.",
+   "evidence": "arXiv:2609.22537"
+  },
+  {
+   "source": "evident-2026",
+   "target": "gap-no-verbatim-entailment",
+   "type": "ADDRESSES",
+   "explanation": "Verbatim alignment without an entailment layer; the gap stays open.",
+   "evidence": "arXiv:2609.22537"
+  },
+  {
+   "source": "evident-2026",
+   "target": "m-copy-mechanisms",
+   "type": "COMPARES_WITH",
+   "explanation": "Extract-then-cite rather than copy during decoding.",
+   "evidence": "arXiv:2609.22537"
+  },
+  {
+   "source": "citechoice-2026",
+   "target": "met-exposure-fairness",
+   "type": "SUPPORTS",
+   "explanation": "Citation credit concentrates by rank and rendering.",
+   "evidence": "arXiv:2609.15164"
+  },
+  {
+   "source": "citechoice-2026",
+   "target": "singh-joachims-2018",
+   "type": "BUILDS_ON",
+   "explanation": "Exposure fairness applied to citations.",
+   "evidence": "arXiv:2609.15164"
+  },
+  {
+   "source": "citechoice-2026",
+   "target": "q-stratified-citation",
+   "type": "INSPIRES",
+   "explanation": "A method to audit citation distribution across source groups.",
+   "evidence": "arXiv:2609.15164"
+  },
+  {
+   "source": "citechoice-2026",
+   "target": "gap-no-per-party-citation-quality",
+   "type": "ADDRESSES",
+   "explanation": "Audits citation credit by presentation, not by political group; the gap stays open.",
+   "evidence": "arXiv:2609.15164"
+  },
+  {
+   "source": "astabrief-2026",
+   "target": "alce-2023",
+   "type": "COMPARES_WITH",
+   "explanation": "Citation-grounded long-form generation from retrieved documents.",
+   "evidence": "allenai.org/blog/astabrief"
+  },
+  {
+   "source": "astabrief-2026",
+   "target": "t-citation-verification",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Trained to keep citations grounded.",
+   "evidence": "allenai.org/blog/astabrief"
+  },
+  {
+   "source": "astabrief-2026",
+   "target": "t-summarization",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Multi-document report generation.",
+   "evidence": "allenai.org/blog/astabrief"
+  },
+  {
+   "source": "world-avatar-parl-2025",
+   "target": "t-parliamentary-qa",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Natural-language QA over Bundestag debates.",
+   "evidence": "CoMo preprint 338"
+  },
+  {
+   "source": "world-avatar-parl-2025",
+   "target": "m-graph-retrieval",
+   "type": "USES",
+   "explanation": "Retrieval from structured metadata in a knowledge graph.",
+   "evidence": "CoMo preprint 338"
+  },
+  {
+   "source": "world-avatar-parl-2025",
+   "target": "m-hybrid-retrieval",
+   "type": "USES",
+   "explanation": "Combines text retrieval with KG retrieval.",
+   "evidence": "CoMo preprint 338"
+  },
+  {
+   "source": "world-avatar-parl-2025",
+   "target": "open-discourse",
+   "type": "COMPARES_WITH",
+   "explanation": "Works over Bundestag debate records.",
+   "evidence": "CoMo preprint 338"
+  },
+  {
+   "source": "italian-vlm-transcription-2026",
+   "target": "itaparlcorpus",
+   "type": "COMPARES_WITH",
+   "explanation": "Another route to machine-readable Italian parliamentary speech.",
+   "evidence": "arXiv:2603.28103"
+  },
+  {
+   "source": "italian-vlm-transcription-2026",
+   "target": "parliamentary-corpora-family",
+   "type": "SUPPORTS",
+   "explanation": "Digitisation method for parliamentary records.",
+   "evidence": "arXiv:2603.28103"
+  },
+  {
+   "source": "italian-vlm-transcription-2026",
+   "target": "gap-no-camera-xix-corpus",
+   "type": "COMPARES_WITH",
+   "explanation": "Targets historical scans, not the XIX legislature.",
+   "evidence": "arXiv:2603.28103"
+  },
+  {
+   "source": "kim-embedder-bias-2025",
+   "target": "wu-rag-fairness-2025",
+   "type": "COMPARES_WITH",
+   "explanation": "Both study bias in RAG pipelines.",
+   "evidence": "arXiv:2502.17390"
+  },
+  {
+   "source": "kim-embedder-bias-2025",
+   "target": "m-open-multilingual-embedders",
+   "type": "IDENTIFIES_LIMITATION_OF",
+   "explanation": "Embedder choice drives RAG output bias.",
+   "evidence": "arXiv:2502.17390"
+  },
+  {
+   "source": "kim-embedder-bias-2025",
+   "target": "q-fairness-calibration",
+   "type": "SUPPORTS",
+   "explanation": "Embedder-side control as a calibration lever.",
+   "evidence": "arXiv:2502.17390"
+  },
+  {
+   "source": "retrieval-identity-2026",
+   "target": "kim-embedder-bias-2025",
+   "type": "SUPPORTS",
+   "explanation": "Both locate political bias in the retrieval stage.",
+   "evidence": "arXiv:2609.36534"
+  },
+  {
+   "source": "pareto-neutrality-2026",
+   "target": "q-answer-balance",
+   "type": "ADDRESSES",
+   "explanation": "Operational definition of a balanced answer via cross-spectrum approval.",
+   "evidence": "arXiv:2605.28911"
+  },
+  {
+   "source": "pareto-neutrality-2026",
+   "target": "rottger-2024",
+   "type": "COMPARES_WITH",
+   "explanation": "Human approval rather than model-side position measurement.",
+   "evidence": "arXiv:2605.28911"
+  },
+  {
+   "source": "pareto-neutrality-2026",
+   "target": "potter-2024",
+   "type": "COMPARES_WITH",
+   "explanation": "Human evaluation of political content in AI responses.",
+   "evidence": "arXiv:2605.28911"
+  },
+  {
+   "source": "acl-verbatim-2026",
+   "target": "c-verbatim-grounding",
+   "type": "INSTANCE_OF",
+   "explanation": "Answers only with verbatim source spans.",
+   "evidence": "arXiv:2605.21102"
+  },
+  {
+   "source": "acl-verbatim-2026",
+   "target": "gap-no-verbatim-entailment",
+   "type": "ADDRESSES",
+   "explanation": "Verbatim extraction without claim entailment; the gap stays open.",
+   "evidence": "arXiv:2605.21102"
+  },
+  {
+   "source": "acl-verbatim-2026",
+   "target": "evident-2026",
+   "type": "COMPARES_WITH",
+   "explanation": "Both guarantee cited text exists in the sources.",
+   "evidence": "arXiv:2605.21102"
   }
  ]
 }
