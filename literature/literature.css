@@ -342,11 +342,110 @@
 }
 .nlabel-mono { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); }
 
-/* overview: faint ghost dots for the bulk of the graph */
-.overview-nodes .node.ghost .shape { opacity: 0.3; }
-.overview-nodes .node.ghost .seed-ring { opacity: 0.3; }
-.overview-nodes .node.ghost:hover .shape,
-.overview-nodes .node.ghost:focus-visible .shape { opacity: 1; }
+/* overview: islands. One island per primary area; edges appear only on focus */
+.ov-island {
+  fill: color-mix(in srgb, var(--ink) 3.5%, transparent);
+  stroke: color-mix(in srgb, var(--ink) 9%, transparent);
+  stroke-width: 1;
+  cursor: pointer;
+  transition: fill 180ms ease, stroke 180ms ease, opacity 180ms ease;
+}
+.ov-island:hover,
+.ov-island.lit {
+  fill: color-mix(in srgb, var(--accent) 6%, transparent);
+  stroke: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.ov-paper { fill: color-mix(in srgb, var(--ink) 72%, var(--bg)); }
+.ov-method { fill: var(--bg); stroke: color-mix(in srgb, var(--ink) 72%, var(--bg)); stroke-width: 1.2; }
+.ov-dataset { fill: color-mix(in srgb, var(--ink) 45%, var(--bg)); }
+.ov-concept { fill: var(--faint); }
+.ov-gap {
+  fill: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  stroke: var(--accent);
+  stroke-width: 1.2;
+}
+
+.ov-node .ov-shape { transition: opacity 180ms ease, fill 180ms ease; }
+.ov-node:hover .ov-paper,
+.ov-node:focus-visible .ov-paper,
+.ov-node:hover .ov-dataset,
+.ov-node:focus-visible .ov-dataset { fill: var(--accent); }
+.ov-node:hover .ov-method,
+.ov-node:focus-visible .ov-method { stroke: var(--accent); }
+
+.ov-edge {
+  stroke: var(--accent);
+  stroke-width: 1;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.ov-area-label { cursor: pointer; outline: none; }
+.ov-area-name {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  fill: var(--ink);
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.ov-area-name-sm { font-size: 11px; stroke-width: 3px; }
+.ov-area-count {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  fill: var(--faint);
+}
+.ov-area-label:hover .ov-area-name,
+.ov-area-label:focus-visible .ov-area-name,
+.ov-area-label.lit .ov-area-name { fill: var(--accent); }
+.ov-labels .nlabel {
+  fill: var(--muted);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.ov-bundle {
+  fill: none;
+  stroke: var(--ink);
+  stroke-linecap: round;
+  opacity: 0.1;
+  pointer-events: none;
+  transition: opacity 180ms ease, stroke 180ms ease;
+}
+.ov.focusing .ov-bundle { opacity: 0.04; }
+.ov.focusing .ov-bundle.lit { opacity: 0.4; stroke: var(--accent); }
+
+/* focus + context: dim what is not related to the hovered thing */
+.ov .overview-nodes .ov-node,
+.ov .ov-labels .ov-label { transition: opacity 180ms ease; }
+.ov.focusing .overview-nodes .ov-node:not(.lit) { opacity: 0.14; }
+.ov.focusing .ov-labels .ov-area-label:not(.lit) { opacity: 0.25; }
+.ov.focusing .ov-island:not(.lit) { opacity: 0.5; }
+.ov.focusing .ov-labels .nlabel.lit { fill: var(--ink); }
+.ov-labels .ov-node-label { opacity: 0; }
+.ov.focusing .ov-labels .ov-node-label.lit { opacity: 1; }
+
+/* entry: islands surface one after another, largest first */
+@media (prefers-reduced-motion: no-preference) {
+  .ov .ov-island,
+  .ov .ov-bundle,
+  .ov .ov-node,
+  .ov .ov-area-label {
+    animation: ov-in 520ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 45ms);
+  }
+}
+/* no "to" frame: each element fades up to its own resting opacity */
+@keyframes ov-in {
+  from { opacity: 0; }
+}
 
 .center-label { font-size: 13px; font-weight: 500; }
 .center-sub {

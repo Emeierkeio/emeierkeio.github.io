@@ -1,5 +1,5 @@
 /* Literature map — view-state machine over a research knowledge graph.
-   Views: overview (full organic network) · area · node neighborhood · gaps.
+   Views: overview (one island per primary area) · area · node neighborhood · gaps.
    The full graph stays in memory; the stage renders only what the view needs. */
 (function () {
 "use strict";
@@ -398,147 +398,329 @@ function computeAreaLayout(W, H) {
   return pos;
 }
 
-/* Full organic network layout for the overview: every node attracted to the
-   mean of its areas' anchors + real-edge links + collision, settled once and
-   frozen. Cached by stage size. No area labels — areas live in the panel. */
+/* Overview layout: islands. Each node lives in its primary area (the first
+   in n.areas). Island centres repel by island size and attract along area
+   adjacency; nodes are pulled hard to their own island, linked only to
+   island-mates. Settled once, frozen, cached by stage size. */
+function primaryArea(n) {
+  var as = (n.areas || []).filter(function (id) { return G.areasById.has(id); });
+  return as.length ? as[0] : null;
+}
+
 function computeFullLayout(W, H) {
   var key = "full|" + Math.round(W) + "x" + Math.round(H);
   if (layoutCache[key]) return layoutCache[key];
-  var areaPos = computeAreaLayout(W, H);
+
+  var members = new Map();
+  G.nodes.forEach(function (n) {
+    var a = primaryArea(n) || "_none";
+    if (!members.has(a)) members.set(a, []);
+    members.get(a).push(n);
+  });
+
+  // settle on a virtual canvas at least desktop-sized, then scale uniformly
+  // into the stage so narrow screens keep the island shapes intact
+  var VA = 1100 * 720, VW = Math.max(W, Math.sqrt(VA * W / H)), VH = Math.max(H, Math.sqrt(VA * H / W));
+  var areaPos = computeAreaLayout(VW, VH);
+  var islands = [];
+  members.forEach(function (list, id) {
+    var p = areaPos.get(id) || { x: VW / 2, y: VH / 2 };
+    islands.push({ id: id, size: list.length, x: p.x, y: p.y,
+                   r: 16 + Math.sqrt(list.length) * 11 });
+  });
+  var islandLinks = G.areaPairs.filter(function (p) {
+    return members.has(p.a) && members.has(p.b);
+  }).map(function (p) { return { source: p.a, target: p.b, co: p.co }; });
+  var isim = d3.forceSimulation(islands)
+    .force("link", d3.forceLink(islandLinks).id(function (d) { return d.id; })
+      .distance(function (l) { return l.source.r + l.target.r + 24; })
+      .strength(function (l) { return Math.min(0.5, 0.06 + l.co * 0.02); }))
+    .force("charge", d3.forceManyBody().strength(-120))
+    .force("x", d3.forceX(VW / 2).strength(0.065 * Math.min(1.6, VH / VW)))
+    .force("y", d3.forceY(VH / 2).strength(0.065 * Math.min(1.6, VW / VH)))
+    .force("collide", d3.forceCollide(function (d) { return d.r + 30; }).iterations(3))
+    .stop();
+  for (var i = 0; i < 400; i++) isim.tick();
+  var centre = new Map();
+  islands.forEach(function (d) { centre.set(d.id, d); });
 
   var nodes = G.nodes.map(function (n) {
-    var as = (n.areas || []).filter(function (id) { return areaPos.has(id); });
-    var ax = 0, ay = 0;
-    if (as.length) {
-      as.forEach(function (id) { var p = areaPos.get(id); ax += p.x; ay += p.y; });
-      ax /= as.length; ay /= as.length;
-    } else { ax = W / 2; ay = H / 2; }
-    var d = { id: n.id, n: n, ax: ax, ay: ay,
-              x: ax + hashJitter(n.id) * 150, y: ay + hashJitter(n.id + "y") * 150 };
-    return d;
+    var c = centre.get(primaryArea(n) || "_none");
+    return { id: n.id, n: n, area: c.id, cx: c.x, cy: c.y,
+             x: c.x + hashJitter(n.id) * c.r, y: c.y + hashJitter(n.id + "y") * c.r };
   });
   var byId = new Map();
   nodes.forEach(function (d) { byId.set(d.id, d); });
   var links = G.edges.filter(function (e) {
-    return byId.has(e.source) && byId.has(e.target);
+    var s = byId.get(e.source), t = byId.get(e.target);
+    return s && t && s.area === t.area;
   }).map(function (e) { return { source: e.source, target: e.target }; });
 
   var sim = d3.forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(function (d) { return d.id; })
-      .distance(52).strength(0.32))
-    .force("charge", d3.forceManyBody().strength(-32).distanceMax(300))
-    .force("ax", d3.forceX(function (d) { return d.ax; }).strength(0.08))
-    .force("ay", d3.forceY(function (d) { return d.ay; }).strength(0.08))
+      .distance(18).strength(0.12))
+    .force("charge", d3.forceManyBody().strength(-14).distanceMax(80))
+    .force("cx", d3.forceX(function (d) { return d.cx; }).strength(0.16))
+    .force("cy", d3.forceY(function (d) { return d.cy; }).strength(0.16))
     .force("collide", d3.forceCollide(function (d) {
-      return overviewRadius(d.n) + 3.5;
-    }).iterations(2))
+      return overviewRadius(d.n) + 2.2;
+    }).iterations(3))
     .stop();
-  for (var i = 0; i < 320; i++) sim.tick();
-  fitPositions(nodes, W, H, 46);
+  for (var j = 0; j < 360; j++) sim.tick();
+
+  var pad = isNarrow(W) ? 30 : 58;
+  var x0 = d3.min(nodes, function (d) { return d.x; }), x1 = d3.max(nodes, function (d) { return d.x; });
+  var y0 = d3.min(nodes, function (d) { return d.y; }), y1 = d3.max(nodes, function (d) { return d.y; });
+  var k = Math.min((W - 2 * pad) / Math.max(1, x1 - x0), (H - 2 * pad) / Math.max(1, y1 - y0));
+  var ox = (W - (x1 - x0) * k) / 2, oy = (H - (y1 - y0) * k) / 2;
 
   var pos = new Map();
-  nodes.forEach(function (d) { pos.set(d.id, { x: d.x, y: d.y }); });
+  pos.k = Math.min(1, k);
+  nodes.forEach(function (d) {
+    pos.set(d.id, { x: ox + (d.x - x0) * k, y: oy + (d.y - y0) * k, area: d.area });
+  });
   layoutCache[key] = pos;
   return pos;
 }
 
+/* node size encodes connectedness, so hubs read at a glance */
 function overviewRadius(n) {
-  if (n.type === "paper") return paperRadius(n);
-  if (n.type === "method") return 4.6;
-  if (n.type === "dataset" || n.type === "project") return 4.2;
-  if (n.type === "gap" || n.type === "question") return 4.8;
-  return 2.6; // concept, metric, task
-}
-
-/* which nodes carry a readable label on the overview */
-function overviewLabelSet() {
-  var ids = new Set();
-  G.areas.forEach(function (a) {
-    a.representatives.forEach(function (id) { ids.add(id); });
-  });
-  G.nodes.forEach(function (n) {
-    if (n.seed || n.role === "foundational") ids.add(n.id);
-  });
-  return ids;
-}
-
-/* upper-cased sans label for method/dataset/concept-style reps; papers stay
-   serif; gaps/questions keep plain sans sentence case (truncated) */
-function overviewUpper(n) {
-  return n.type === "method" || n.type === "dataset" || n.type === "project" ||
-         n.type === "concept" || n.type === "metric" || n.type === "task";
-}
-function overviewLabelText(n) {
-  var s = String(shortLabel(n));
-  if (overviewUpper(n)) return s.toUpperCase();
-  if (n.type === "gap" || n.type === "question") {
-    return s.length > 26 ? s.slice(0, 25).replace(/\s+\S*$/, "") + "…" : s;
-  }
-  return s; // papers
-}
-function overviewLabelClass(n) {
-  if (n.type === "paper") return "nlabel nlabel-serif";
+  var d = G.degree.get(n.id) || 0;
   if (n.type === "concept" || n.type === "metric" || n.type === "task")
-    return "nlabel nlabel-mono nlabel-up";
-  if (n.type === "gap" || n.type === "question") return "nlabel nlabel-sans";
-  return "nlabel nlabel-sans nlabel-up";
+    return 2.2 + Math.min(2.4, Math.sqrt(d) * 0.5);
+  return 2.6 + Math.min(6.4, Math.sqrt(d) * 1.15);
 }
-function overviewLabelFont(n) {
-  if (n.type === "paper") return F_SERIF;
-  if (n.type === "concept" || n.type === "metric" || n.type === "task") return F_MONO;
-  return F_SANS;
+
+var OV_K = 1; // overview radius scale, follows the layout's fit factor
+function ovR(n) { return overviewRadius(n) * OV_K; }
+
+function overviewShape(g, n) {
+  var r = ovR(n);
+  if (n.type === "dataset" || n.type === "project") {
+    var s = r * 1.7;
+    g.append("rect").attr("class", "ov-shape ov-dataset")
+      .attr("x", -s / 2).attr("y", -s / 2).attr("width", s).attr("height", s).attr("rx", 1);
+  } else if (n.type === "gap" || n.type === "question") {
+    g.append("circle").attr("class", "ov-shape ov-gap").attr("r", r);
+  } else {
+    var cls = n.type === "paper" ? "ov-paper" : n.type === "method" ? "ov-method" : "ov-concept";
+    g.append("circle").attr("class", "ov-shape " + cls).attr("r", r);
+  }
+}
+
+/* soft outline around an island: padded convex hull, rounded */
+function islandPath(pts, pad) {
+  if (pts.length < 3) {
+    var cx = d3.mean(pts, function (p) { return p[0]; }), cy = d3.mean(pts, function (p) { return p[1]; });
+    var rr = pad + (pts.length === 2 ? Math.hypot(pts[0][0] - pts[1][0], pts[0][1] - pts[1][1]) / 2 : 0);
+    return "M" + (cx - rr) + "," + cy + "a" + rr + "," + rr + " 0 1,0 " + (2 * rr) + ",0" +
+           "a" + rr + "," + rr + " 0 1,0 " + (-2 * rr) + ",0Z";
+  }
+  var hull = d3.polygonHull(pts);
+  if (!hull) hull = pts;
+  var c = d3.polygonCentroid(hull);
+  var padded = hull.map(function (p) {
+    var dx = p[0] - c[0], dy = p[1] - c[1], len = Math.hypot(dx, dy) || 1;
+    return [p[0] + dx / len * pad, p[1] + dy / len * pad];
+  });
+  return d3.line().curve(d3.curveCatmullRomClosed.alpha(0.6))(padded);
 }
 
 /* ---------------------------------------------------------- view: overview */
 
 function renderOverview(scene, W, H) {
   var pos = computeFullLayout(W, H);
-  var labelIds = overviewLabelSet();
+  OV_K = Math.max(0.5, pos.k);
+  scene.classed("ov", true);
 
-  // hairline edges between every pair present on stage
-  var edgesG = scene.append("g").attr("class", "edges edges-overview");
-  G.edges.forEach(function (e) {
-    var a = pos.get(e.source), b = pos.get(e.target);
-    if (!a || !b) return;
-    var dashed = (e.type === "CONTRADICTS" || e.type === "IDENTIFIES_LIMITATION_OF");
-    edgesG.append("line")
-      .attr("class", "edge edge-ghost" + (dashed ? " edge-dashed" : ""))
-      .attr("x1", a.x).attr("y1", a.y).attr("x2", b.x).attr("y2", b.y);
-  });
-
-  var nodesG = scene.append("g").attr("class", "overview-nodes");
-
-  // place all nodes; ghost dots for the bulk, full shape for labeled ones
-  var labelCandidates = [];
+  // group visible nodes by island
+  var islands = new Map();
   G.nodes.forEach(function (n) {
     if (!passes(n)) return;
     var p = pos.get(n.id);
     if (!p) return;
-    var labeled = labelIds.has(n.id);
-    var g = nodeGroup(nodesG, n, p.x, p.y, 1);
-    if (!labeled) {
-      g.classed("ghost", true);
-      return;
-    }
-    var txt = overviewLabelText(n);
-    var w = textW(txt, overviewLabelFont(n));
-    var sx = edgeShift(p.x, w, W);
-    labelCandidates.push({
-      g: g, n: n, txt: txt, sx: sx,
-      x: p.x + sx, y: p.y + overviewRadius(n) + 4, w: w, h: 13,
-      pri: nodeImportance(n, G.degree)
-    });
+    if (!islands.has(p.area)) islands.set(p.area, []);
+    islands.get(p.area).push(n);
+  });
+  var order = Array.from(islands.keys()).sort(function (a, b) {
+    return islands.get(b).length - islands.get(a).length;
   });
 
-  // collision-managed labels: keep in priority order, drop the rest
+  var bundlesG = scene.append("g").attr("class", "ov-bundles");
+  var hullsG = scene.append("g").attr("class", "ov-islands");
+  var edgesG = scene.append("g").attr("class", "ov-edges");
+  var nodesG = scene.append("g").attr("class", "overview-nodes");
+  var labelsG = scene.append("g").attr("class", "ov-labels");
+
+  var nodeEls = new Map();
+  var labelCandidates = [];
+
+  function focusSet(ids, edges) {
+    scene.classed("focusing", true);
+    nodeEls.forEach(function (g, id) { g.classed("lit", ids.has(id)); });
+    hullsG.selectAll(".ov-island").classed("lit", false);
+    labelsG.selectAll(".ov-label").classed("lit", function () {
+      return ids.has(this.getAttribute("data-id"));
+    });
+    edgesG.selectAll("*").remove();
+    (edges || []).forEach(function (e) {
+      var a = pos.get(e.source), b = pos.get(e.target);
+      if (!a || !b) return;
+      edgesG.append("line").attr("class", "ov-edge")
+        .attr("x1", a.x).attr("y1", a.y).attr("x2", b.x).attr("y2", b.y);
+    });
+  }
+  function clearFocus() {
+    scene.classed("focusing", false);
+    nodeEls.forEach(function (g) { g.classed("lit", false); });
+    hullsG.selectAll(".ov-island").classed("lit", false);
+    labelsG.selectAll(".ov-label").classed("lit", false);
+    bundlesG.selectAll(".ov-bundle").classed("lit", false);
+    edgesG.selectAll("*").remove();
+  }
+  function focusNode(id) {
+    var ids = new Set([id]), edges = [];
+    (G.neighbors.get(id) || []).forEach(function (x) {
+      if (!nodeEls.has(x.other)) return;
+      ids.add(x.other); edges.push(x.edge);
+    });
+    focusSet(ids, edges);
+  }
+  function focusIsland(areaId) {
+    var ids = new Set((islands.get(areaId) || []).map(function (n) { return n.id; }));
+    ids.add("area:" + areaId);
+    focusSet(ids, []);
+    hullsG.selectAll(".ov-island").classed("lit", function () {
+      return this.getAttribute("data-area") === areaId;
+    });
+    bundlesG.selectAll(".ov-bundle").classed("lit", function () {
+      return this.getAttribute("data-a") === areaId || this.getAttribute("data-b") === areaId;
+    });
+  }
+
+  // resting state: one soft curve per pair of connected islands, width by
+  // number of edges, so the map reads as one network rather than islands
+  var centroid = new Map();
+  islands.forEach(function (list, areaId) {
+    centroid.set(areaId, [d3.mean(list, function (n) { return pos.get(n.id).x; }),
+                          d3.mean(list, function (n) { return pos.get(n.id).y; })]);
+  });
+  var bundles = new Map();
+  G.edges.forEach(function (e) {
+    var a = pos.get(e.source), b = pos.get(e.target);
+    if (!a || !b || a.area === b.area) return;
+    if (!islands.has(a.area) || !islands.has(b.area)) return;
+    var sn = G.nodesById.get(e.source), tn = G.nodesById.get(e.target);
+    if (!passes(sn) || !passes(tn)) return;
+    var k = [a.area, b.area].sort().join("|");
+    bundles.set(k, (bundles.get(k) || 0) + 1);
+  });
+  var maxB = d3.max(Array.from(bundles.values())) || 1;
+  bundles.forEach(function (count, k) {
+    var ids = k.split("|"), p = centroid.get(ids[0]), q = centroid.get(ids[1]);
+    var mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2;
+    var dx = q[0] - p[0], dy = q[1] - p[1], len = Math.hypot(dx, dy) || 1;
+    var bend = Math.min(40, len * 0.12);
+    var cx = mx - dy / len * bend, cy = my + dx / len * bend;
+    bundlesG.append("path").attr("class", "ov-bundle")
+      .attr("data-a", ids[0]).attr("data-b", ids[1])
+      .attr("d", "M" + p[0] + "," + p[1] + "Q" + cx + "," + cy + " " + q[0] + "," + q[1])
+      .style("stroke-width", (0.6 + 3.4 * Math.sqrt(count / maxB)) * OV_K);
+  });
+
+  order.forEach(function (areaId, idx) {
+    var list = islands.get(areaId);
+    var pts = list.map(function (n) { var p = pos.get(n.id); return [p.x, p.y]; });
+    var area = G.areasById.get(areaId);
+    if (area && list.length >= 3) {
+      hullsG.append("path").attr("class", "ov-island")
+        .attr("data-area", areaId)
+        .style("--i", idx)
+        .attr("d", islandPath(pts, 14 * OV_K));
+    }
+
+    list.forEach(function (n) {
+      var p = pos.get(n.id);
+      var g = nodesG.append("g")
+        .attr("class", "node ov-node t-" + n.type)
+        .attr("data-id", n.id)
+        .style("--i", idx)
+        .attr("transform", "translate(" + p.x + "," + p.y + ")")
+        .attr("tabindex", 0)
+        .attr("role", "button")
+        .attr("aria-label", (n.label || n.id) + ", " + n.type);
+      g.append("circle").attr("class", "hit").attr("r", Math.max(8, ovR(n) + 4));
+      overviewShape(g, n);
+      g.on("click", function (ev) { ev.stopPropagation(); gotoNode(n.id); })
+       .on("keydown", function (ev) {
+         if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); gotoNode(n.id); }
+       })
+       .on("mouseenter focus", function (ev) {
+         focusNode(n.id);
+         if (ev.type === "mouseenter") showTip(ev, (n.label || n.id), n.type + (n.year ? " · " + n.year : ""));
+       })
+       .on("mousemove", moveTip)
+       .on("mouseleave blur", function () { hideTip(); clearFocus(); });
+      nodeEls.set(n.id, g);
+    });
+
+    if (!area || list.length < 2) return;
+    // island name sits just above the island
+    var top = d3.min(pts, function (q) { return q[1]; }) - 8 - 14 * OV_K;
+    var cx = d3.mean(pts, function (q) { return q[0]; });
+    var name = areaText(area, W);
+    var wName = textW(name, areaFont(W));
+    labelCandidates.push({ kind: "area", area: area, areaId: areaId, idx: idx,
+      txt: name, count: list.length, x: clamp(cx, wName / 2 + 8, W - wName / 2 - 8),
+      y: Math.max(6, top), w: wName + 8, h: 15, pri: 1000 + list.length });
+
+    // anchor papers per island: named only while their island or a neighbour is in focus
+    var quota = list.length > 40 ? 5 : list.length > 12 ? 3 : 2;
+    list.filter(function (n) { return n.type === "paper"; })
+      .sort(function (a, b) { return nodeImportance(b, G.degree) - nodeImportance(a, G.degree); })
+      .slice(0, quota)
+      .forEach(function (n) {
+        var p = pos.get(n.id);
+        var txt = shortLabel(n);
+        var w = textW(txt, F_SERIF);
+        var sx = edgeShift(p.x, w, W);
+        labelCandidates.push({ kind: "node", n: n, idx: idx, txt: txt,
+          x: p.x + sx, y: p.y + ovR(n) + 3, w: w, h: 13,
+          pri: nodeImportance(n, G.degree) });
+      });
+  });
+
   occlude(labelCandidates);
   labelCandidates.forEach(function (c) {
     if (!c.visible) return;
-    c.g.append("text").attr("class", overviewLabelClass(c.n))
-      .attr("x", c.sx)
-      .attr("y", overviewRadius(c.n) + 13.5)
-      .text(c.txt);
+    if (c.kind === "area") {
+      var g = labelsG.append("g").attr("class", "ov-label ov-area-label")
+        .attr("data-id", "area:" + c.areaId)
+        .style("--i", c.idx)
+        .attr("transform", "translate(" + c.x + "," + c.y + ")")
+        .attr("tabindex", 0).attr("role", "button")
+        .attr("aria-label", c.area.label + " area, " + c.count + " items");
+      var t = g.append("text").attr("class", "ov-area-name" + (isNarrow(W) ? " ov-area-name-sm" : "")).attr("y", 11);
+      t.append("tspan").text(c.txt);
+      g.on("click", function (ev) { ev.stopPropagation(); gotoArea(c.areaId); })
+       .on("keydown", function (ev) {
+         if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); gotoArea(c.areaId); }
+       })
+       .on("mouseenter focus", function () { focusIsland(c.areaId); })
+       .on("mouseleave blur", clearFocus);
+    } else {
+      labelsG.append("text").attr("class", "ov-label ov-node-label nlabel nlabel-serif")
+        .attr("data-id", c.n.id)
+        .style("--i", c.idx)
+        .attr("x", c.x).attr("y", c.y + 10)
+        .text(c.txt);
+    }
   });
+
+  hullsG.selectAll(".ov-island")
+    .on("click", function (ev) { ev.stopPropagation(); gotoArea(this.getAttribute("data-area")); })
+    .on("mouseenter", function () { focusIsland(this.getAttribute("data-area")); })
+    .on("mouseleave", clearFocus);
 }
 
 /* -------------------------------------------------------------- view: gaps */
