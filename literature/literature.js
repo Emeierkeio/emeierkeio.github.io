@@ -624,6 +624,7 @@ function renderOverview(scene, W, H) {
     var cx = mx - dy / len * bend, cy = my + dx / len * bend;
     bundlesG.append("path").attr("class", "ov-bundle")
       .attr("data-a", ids[0]).attr("data-b", ids[1])
+      .style("--i", order.length)
       .attr("d", "M" + p[0] + "," + p[1] + "Q" + cx + "," + cy + " " + q[0] + "," + q[1])
       .style("stroke-width", (0.6 + 3.4 * Math.sqrt(count / maxB)) * OV_K);
   });
