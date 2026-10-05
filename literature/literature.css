@@ -11,11 +11,9 @@
   padding: 0 1.25rem;
 }
 
-/* text column aligns with the site's .container; the map stays wide */
-.lit-head {
-  max-width: calc(66rem - 2.5rem);
-  margin: 0 auto;
-}
+/* on this page the header and footer widen to the map's column */
+.lit-body .site-header .container,
+.lit-body .site-footer .container { max-width: 1240px; }
 
 .lit-title {
   font-family: var(--serif);

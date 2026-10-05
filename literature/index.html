@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="literature.css">
   <script>(function(){var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)})();</script>
 </head>
-<body>
+<body class="lit-body">
 
 <header class="site-header">
   <div class="container">
@@ -31,7 +31,6 @@
 
 <main class="lit-page">
   <div class="lit-wide">
-    <div class="lit-head">
     <h1 class="lit-title">Literature</h1>
     <p class="lit-intro">The research literature I work in: parliamentary NLP, information retrieval, RAG, political text analysis, evaluation, fairness.</p>
     <p class="lit-count" id="lit-count"></p>
@@ -56,7 +55,6 @@
 
     <div class="lit-filters" id="lit-filters" role="group" aria-label="Filters" hidden></div>
     <p class="lit-status" id="lit-status" role="status" aria-live="polite"></p>
-    </div>
 
     <div class="lit-layout" id="lit-layout">
       <div class="lit-stage" id="lit-stage">
