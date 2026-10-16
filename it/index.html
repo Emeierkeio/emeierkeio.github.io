@@ -100,7 +100,7 @@
                 <a class="system" href="https://www.stenografo.it/">
                   <svg class="mark" viewBox="3 4 56 58" width="21.2" height="22" aria-hidden="true"><path d="M10 42C12 23 29 16 33.5 27C37 36 24 42 27.5 49.5C31 56.5 46 52 48.5 28" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="15" r="6.6" fill="currentColor"/></svg>
                   <span class="system-head"><span class="system-name">Stenografo</span> <span class="system-domain">stenografo.it</span></span>
-                  <span class="system-q">Come ha votato un deputato? Chi presiede una commissione? Risposte precise dagli atti ufficiali, ogni frase collegata alla sua fonte.</span>
+                  <span class="system-q">Come ha votato un parlamentare? Chi presiede una commissione? Risposte precise dagli atti ufficiali, ogni frase collegata alla sua fonte.</span>
                 </a>
               </li>
               <li id="fascicoli">
@@ -114,14 +114,14 @@
                 <a class="system" href="https://www.scranno.it/">
                   <svg class="mark" viewBox="3 1 56 60" width="20.5" height="22" aria-hidden="true"><path d="M18 12C18 24 18 32 20 36C22 40 30 40 42 40C46 40 47 43 47 50M24 40V50" fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="24" r="6.4" fill="currentColor"/></svg>
                   <span class="system-head"><span class="system-name">Scranno</span> <span class="system-domain">scranno.it</span></span>
-                  <span class="system-q">Chi siede dove? La Camera in 3D, ogni deputato nel suo seggio reale.</span>
+                  <span class="system-q">Chi siede dove, e cosa fa? Entri in Aula e apri il lavoro di ogni parlamentare dal suo seggio reale.</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <p>La Camera dei deputati pubblica come open data il resoconto stenografico di ogni seduta d'aula e ogni votazione per appello nominale. Insieme possono rispondere a quasi ogni domanda su cosa fa davvero il Parlamento. In pratica, trovare chi ha detto cosa, in quale dibattito e con quale ruolo significa leggere centinaia di pagine.</p>
+        <p>Il Parlamento pubblica come open data il resoconto stenografico di ogni seduta d'aula e ogni votazione per appello nominale. Insieme possono rispondere a quasi ogni domanda su cosa fa davvero il Parlamento. In pratica, trovare chi ha detto cosa, in quale dibattito e con quale ruolo significa leggere centinaia di pagine.</p>
 
         <p>ParliamentRAG permette di chiedere in linguaggio naturale. Recupera gli interventi e le votazioni rilevanti, scrive una risposta che copre tutti i gruppi parlamentari, maggioranza e opposizione, e collega ogni citazione al passaggio esatto del resoconto ufficiale.</p>
 
@@ -141,7 +141,7 @@
         <h3 class="subhead">Come funziona</h3>
 
         <ul class="contribs">
-          <li><strong>Un unico grafo di tutto ciò che il Parlamento dice e fa.</strong> I resoconti stenografici (XML Akoma&nbsp;Ntoso) e gli endpoint SPARQL di <a href="https://dati.camera.it/">dati.camera.it</a> diventano un unico knowledge graph di interventi, oratori, votazioni e atti, con collegamenti tematici EuroVoc.</li>
+          <li><strong>Un unico grafo di tutto ciò che il Parlamento dice e fa.</strong> I resoconti stenografici (XML Akoma&nbsp;Ntoso) e gli endpoint SPARQL di <a href="https://dati.camera.it/">dati.camera.it</a> e <a href="https://dati.senato.it/">dati.senato.it</a> diventano un unico knowledge graph di interventi, oratori, votazioni e atti, con collegamenti tematici EuroVoc.</li>
           <li><strong>Un retrieval che protegge la pluralità delle voci.</strong> Un canale vettoriale denso e un canale a grafo vengono fusi da un merger che bilancia rilevanza, copertura dei partiti, diversità degli oratori e salienza politica, così le posizioni di minoranza rischiano meno di sparire. Tecnicamente: multi-view hybrid retrieval.</li>
           <li><strong>Oratori pesati per ruolo, non per volume.</strong> Un punteggio di autorevolezza specifico per la domanda, con sei componenti (professione, formazione, commissioni, atti legislativi, interventi, ruolo istituzionale), seleziona la voce più credibile per ciascun gruppo parlamentare.</li>
           <li><strong>Ogni citazione verificata.</strong> Le citazioni generate vengono confrontate parola per parola con il passaggio d'origine; ciò che non si può verificare viene rimosso prima che la risposta sia mostrata.</li>
@@ -152,7 +152,7 @@
           <figcaption>La pipeline: dalla domanda a una risposta bilanciata con citazioni verificate.</figcaption>
         </figure>
 
-        <p class="stat-line">705 sedute d'aula&ensp;·&ensp;174k+ frammenti di interventi&ensp;·&ensp;17.3k votazioni per appello nominale&ensp;·&ensp;6.9M voti individuali<br>XIX Legislatura, aggiornata in continuo dai dati aperti ufficiali</p>
+        <p class="stat-line">1.194 sedute d'aula&ensp;·&ensp;266k+ frammenti di interventi&ensp;·&ensp;28,3k votazioni per appello nominale&ensp;·&ensp;9,6M voti individuali<br>Parlamento italiano, XIX Legislatura, aggiornato ogni notte dai dati aperti ufficiali</p>
 
         <p>Il lavoro è interamente aperto: il knowledge graph è pubblicato come <a href="https://doi.org/10.5281/zenodo.21560331">dataset RDF su Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) e in forma tabellare su <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, con i termini del progetto nel namespace <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a>. Il sistema è anche un <a href="https://github.com/Emeierkeio/parliamentrag-iswc/blob/main/mcp/README.md">server MCP</a>, così gli assistenti AI possono interrogare direttamente gli atti ufficiali. Il codice è archiviato su <a href="https://doi.org/10.5281/zenodo.23173703">Zenodo</a>.</p>
 
@@ -188,14 +188,14 @@
             <span class="timeline-year">2026</span>
             <div>
               <a class="project-name" href="https://www.parliamentrag.it/">AI sui dati parlamentari · ParliamentRAG</a>
-              <p>Un'interfaccia AI alla Camera dei deputati, con ogni risposta collegata al resoconto ufficiale.</p>
+              <p>Un'interfaccia AI al Parlamento italiano, con ogni risposta collegata al resoconto ufficiale.</p>
             </div>
           </li>
           <li>
             <span class="timeline-year">2026</span>
             <div>
               <a class="project-name" href="https://www.stenografo.it/">Domande dirette sul Parlamento · Stenografo</a>
-              <p>Risposte brevi alle domande sui fatti della Camera, ogni frase collegata alla sua fonte ufficiale. Un progetto di ParliamentRAG.</p>
+              <p>Risposte brevi alle domande sui fatti del Parlamento, ogni frase collegata alla sua fonte ufficiale. Un progetto di ParliamentRAG.</p>
             </div>
           </li>
           <li>
@@ -208,8 +208,8 @@
           <li>
             <span class="timeline-year">2026</span>
             <div>
-              <a class="project-name" href="https://www.scranno.it/">La Camera in 3D · Scranno</a>
-              <p>Entri in Aula e apri la scheda del deputato seduto in ogni seggio. Un progetto di ParliamentRAG.</p>
+              <a class="project-name" href="https://www.scranno.it/">Dentro l'Aula · Scranno</a>
+              <p>Entri in Aula e apri il lavoro del parlamentare seduto in ogni seggio. Un progetto di ParliamentRAG.</p>
             </div>
           </li>
         </ol>
@@ -269,7 +269,7 @@
         <article class="pub">
           <span class="pub-year">2026</span>
           <h3>ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings</h3>
-          <p class="pub-why">Il sistema dietro parliamentrag.it: un'interfaccia AI live alla Camera dei deputati in cui ogni risposta rimanda al resoconto stenografico.</p>
+          <p class="pub-why">La demo presentata a ISWC: un'interfaccia AI alla Camera dei deputati in cui ogni risposta rimanda al resoconto stenografico.</p>
           <p class="pub-authors">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari</p>
           <p class="pub-venue"><a href="https://iswc2026.semanticweb.org">ISWC 2026</a>, Posters &amp; Demos · CEUR-WS · in pubblicazione</p>
           <div class="pub-links">

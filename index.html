@@ -156,7 +156,7 @@
                 <a class="system" href="https://www.stenografo.it/">
                   <svg class="mark" viewBox="3 4 56 58" width="21.2" height="22" aria-hidden="true"><path d="M10 42C12 23 29 16 33.5 27C37 36 24 42 27.5 49.5C31 56.5 46 52 48.5 28" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="15" r="6.6" fill="currentColor"/></svg>
                   <span class="system-head"><span class="system-name">Stenografo</span> <span class="system-domain">stenografo.it</span></span>
-                  <span class="system-q">How did a deputy vote? Who chairs a committee? Precise answers from the official records, each sentence linked to its source.</span>
+                  <span class="system-q">How did a member of parliament vote? Who chairs a committee? Precise answers from the official records, each sentence linked to its source.</span>
                 </a>
               </li>
               <li id="fascicoli">
@@ -170,14 +170,14 @@
                 <a class="system" href="https://www.scranno.it/">
                   <svg class="mark" viewBox="3 1 56 60" width="20.5" height="22" aria-hidden="true"><path d="M18 12C18 24 18 32 20 36C22 40 30 40 42 40C46 40 47 43 47 50M24 40V50" fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="24" r="6.4" fill="currentColor"/></svg>
                   <span class="system-head"><span class="system-name">Scranno</span> <span class="system-domain">scranno.it</span></span>
-                  <span class="system-q">Who sits where? The Chamber in 3D, with every deputy in their real seat.</span>
+                  <span class="system-q">Who sits where, and what do they do? Step into the chamber and open the work of every member from their real seat.</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <p>The Italian Chamber of Deputies publishes a stenographic report of every plenary session, and every roll-call vote, as open data. Together they can answer almost any question about what parliament actually does. In practice, finding who said what, in which debate and in which role means reading hundreds of pages.</p>
+        <p>The Italian Parliament publishes a stenographic report of every plenary sitting, and every roll-call vote, as open data. Together they can answer almost any question about what parliament actually does. In practice, finding who said what, in which debate and in which role means reading hundreds of pages.</p>
 
         <p>ParliamentRAG lets you ask in plain language. It retrieves the relevant speeches and votes, writes an answer that covers every parliamentary group, majority and opposition alike, and links each quotation back to the exact passage in the official record.</p>
 
@@ -197,7 +197,7 @@
         <h3 class="subhead">How it works</h3>
 
         <ul class="contribs">
-          <li><strong>One graph of everything parliament says and does.</strong> Stenographic reports (Akoma&nbsp;Ntoso XML) and the SPARQL endpoints of <a href="https://dati.camera.it/">dati.camera.it</a> become a single knowledge graph of speeches, speakers, votes and acts, with EuroVoc subject links.</li>
+          <li><strong>One graph of everything parliament says and does.</strong> Stenographic reports (Akoma&nbsp;Ntoso XML) and the SPARQL endpoints of <a href="https://dati.camera.it/">dati.camera.it</a> and <a href="https://dati.senato.it/">dati.senato.it</a> become a single knowledge graph of speeches, speakers, votes and acts, with EuroVoc subject links.</li>
           <li><strong>Retrieval that protects the diversity of voices.</strong> A dense vector channel and a graph channel are fused by a merger that balances relevance with party coverage, speaker diversity and political salience, so minority positions are less likely to disappear. Technically: multi-view hybrid retrieval.</li>
           <li><strong>Speakers weighted by role, not volume.</strong> A query-specific authority score with six components (profession, education, committee membership, legislative acts, interventions, institutional role) selects the most credible voice for each parliamentary group.</li>
           <li><strong>Every quotation verified.</strong> Generated quotes are matched verbatim against their source passage; anything that cannot be verified is removed before the answer is shown.</li>
@@ -208,7 +208,7 @@
           <figcaption>The query pipeline: from question to a balanced answer with verified citations.</figcaption>
         </figure>
 
-        <p class="stat-line">705 plenary sessions&ensp;·&ensp;174k+ speech chunks&ensp;·&ensp;17.3k roll-call votes&ensp;·&ensp;6.9M individual vote records<br>XIX Legislature, updated continuously from official open data</p>
+        <p class="stat-line">1,194 plenary sittings&ensp;·&ensp;266k+ speech passages&ensp;·&ensp;28.3k roll-call votes&ensp;·&ensp;9.6M individual vote records<br>Italian Parliament, XIX Legislature, updated every night from official open data</p>
 
         <p>The work is fully open: the knowledge graph is published as an <a href="https://doi.org/10.5281/zenodo.21560331">RDF dataset on Zenodo</a> (CC&nbsp;BY-SA&nbsp;4.0) and in tabular form on <a href="https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19">Hugging Face</a>, with project terms under the <a href="https://w3id.org/parliamentrag/">w3id.org/parliamentrag</a> namespace. The system is also an <a href="https://github.com/Emeierkeio/parliamentrag-iswc/blob/main/mcp/README.md">MCP server</a>, so AI assistants can query the official records directly. The code is archived on <a href="https://doi.org/10.5281/zenodo.23173703">Zenodo</a>.</p>
 
@@ -244,14 +244,14 @@
             <span class="timeline-year">2026</span>
             <div>
               <a class="project-name" href="https://www.parliamentrag.it/">AI over parliamentary data · ParliamentRAG</a>
-              <p>An AI interface to the Italian Chamber of Deputies, with every answer linked back to the official record.</p>
+              <p>An AI interface to the Italian Parliament, with every answer linked back to the official record.</p>
             </div>
           </li>
           <li>
             <span class="timeline-year">2026</span>
             <div>
               <a class="project-name" href="https://www.stenografo.it/">Direct questions about parliament · Stenografo</a>
-              <p>Short answers to factual questions about the Chamber, each sentence linked to its official source. A ParliamentRAG project.</p>
+              <p>Short answers to factual questions about Parliament, each sentence linked to its official source. A ParliamentRAG project.</p>
             </div>
           </li>
           <li>
@@ -264,8 +264,8 @@
           <li>
             <span class="timeline-year">2026</span>
             <div>
-              <a class="project-name" href="https://www.scranno.it/">The Chamber in 3D · Scranno</a>
-              <p>Walk into the Aula and open the record of the deputy in each seat. A ParliamentRAG project.</p>
+              <a class="project-name" href="https://www.scranno.it/">Inside the chamber · Scranno</a>
+              <p>Walk into the chamber and open the work of the member in each seat. A ParliamentRAG project.</p>
             </div>
           </li>
         </ol>
@@ -325,7 +325,7 @@
         <article class="pub">
           <span class="pub-year">2026</span>
           <h3>ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings</h3>
-          <p class="pub-why">The system behind parliamentrag.it: a live AI interface to the Chamber of Deputies where each answer links back to the stenographic record.</p>
+          <p class="pub-why">The demo presented at ISWC: an AI interface to the Chamber of Deputies where each answer links back to the stenographic record.</p>
           <p class="pub-authors">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari</p>
           <p class="pub-venue"><a href="https://iswc2026.semanticweb.org">ISWC 2026</a>, Posters &amp; Demos · CEUR-WS · to appear</p>
           <div class="pub-links">
