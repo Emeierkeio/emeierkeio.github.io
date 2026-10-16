@@ -125,6 +125,16 @@
 
         <p>ParliamentRAG permette di chiedere in linguaggio naturale. Recupera gli interventi e le votazioni rilevanti, scrive una risposta che copre tutti i gruppi parlamentari, maggioranza e opposizione, e collega ogni citazione al passaggio esatto del resoconto ufficiale.</p>
 
+        <p>Ogni risposta deve rispettare tre garanzie:</p>
+
+        <ul class="contribs">
+          <li><strong>Tutti i gruppi sono ascoltati.</strong> Maggioranza e opposizione.</li>
+          <li><strong>Le voci citate sono autorevoli sul tema.</strong> Relatori, governo e i parlamentari che ci hanno lavorato di più.</li>
+          <li><strong>Ogni citazione è esatta.</strong> Parola per parola, con il link al resoconto ufficiale.</li>
+        </ul>
+
+        <p>Se le garanzie non si possono rispettare, il sistema non cita nessuno. Un <a href="https://www.parliamentrag.it/verifica">verificatore pubblico</a> controlla le stesse tre garanzie su qualsiasi testo sul Parlamento, comprese le risposte scritte da altri assistenti AI, che possono chiamarlo come strumento MCP <code>verify_answer</code>.</p>
+
         <p class="statement">La risposta non deve mai perdere il legame con il resoconto ufficiale.</p>
 
         <p>In una valutazione in cieco contro Google NotebookLM, giudicata da sei esperti di dominio, il sistema ha ottenuto punteggi più alti su copertura dei gruppi parlamentari e fedeltà delle citazioni, con giudizi umani a suo favore sulle dimensioni di fonte e bilanciamento. Metodologia e risultati completi sono nel <a href="/papers/who-speaks-matters-iswc2026.pdf">paper di ricerca</a>.</p>
