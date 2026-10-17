@@ -575,3 +575,40 @@ a:focus-visible {
 }
 
 .nowrap { white-space: nowrap; }
+
+/* ---------- Notes: list and single note ---------- */
+
+.note-list { list-style: none; padding: 0; margin: 2rem 0; max-width: 42rem; }
+.note-list li { border-top: 1px solid var(--hairline); padding: 1.2rem 0; }
+.note-list a { font-family: var(--serif); font-size: 1.3rem; font-weight: 520; line-height: 1.3; }
+.note-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+.note { max-width: 42rem; }
+.note-meta { font-size: 0.86rem; color: var(--faint); margin: 0 0 0.8rem; }
+.note h1 { line-height: 1.15; letter-spacing: -0.01em; }
+.note p { margin: 0 0 1.1rem; }
+.note blockquote {
+  font-family: var(--serif);
+  font-size: 1.22rem;
+  line-height: 1.5;
+  margin: 1.8rem 0;
+  padding: 0 0 0 1.1rem;
+  border-left: 2px solid var(--accent);
+}
+.note blockquote p { margin: 0; }
+.note blockquote .translation {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+.note-figure { margin: 2rem 0; }
+.note-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--hairline); }
+.note-figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 0.6rem; }
+.note-source {
+  border-top: 1px solid var(--hairline);
+  padding-top: 1rem;
+  margin-top: 2.4rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
