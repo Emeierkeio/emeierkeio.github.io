@@ -587,9 +587,11 @@ a:focus-visible {
   color: inherit;
   text-decoration: none;
 }
+/* With a cover image: image left, text right. Without one: text only, kept to a readable width. */
 @media (min-width: 760px) {
-  .note-card { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; }
+  .note-card:has(> img) { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; }
 }
+.note-card:not(:has(> img)) { max-width: 46rem; }
 .note-card img {
   width: 100%;
   height: auto;
