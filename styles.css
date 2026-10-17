@@ -564,7 +564,8 @@ a:focus-visible {
 /* ---------- Notes page ---------- */
 
 .page {
-  padding: 4rem 0 6rem;
+  padding-top: 4rem;
+  padding-bottom: 6rem;
   min-height: 50vh;
 }
 .page h1 {
@@ -578,15 +579,43 @@ a:focus-visible {
 
 /* ---------- Notes: list and single note ---------- */
 
-.note-list { list-style: none; padding: 0; margin: 2rem 0; max-width: 42rem; }
-.note-list li { border-top: 1px solid var(--hairline); padding: 1.2rem 0; }
-.note-list a { font-family: var(--serif); font-size: 1.3rem; font-weight: 520; line-height: 1.3; }
-.note-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
+.note-list { list-style: none; padding: 0; margin: 2.4rem 0; }
+.note-list li { border-top: 1px solid var(--hairline); padding: 1.8rem 0; }
+.note-card {
+  display: grid;
+  gap: 1.2rem 2.5rem;
+  color: inherit;
+  text-decoration: none;
+}
+@media (min-width: 760px) {
+  .note-card { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; }
+}
+.note-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--hairline);
+  transition: border-color 120ms ease;
+}
+.note-card-title {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 520;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  margin: 0.3rem 0 0.6rem;
+}
+.note-card-date { font-size: 0.86rem; color: var(--faint); }
+.note-card-dek { display: block; color: var(--muted); margin: 0; }
+.note-card:hover .note-card-title { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.note-card:hover img { border-color: var(--faint); }
 
-.note { max-width: 42rem; }
+.note h1 { line-height: 1.15; letter-spacing: -0.01em; max-width: 46rem; font-size: clamp(2rem, 4vw, 2.8rem); }
 .note-meta { font-size: 0.86rem; color: var(--faint); margin: 0 0 0.8rem; }
-.note h1 { line-height: 1.15; letter-spacing: -0.01em; }
-.note p { margin: 0 0 1.1rem; }
+.note-body { max-width: 42rem; }
+.note-body p { margin: 0 0 1.1rem; }
 .note blockquote {
   font-family: var(--serif);
   font-size: 1.22rem;
@@ -602,7 +631,7 @@ a:focus-visible {
   color: var(--muted);
   margin-top: 0.5rem;
 }
-.note-figure { margin: 2rem 0; }
+.note-figure { margin: 2.2rem 0 2.6rem; }
 .note-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--hairline); }
 .note-figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 0.6rem; }
 .note-source {
