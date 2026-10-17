@@ -2,39 +2,39 @@
  "meta": {
   "title": "Literature Research Map",
   "generated": "2026-09-12",
-  "lastUpdated": "2026-10-05",
+  "lastUpdated": "2026-10-17",
   "counts": {
-   "nodes": 371,
-   "edges": 712,
+   "nodes": 383,
+   "edges": 735,
    "nodesByType": {
     "concept": 12,
-    "dataset": 36,
-    "gap": 11,
-    "method": 29,
+    "dataset": 37,
+    "gap": 12,
+    "method": 33,
     "metric": 11,
-    "paper": 245,
+    "paper": 249,
     "project": 1,
-    "question": 15,
-    "task": 11
+    "question": 16,
+    "task": 12
    },
    "edgesByType": {
-    "ADDRESSES": 38,
+    "ADDRESSES": 39,
     "BUILDS_ON": 35,
     "CITES": 6,
-    "COMPARES_WITH": 86,
+    "COMPARES_WITH": 90,
     "CONTRADICTS": 4,
-    "COULD_VALIDATE": 6,
-    "EVALUATES": 32,
+    "COULD_VALIDATE": 7,
+    "EVALUATES": 35,
     "EXTENDS": 20,
     "IDENTIFIES_LIMITATION_OF": 11,
-    "INSPIRES": 84,
-    "INSTANCE_OF": 25,
-    "INTRODUCES": 41,
-    "SUPPORTS": 151,
-    "SUPPORTS_TASK": 50,
+    "INSPIRES": 86,
+    "INSTANCE_OF": 26,
+    "INTRODUCES": 42,
+    "SUPPORTS": 154,
+    "SUPPORTS_TASK": 53,
     "USED_FOR": 37,
-    "USES": 48,
-    "USES_DATASET": 16,
+    "USES": 49,
+    "USES_DATASET": 19,
     "USES_METRIC": 21,
     "VALIDATES": 1
    }
@@ -45,7 +45,7 @@
    "id": "parliamentary-nlp",
    "label": "Parliamentary NLP",
    "description": "NLP methods, models, and analyses applied to parliamentary debates and legislative records.",
-   "count": 71,
+   "count": 84,
    "adjacent": [
     "political-nlp",
     "parliamentary-corpora",
@@ -64,7 +64,7 @@
    "id": "parliamentary-corpora",
    "label": "Parliamentary Corpora",
    "description": "Corpora, datasets, and benchmarks built from parliamentary proceedings.",
-   "count": 26,
+   "count": 29,
    "adjacent": [
     "parliamentary-nlp",
     "political-nlp",
@@ -83,7 +83,7 @@
    "id": "information-retrieval",
    "label": "Information Retrieval",
    "description": "Sparse, dense, hybrid, and graph-based retrieval, ranking, fusion, and expert finding.",
-   "count": 111,
+   "count": 116,
    "adjacent": [
     "evaluation",
     "rag",
@@ -103,7 +103,7 @@
    "id": "rag",
    "label": "Retrieval-Augmented Generation",
    "description": "Retrieval-augmented generation architectures, components, and grounded generation systems.",
-   "count": 51,
+   "count": 61,
    "adjacent": [
     "evaluation",
     "information-retrieval",
@@ -122,7 +122,7 @@
    "id": "political-nlp",
    "label": "Political NLP",
    "description": "Computational analysis of political text: annotation, classification, framing, and measurement.",
-   "count": 98,
+   "count": 110,
    "adjacent": [
     "parliamentary-nlp",
     "ideology",
@@ -141,7 +141,7 @@
    "id": "ideology",
    "label": "Ideology & Scaling",
    "description": "Measurement of ideological positions, political text scaling, and stance of parties and legislators.",
-   "count": 51,
+   "count": 53,
    "adjacent": [
     "political-nlp",
     "evaluation",
@@ -160,7 +160,7 @@
    "id": "political-bias-fairness",
    "label": "Political Bias & Fairness",
    "description": "Bias, fairness, balance, and exposure of political groups in rankings, LLMs, and generated text.",
-   "count": 45,
+   "count": 51,
    "adjacent": [
     "evaluation",
     "information-retrieval",
@@ -179,7 +179,7 @@
    "id": "evaluation",
    "label": "Evaluation Methodology",
    "description": "Benchmarks, human evaluation design, LLM judges, relevance judgments, and statistical protocols.",
-   "count": 134,
+   "count": 144,
    "adjacent": [
     "information-retrieval",
     "political-nlp",
@@ -198,7 +198,7 @@
    "id": "citation-verification",
    "label": "Citation & Attribution",
    "description": "Attribution, citation quality, quote verification, and verifiability of generated text.",
-   "count": 37,
+   "count": 42,
    "adjacent": [
     "factuality",
     "evaluation",
@@ -217,7 +217,7 @@
    "id": "factuality",
    "label": "Factuality & Hallucination",
    "description": "Hallucination, factual consistency, and faithfulness of language model outputs.",
-   "count": 46,
+   "count": 48,
    "adjacent": [
     "citation-verification",
     "evaluation",
@@ -236,7 +236,7 @@
    "id": "knowledge-graphs",
    "label": "Knowledge Graphs",
    "description": "Knowledge graphs and structured representations supporting retrieval, attribution, and analysis.",
-   "count": 17,
+   "count": 20,
    "adjacent": [
     "rag",
     "political-nlp",
@@ -256,7 +256,7 @@
    "id": "information-extraction",
    "label": "Information Extraction",
    "description": "Extracting structure — topics, entities, speech acts, quotations — from text.",
-   "count": 14,
+   "count": 18,
    "adjacent": [
     "parliamentary-nlp",
     "political-nlp",
@@ -275,7 +275,7 @@
    "id": "summarization",
    "label": "Summarization",
    "description": "Summarization of legislative, political, and multi-perspective content.",
-   "count": 17,
+   "count": 18,
    "adjacent": [
     "evaluation",
     "citation-verification",
@@ -294,7 +294,7 @@
    "id": "question-answering",
    "label": "Question Answering",
    "description": "Question answering, including attributed, grounded, and domain-specific QA.",
-   "count": 35,
+   "count": 38,
    "adjacent": [
     "rag",
     "evaluation",
@@ -313,7 +313,7 @@
    "id": "domain-adaptation",
    "label": "Domain Adaptation",
    "description": "Adapting pretrained language models and retrievers to specialized domains and registers.",
-   "count": 26,
+   "count": 29,
    "adjacent": [
     "information-retrieval",
     "parliamentary-nlp",
@@ -333,7 +333,7 @@
    "id": "multilingual-nlp",
    "label": "Multilingual NLP",
    "description": "Multilingual and non-English models, resources, and cross-lingual evaluation.",
-   "count": 22,
+   "count": 32,
    "adjacent": [
     "parliamentary-nlp",
     "political-nlp",
@@ -8246,6 +8246,259 @@
    "limitations": "Specific limitations not enumerated in the abstract (unverified).",
    "application": null,
    "priority": null
+  },
+  {
+   "year": 2025,
+   "venue": "OSF preprint",
+   "peerReviewed": false,
+   "authors": "J. Lattmann",
+   "url": "https://doi.org/10.31219/osf.io/mravb_v1",
+   "findings": "Model cards report accuracy 0.967 for the binary German BERT model, 0.93 for the XLM-R variant, 0.83 on German tweets, and weighted F1 0.59 for the five-class sentiment model.",
+   "limitations": "Preprint; figures come from the Hugging Face model cards (the OSF page was unavailable on 2026-10-17). Binary results are reported as accuracy on a class-imbalanced task, with no per-class F1, and the cards disagree on the base model of the English-named checkpoint.",
+   "application": "Potential relevance to a system like ParliamentRAG: the codebook and the binary task transfer directly to Italian speeches, where an EU-salience signal per group and per year could be computed over the whole XIX legislature.",
+   "id": "lattmann-eu-sentiment-2025",
+   "type": "paper",
+   "role": "method",
+   "label": "Detecting EU sentiment in texts (Lattmann)",
+   "short": "Lattmann 2025",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "multilingual-nlp"
+   ],
+   "summary": "Fine-tunes BERT-family classifiers on about 1,700 hand-annotated Bundestag sentences to detect EU speech (explicit or implicit references to the EU) and to grade EU sentiment in five classes: EU speech, more integration, policy scepticism, EU praise, hard Euroscepticism.",
+   "significance": "The released models make EU salience measurable at sentence level, a prerequisite for Euroscepticism research on parliamentary text at scale."
+  },
+  {
+   "year": 2023,
+   "venue": "IEEE SMAP 2023",
+   "peerReviewed": true,
+   "authors": "Djouvas, Christodoulou, Charalampous & Ioannidis",
+   "url": "https://doi.org/10.1109/SMAP59435.2023.10255210",
+   "findings": "Without expert-annotated data GPT performed best (F1 0.74); with a curated dataset few-shot classification reached F1 0.87.",
+   "limitations": "Details beyond the abstract not verified.",
+   "application": null,
+   "id": "djouvas-euroscepticism-2023",
+   "type": "paper",
+   "label": "Identifying Euroscepticism with text-as-data",
+   "short": "Djouvas et al. 2023",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "evaluation"
+   ],
+   "summary": "Compares supervised classification, transfer learning, GPT and few-shot classification for Euroscepticism in parliamentary speeches, against crowdsourced and expert annotation.",
+   "significance": "One of the few peer-reviewed comparisons of LLM and few-shot approaches for Euroscepticism on parliamentary speech."
+  },
+  {
+   "year": 2026,
+   "venue": "ECPR Standing Group on Central and East European Politics conference, Cluj 2026",
+   "peerReviewed": false,
+   "authors": "Jakub Szabó",
+   "url": "https://ecpr.eu/Events/Event/PaperDetails/91333",
+   "findings": null,
+   "limitations": "Conference paper; results known only from the abstract.",
+   "application": null,
+   "id": "szabo-eu-politicization-2026",
+   "type": "paper",
+   "label": "EU politicization in Slovak parliamentary speeches",
+   "short": "Szabó 2026",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "evaluation"
+   ],
+   "summary": "Uses proprietary and open LLMs to classify EU stance and sentiment in about 30,000 speeches of the Slovak National Council (1994-2023), validated on more than 600 expert-coded speeches with custom EU-stance guidelines.",
+   "significance": "Treats EU stance and EU sentiment as separate targets and tests whether cheaper open models can replace proprietary ones at corpus scale."
+  },
+  {
+   "year": 2025,
+   "venue": "arXiv preprint",
+   "peerReviewed": false,
+   "authors": "Marone, Weller, Fleshman, Yang, Lawrie & Van Durme",
+   "url": "https://arxiv.org/abs/2509.06888",
+   "findings": null,
+   "limitations": "Not yet compared with parliamentary DAPT encoders such as XLM-R-Parla.",
+   "application": null,
+   "id": "mmbert-2025",
+   "type": "paper",
+   "role": "method",
+   "label": "mmBERT: a modern multilingual encoder",
+   "short": "mmBERT",
+   "areas": [
+    "multilingual-nlp",
+    "domain-adaptation"
+   ],
+   "summary": "ModernBERT-based encoder trained on more than 3T tokens in over 1,800 languages (base: 307M parameters), with inverse mask scheduling and late inclusion of low-resource languages.",
+   "significance": "Claims the first clear improvement over XLM-R as a massively multilingual encoder for classification, embedding and retrieval, and is already the backbone of the European Parliament's EuroVoc classifier."
+  },
+  {
+   "year": 2025,
+   "venue": "Hugging Face jlattman/EU_speech_*",
+   "peerReviewed": null,
+   "authors": null,
+   "url": "https://huggingface.co/jlattman/EU_speech_parliament_roberta",
+   "findings": null,
+   "limitations": "Single parliament and small training set; metrics reported as accuracy only for the binary models.",
+   "application": null,
+   "id": "m-eu-speech-classifiers",
+   "type": "method",
+   "label": "EU-speech sentence classifiers (Lattmann)",
+   "short": "EU-speech classifiers",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "multilingual-nlp"
+   ],
+   "summary": "Binary sentence classifiers (German BERT, English BERT, XLM-R base) that flag explicit or implicit references to the EU, plus a five-class EU-sentiment model, all trained on about 1,700 Bundestag sentences.",
+   "significance": "Ready-to-use baselines for EU-reference detection; the XLM-R variant can be applied zero-shot to other languages."
+  },
+  {
+   "year": null,
+   "venue": "Hugging Face LBenoit/EUroBerta-xlm",
+   "peerReviewed": null,
+   "authors": null,
+   "url": "https://huggingface.co/LBenoit/EUroBerta-xlm",
+   "findings": null,
+   "limitations": "No Italian training data; MIT-licensed model card without an accompanying paper.",
+   "application": null,
+   "id": "m-eurobert-xlm",
+   "type": "method",
+   "label": "EUroBerta-xlm (EU reference detector)",
+   "short": "EUroBerta-xlm",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "multilingual-nlp"
+   ],
+   "summary": "XLM-R base fine-tuned on 5,950 ParlSpeech sentences from seven parliaments (AT, DK, DE, NL, ES, SE, UK; 1999-2019) to classify EU vs no-EU references; reported F1 0.944.",
+   "significance": "The broadest multilingual EU-reference classifier found; a second annotation round targeted false positives (geographic Europe, sports such as UEFA) and oversampled radical-right parties."
+  },
+  {
+   "year": 2023,
+   "venue": "Hugging Face EuropeanParliament/EUBERT",
+   "peerReviewed": null,
+   "authors": "Campion & Papagiannis (European Parliament)",
+   "url": "https://huggingface.co/EuropeanParliament/EUBERT",
+   "findings": null,
+   "limitations": "No benchmark results published; trained on legislative and institutional prose, not on parliamentary speech.",
+   "application": null,
+   "id": "m-eubert",
+   "type": "method",
+   "label": "EUBERT (European Parliament)",
+   "short": "EUBERT",
+   "areas": [
+    "domain-adaptation",
+    "multilingual-nlp"
+   ],
+   "summary": "Uncased BERT (about 100M parameters) pretrained on 30 years of EU Publications Office documents in 24 languages, released under EUPL-1.2.",
+   "significance": "A domain encoder for EU institutional language that includes Italian; a candidate backbone for classifiers of EU-related content."
+  },
+  {
+   "year": null,
+   "venue": "Hugging Face EuropeanParliament/EuroVoc",
+   "peerReviewed": null,
+   "authors": null,
+   "url": "https://huggingface.co/EuropeanParliament/EuroVoc",
+   "findings": null,
+   "limitations": "Trained on EU legal documents; accuracy on parliamentary speech is unmeasured.",
+   "application": "Potential relevance to a system like ParliamentRAG: a EuroVoc subject layer for Italian acts and speeches that is comparable across EU parliaments.",
+   "id": "m-eurovoc-classifier",
+   "type": "method",
+   "label": "EuroVoc multi-label classifier (European Parliament)",
+   "short": "EuroVoc classifier",
+   "areas": [
+    "information-extraction",
+    "multilingual-nlp",
+    "political-nlp"
+   ],
+   "summary": "mmBERT-base fine-tuned on about 327,000 CELLAR documents to assign EuroVoc concepts (21 domains, 127 micro-thesauri, 7,062 concepts) in 24 languages; domain-level F1 0.733.",
+   "significance": "An off-the-shelf multilingual subject tagger aligned with the EU's official thesaurus, presented by its authors as a tagging assistant whose proposals a person confirms."
+  },
+  {
+   "year": null,
+   "venue": "EU Publications Office",
+   "peerReviewed": null,
+   "authors": null,
+   "url": "https://op.europa.eu/en/web/eu-vocabularies/eurovoc",
+   "findings": null,
+   "limitations": null,
+   "application": null,
+   "id": "eurovoc",
+   "type": "dataset",
+   "label": "EuroVoc thesaurus",
+   "short": "EuroVoc",
+   "areas": [
+    "information-extraction",
+    "multilingual-nlp",
+    "knowledge-graphs"
+   ],
+   "summary": "The EU's multilingual, multidisciplinary thesaurus used to index EU documents, organised in domains, micro-thesauri and concepts, published as linked data.",
+   "significance": "The shared subject vocabulary behind EUBERT and the EuroVoc classifier, and a natural bridge between national parliamentary records and EU legislation."
+  },
+  {
+   "year": null,
+   "venue": null,
+   "peerReviewed": null,
+   "authors": null,
+   "url": null,
+   "findings": null,
+   "limitations": null,
+   "application": null,
+   "id": "t-eu-reference-detection",
+   "type": "task",
+   "label": "EU reference and Euroscepticism detection",
+   "short": "EU reference detection",
+   "areas": [
+    "political-nlp",
+    "parliamentary-nlp"
+   ],
+   "summary": "Detecting whether a sentence or speech refers to the European Union, explicitly or implicitly, and grading its stance toward European integration.",
+   "significance": "Measures EU salience and Euroscepticism in national parliaments; stance and sentiment must be kept apart."
+  },
+  {
+   "year": null,
+   "venue": null,
+   "peerReviewed": null,
+   "authors": null,
+   "url": null,
+   "findings": null,
+   "limitations": null,
+   "application": null,
+   "id": "gap-no-italian-eu-classifier",
+   "type": "gap",
+   "priority": "low",
+   "label": "No validated EU-reference classifier for Italian parliamentary speech",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "multilingual-nlp"
+   ],
+   "summary": "Published EU-reference classifiers are trained on German, Slovak or ParlSpeech parliaments; none found (search of 2026-10-17) trained or evaluated on Italian parliamentary speech.",
+   "significance": "Without Italian gold data, cross-lingual transfer of the existing models cannot be measured.",
+   "short": "No validated EU-reference c…"
+  },
+  {
+   "year": null,
+   "venue": null,
+   "peerReviewed": null,
+   "authors": null,
+   "url": null,
+   "findings": null,
+   "limitations": null,
+   "application": null,
+   "id": "q-eu-salience-italy",
+   "type": "question",
+   "priority": "low",
+   "label": "How salient is the EU in the Italian Parliament, by group and over time?",
+   "areas": [
+    "parliamentary-nlp",
+    "political-nlp",
+    "multilingual-nlp"
+   ],
+   "summary": "Build an Italian codebook and gold set, pre-label with an LLM, fine-tune an encoder student and compare it with zero-shot transfer of the existing EU-speech models over Camera and Senate XIX speeches.",
+   "significance": "Would yield the first Italian EU-reference resource and a per-group EU-salience measure that respects party components.",
+   "short": "How salient is the EU in th…"
   }
  ],
  "edges": [
@@ -13232,6 +13485,167 @@
    "type": "COMPARES_WITH",
    "explanation": "Both guarantee cited text exists in the sources.",
    "evidence": "arXiv:2605.21102"
+  },
+  {
+   "source": "lattmann-eu-sentiment-2025",
+   "target": "m-eu-speech-classifiers",
+   "type": "INTRODUCES",
+   "explanation": "Releases the binary EU-speech models and the five-class EU-sentiment model.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "lattmann-eu-sentiment-2025",
+   "target": "t-eu-reference-detection",
+   "type": "EVALUATES",
+   "explanation": "Evaluates EU-speech detection and EU-sentiment grading on Bundestag sentences.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eu-speech-classifiers",
+   "target": "t-eu-reference-detection",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Off-the-shelf binary EU-reference classifiers.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurobert-xlm",
+   "target": "t-eu-reference-detection",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Off-the-shelf multilingual EU vs no-EU classifier.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurobert-xlm",
+   "target": "parlspeech",
+   "type": "USES_DATASET",
+   "explanation": "Trained on 5,950 ParlSpeech sentences from seven parliaments.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurobert-xlm",
+   "target": "m-eu-speech-classifiers",
+   "type": "COMPARES_WITH",
+   "explanation": "Same binary task; EUroBerta covers seven parliaments, Lattmann's models one.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "djouvas-euroscepticism-2023",
+   "target": "t-eu-reference-detection",
+   "type": "EVALUATES",
+   "explanation": "Compares supervised, transfer, GPT and few-shot approaches for Euroscepticism in parliamentary speeches.",
+   "evidence": "doi:10.1109/SMAP59435.2023.10255210"
+  },
+  {
+   "source": "djouvas-euroscepticism-2023",
+   "target": "gilardi-2023",
+   "type": "COMPARES_WITH",
+   "explanation": "Both measure GPT annotation of political text against human annotation.",
+   "evidence": "doi:10.1109/SMAP59435.2023.10255210"
+  },
+  {
+   "source": "szabo-eu-politicization-2026",
+   "target": "t-eu-reference-detection",
+   "type": "EVALUATES",
+   "explanation": "LLM classification of EU stance and sentiment over 30,000 Slovak speeches, validated on expert coding.",
+   "evidence": "ECPR paper 91333, abstract"
+  },
+  {
+   "source": "szabo-eu-politicization-2026",
+   "target": "c-sentiment-vs-stance",
+   "type": "SUPPORTS",
+   "explanation": "Prioritises EU stance over sentiment as separate targets.",
+   "evidence": "ECPR paper 91333, abstract"
+  },
+  {
+   "source": "m-eurovoc-classifier",
+   "target": "mmbert-2025",
+   "type": "USES",
+   "explanation": "Fine-tuned from mmBERT-base.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurovoc-classifier",
+   "target": "eurovoc",
+   "type": "USES_DATASET",
+   "explanation": "Predicts EuroVoc domains, micro-thesauri and concepts.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eubert",
+   "target": "eurovoc",
+   "type": "USES_DATASET",
+   "explanation": "Pretraining data indexed with EuroVoc.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurovoc-classifier",
+   "target": "t-topic-classification",
+   "type": "SUPPORTS_TASK",
+   "explanation": "Multi-label subject tagging with the EU thesaurus.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurovoc-classifier",
+   "target": "m-cap-classification",
+   "type": "COMPARES_WITH",
+   "explanation": "Alternative topic scheme: EuroVoc concepts instead of the 22 CAP major topics.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eubert",
+   "target": "m-dapt",
+   "type": "INSTANCE_OF",
+   "explanation": "BERT pretrained on EU institutional documents.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "mmbert-2025",
+   "target": "m-xlm-r-parla",
+   "type": "COMPARES_WITH",
+   "explanation": "mmBERT reports gains over XLM-R; untested against the parliamentary XLM-R-Parla.",
+   "evidence": "arXiv:2509.06888"
+  },
+  {
+   "source": "m-eu-speech-classifiers",
+   "target": "gap-no-italian-eu-classifier",
+   "type": "SUPPORTS",
+   "explanation": "Trained on German parliament data only.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "m-eurobert-xlm",
+   "target": "gap-no-italian-eu-classifier",
+   "type": "SUPPORTS",
+   "explanation": "Seven parliaments, Italy not among them.",
+   "evidence": "Hugging Face model card, read 2026-10-17"
+  },
+  {
+   "source": "q-eu-salience-italy",
+   "target": "gap-no-italian-eu-classifier",
+   "type": "ADDRESSES",
+   "explanation": "An Italian gold set and a fine-tuned student would close the gap.",
+   "evidence": "added 2026-10-17"
+  },
+  {
+   "source": "m-teacher-student",
+   "target": "q-eu-salience-italy",
+   "type": "INSPIRES",
+   "explanation": "LLM pre-labelling distilled into an encoder makes corpus-scale labelling cheap.",
+   "evidence": "added 2026-10-17"
+  },
+  {
+   "source": "parlacap-2026",
+   "target": "q-eu-salience-italy",
+   "type": "INSPIRES",
+   "explanation": "Replicable teacher-student validation recipe for a new political-text label.",
+   "evidence": "added 2026-10-17"
+  },
+  {
+   "source": "camera-xix-corpus",
+   "target": "q-eu-salience-italy",
+   "type": "COULD_VALIDATE",
+   "explanation": "Camera XIX speeches with speaker and group metadata provide the Italian test bed.",
+   "evidence": "added 2026-10-17"
   }
  ]
 }
