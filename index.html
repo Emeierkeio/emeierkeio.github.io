@@ -183,15 +183,15 @@
         <h3 class="subhead">How it works</h3>
 
         <ul class="contribs">
-          <li><strong>One graph of everything parliament says and does.</strong> Stenographic reports (Akoma&nbsp;Ntoso XML) and the SPARQL endpoints of <a href="https://dati.camera.it/">dati.camera.it</a> and <a href="https://dati.senato.it/">dati.senato.it</a> become a single knowledge graph of speeches, speakers, votes and acts, with EuroVoc subject links.</li>
-          <li><strong>Retrieval that protects the diversity of voices.</strong> A dense vector channel and a graph channel are fused by a merger that balances relevance with party coverage, speaker diversity and political salience, so minority positions are less likely to disappear. Technically: multi-view hybrid retrieval.</li>
-          <li><strong>Speakers weighted by role, not volume.</strong> A query-specific authority score with six components (profession, education, committee membership, legislative acts, interventions, institutional role) selects the most credible voice for each parliamentary group.</li>
-          <li><strong>Every quotation verified.</strong> Generated quotes are matched verbatim against their source passage; anything that cannot be verified is removed before the answer is shown.</li>
+          <li><strong>One database of everything Parliament says and does.</strong> Each night the pipeline downloads what changed from <a href="https://dati.camera.it/">dati.camera.it</a>, <a href="https://dati.senato.it/">dati.senato.it</a>, the Senate's Akoma&nbsp;Ntoso bulk data and the EuroVoc and TESEO thesauri. PostgreSQL keeps one dated model of both chambers: groups, seats and offices carry start and end dates, so a speech counts under the group its speaker belonged to that day.</li>
+          <li><strong>Search by meaning, cheap to keep current.</strong> Texts become passages of about 1,500 characters, embedded at 1,024 dimensions through the OpenAI Batch API. A vector belongs to the hash of its text, so a reloaded sitting pays nothing again.</li>
+          <li><strong>An agent that can only read the record.</strong> The chat model answers through typed tools over speeches, votes, acts and amendments, and may only output links its tools returned.</li>
+          <li><strong>Checks on the final answer.</strong> Deterministic checks look for every group with a voice on the topic, rank each quoted member on six authority components, and find every quotation word for word in the official record. A failed check appears next to the answer.</li>
         </ul>
 
         <figure class="feature-figure">
-          <img src="assets/parliamentrag-pipeline.svg" alt="ParliamentRAG query pipeline in eight steps: query analysis, committee matching, expert selection, multi-view retrieval, balance metrics, ideological compass, generation, citation verification" width="1240" height="348" loading="lazy">
-          <figcaption>The query pipeline: from question to a balanced answer with verified citations.</figcaption>
+          <img src="assets/parliamentrag-pipeline.png" alt="The ParliamentRAG pipeline: official sources, lake, transform, checks, PostgreSQL, passages, vectors, then API, MCP and agent" width="1760" height="740" loading="lazy">
+          <figcaption>The nightly pipeline: from the official sources to the database and the tools behind every answer.</figcaption>
         </figure>
 
         <p class="stat-line">1,207 plenary sittings&ensp;·&ensp;469k speeches&ensp;·&ensp;50k acts&ensp;·&ensp;28.7k roll-call votes&ensp;·&ensp;9.7M individual votes<br>Italian Parliament, XIX Legislature, updated every night from official open data</p>

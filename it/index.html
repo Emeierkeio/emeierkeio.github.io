@@ -127,15 +127,15 @@
         <h3 class="subhead">Come funziona</h3>
 
         <ul class="contribs">
-          <li><strong>Un unico grafo di tutto ciò che il Parlamento dice e fa.</strong> I resoconti stenografici (XML Akoma&nbsp;Ntoso) e gli endpoint SPARQL di <a href="https://dati.camera.it/">dati.camera.it</a> e <a href="https://dati.senato.it/">dati.senato.it</a> diventano un unico knowledge graph di interventi, oratori, votazioni e atti, con collegamenti tematici EuroVoc.</li>
-          <li><strong>Un retrieval che protegge la pluralità delle voci.</strong> Un canale vettoriale denso e un canale a grafo vengono fusi da un merger che bilancia rilevanza, copertura dei partiti, diversità degli oratori e salienza politica, così le posizioni di minoranza rischiano meno di sparire. Tecnicamente: multi-view hybrid retrieval.</li>
-          <li><strong>Oratori pesati per ruolo, non per volume.</strong> Un punteggio di autorevolezza specifico per la domanda, con sei componenti (professione, formazione, commissioni, atti legislativi, interventi, ruolo istituzionale), seleziona la voce più credibile per ciascun gruppo parlamentare.</li>
-          <li><strong>Ogni citazione verificata.</strong> Le citazioni generate vengono confrontate parola per parola con il passaggio d'origine; ciò che non si può verificare viene rimosso prima che la risposta sia mostrata.</li>
+          <li><strong>Un solo database di quello che il Parlamento dice e fa.</strong> Ogni notte la pipeline scarica le novità da <a href="https://dati.camera.it/">dati.camera.it</a>, <a href="https://dati.senato.it/">dati.senato.it</a>, dai dati Akoma&nbsp;Ntoso del Senato e dai thesauri EuroVoc e TESEO. PostgreSQL tiene un modello datato delle due Camere: gruppi, seggi e cariche hanno inizio e fine, così un intervento conta per il gruppo di chi parlava quel giorno.</li>
+          <li><strong>Ricerca per significato, che costa poco tenere aggiornata.</strong> I testi diventano brani di circa 1.500 caratteri, con vettori a 1.024 dimensioni calcolati con la Batch API di OpenAI. Un vettore appartiene all'impronta del suo testo: una seduta ricaricata non si paga due volte.</li>
+          <li><strong>Un agente che può solo leggere gli atti.</strong> Il modello della chat risponde attraverso strumenti tipizzati su interventi, voti, atti ed emendamenti, e può scrivere solo i link che gli strumenti gli hanno dato.</li>
+          <li><strong>Controlli sulla risposta finale.</strong> Controlli deterministici cercano ogni gruppo che ha parlato del tema, misurano l'autorevolezza di ogni parlamentare citato su sei componenti e trovano ogni citazione parola per parola nel resoconto ufficiale. Un controllo fallito compare accanto alla risposta.</li>
         </ul>
 
         <figure class="feature-figure">
-          <img src="/assets/parliamentrag-pipeline.svg" alt="La pipeline di ParliamentRAG in otto passaggi: analisi della domanda, associazione alle commissioni, selezione degli esperti, retrieval multi-view, metriche di bilanciamento, bussola ideologica, generazione, verifica delle citazioni" width="1240" height="348" loading="lazy">
-          <figcaption>La pipeline: dalla domanda a una risposta bilanciata con citazioni verificate.</figcaption>
+          <img src="/assets/parliamentrag-pipeline.png" alt="La pipeline di ParliamentRAG: fonti ufficiali, lago, trasformazione, controlli, PostgreSQL, brani, vettori, poi API, MCP e agente" width="1760" height="740" loading="lazy">
+          <figcaption>La pipeline notturna: dalle fonti ufficiali al database e agli strumenti dietro ogni risposta.</figcaption>
         </figure>
 
         <p class="stat-line">1.207 sedute d'Aula&ensp;·&ensp;469k interventi&ensp;·&ensp;50k atti&ensp;·&ensp;28,7k votazioni per appello nominale&ensp;·&ensp;9,7M voti individuali<br>Parlamento italiano, XIX Legislatura, aggiornato ogni notte dai dati aperti ufficiali</p>
