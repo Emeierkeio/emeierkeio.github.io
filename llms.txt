@@ -9,6 +9,7 @@ ParliamentRAG answers questions about the Italian Parliament (Chamber of Deputie
 - [Home (English)](https://emeierkeio.github.io/): projects, research questions, publications, biography
 - [Home (Italian)](https://emeierkeio.github.io/it/): the same page in Italian
 - [Notes](https://emeierkeio.github.io/notes/): research notes and comments on public data and AI
+- [A CERN for AI: what the manifesto asks, what the EU did](https://emeierkeio.github.io/notes/cern-ai-manifesto-bologna/): Parisi and Contucci’s manifesto asks for a European AI research centre; the EU has started a virtual institute. The documents, one by one.
 - [One voice: Parisi, AI and a single way of thinking](https://emeierkeio.github.io/notes/parisi-pensiero-unico/): what a single AI voice means for model answers about Parliament
 - [Literature map](https://emeierkeio.github.io/literature/): papers, methods, datasets and open problems behind ParliamentRAG
 
