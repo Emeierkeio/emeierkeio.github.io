@@ -1,0 +1,39 @@
+# Mirko Tritella
+
+> Mirko Tritella is a researcher and developer who builds AI systems that make public information easier to explore, understand and verify. He is the author of ParliamentRAG, an AI interface to the Italian Parliament presented at ISWC 2026 (University of Milano-Bicocca).
+
+ParliamentRAG answers questions about the Italian Parliament (Chamber of Deputies and Senate, 19th legislature) from official records. Every answer must meet three guarantees: all parliamentary groups are heard, the voices quoted are authoritative on the topic, and every quote is exact, word for word, with a link to the official transcript.
+
+## Pages
+
+- [Home (English)](https://emeierkeio.github.io/): projects, research questions, publications, biography
+- [Home (Italian)](https://emeierkeio.github.io/it/): the same page in Italian
+- [Notes](https://emeierkeio.github.io/notes/): research notes and comments on public data and AI
+- [One voice: Parisi, AI and a single way of thinking](https://emeierkeio.github.io/notes/parisi-pensiero-unico/): what a single AI voice means for model answers about Parliament
+- [Literature map](https://emeierkeio.github.io/literature/): papers, methods, datasets and open problems behind ParliamentRAG
+
+## ParliamentRAG
+
+- [Live system](https://www.parliamentrag.it/): chat, topic dossiers, roll-call votes, amendments, open API and MCP server
+- [Source code](https://github.com/Emeierkeio/ParliamentRAG): Apache 2.0
+- [RDF dataset on Zenodo](https://doi.org/10.5281/zenodo.21560331): the knowledge graph, CC BY-SA 4.0
+- [Tabular dataset on Hugging Face](https://huggingface.co/datasets/emeierkeio/parliamentrag-camera-leg19)
+
+## Publications
+
+- [Who Speaks Matters: Authority-Aware Multi-View Retrieval-Augmented Generation over Italian Parliamentary Proceedings](https://emeierkeio.github.io/papers/who-speaks-matters-iswc2026.pdf): Tritella, Pozzi, Palmonari. ISWC 2026, In-Use Track
+- [ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings](https://emeierkeio.github.io/papers/parliamentrag-demo-iswc2026.pdf): Tritella, Pozzi, Palmonari. ISWC 2026, Posters and Demos
+
+## Press (in Italian)
+
+- [Avvenire, 3 November 2026](https://www.avvenire.it/politica/la-bicocca-ha-lanciato-un-sito-per-navigare-facilmente-i-lavori-parlamentari_115206)
+- [LaPresse, 28 October 2026](https://www.lapresse.it/tecnologia/2026/10/28/ai-e-online-parliamentrag-per-navigare-nei-lavori-delparlamento/)
+- [Radio Popolare, Doppioclick, 4 November 2026](https://www.radiopopolare.it/puntata/popolare-doppioclick/doppioclick_04_11_2026_21_30)
+- [University of Milano-Bicocca, 28 October 2026](https://www.unimib.it/news/parliamentrag-atti-parlamentari-e-partiti-al-microscopio-grazie-allia-affidabile)
+
+## Contact
+
+- Email: mirko.tritella@parliamentrag.it
+- [GitHub](https://github.com/Emeierkeio)
+- [LinkedIn](https://www.linkedin.com/in/mirko-tritella-4406951a3)
+- [ORCID](https://orcid.org/0009-0000-8611-8189)

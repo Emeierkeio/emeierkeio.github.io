@@ -30,10 +30,36 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": "https://emeierkeio.github.io/#site",
+        "name": "Mirko Tritella",
+        "url": "https://emeierkeio.github.io/",
+        "inLanguage": [
+          "en",
+          "it"
+        ],
+        "author": {
+          "@id": "https://emeierkeio.github.io/#me"
+        }
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://emeierkeio.github.io/",
+        "url": "https://emeierkeio.github.io/",
+        "inLanguage": "en",
+        "isPartOf": {
+          "@id": "https://emeierkeio.github.io/#site"
+        },
+        "mainEntity": {
+          "@id": "https://emeierkeio.github.io/#me"
+        }
+      },
+      {
         "@type": "Person",
         "@id": "https://emeierkeio.github.io/#me",
         "name": "Mirko Tritella",
         "url": "https://emeierkeio.github.io/",
+        "image": "https://emeierkeio.github.io/assets/mirko-tritella.jpg",
         "email": "mailto:mirko.tritella@parliamentrag.it",
         "jobTitle": "Data Scientist",
         "description": "Builds AI systems that make public information easier to explore, understand and verify: retrieval-augmented generation, knowledge graphs and citation verification over official records.",
@@ -47,7 +73,10 @@
           "Verifiable AI",
           "Digital democracy"
         ],
-        "affiliation": { "@type": "CollegeOrUniversity", "name": "University of Milano-Bicocca" },
+        "affiliation": {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Milano-Bicocca"
+        },
         "sameAs": [
           "https://github.com/Emeierkeio",
           "https://www.linkedin.com/in/mirko-tritella-4406951a3",
@@ -56,28 +85,122 @@
         ]
       },
       {
+        "@type": "SoftwareApplication",
+        "@id": "https://www.parliamentrag.it/#app",
+        "name": "ParliamentRAG",
+        "url": "https://www.parliamentrag.it/",
+        "applicationCategory": "ReferenceApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "it",
+        "description": "An AI interface to the Italian Parliament, Chamber of Deputies and Senate. It answers questions in natural language from official records, covers every parliamentary group, and links each quote word for word to the official transcript.",
+        "author": {
+          "@id": "https://emeierkeio.github.io/#me"
+        },
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "sameAs": [
+          "https://github.com/Emeierkeio/ParliamentRAG",
+          "https://doi.org/10.5281/zenodo.23173703"
+        ],
+        "subjectOf": [
+          {
+            "@type": "NewsArticle",
+            "url": "https://www.avvenire.it/politica/la-bicocca-ha-lanciato-un-sito-per-navigare-facilmente-i-lavori-parlamentari_115206",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Avvenire"
+            },
+            "datePublished": "2026-11-03",
+            "inLanguage": "it"
+          },
+          {
+            "@type": "NewsArticle",
+            "url": "https://www.lapresse.it/tecnologia/2026/10/28/ai-e-online-parliamentrag-per-navigare-nei-lavori-delparlamento/",
+            "publisher": {
+              "@type": "Organization",
+              "name": "LaPresse"
+            },
+            "datePublished": "2026-10-28",
+            "inLanguage": "it"
+          },
+          {
+            "@type": "RadioEpisode",
+            "url": "https://www.radiopopolare.it/puntata/popolare-doppioclick/doppioclick_04_11_2026_21_30",
+            "partOfSeries": {
+              "@type": "RadioSeries",
+              "name": "Doppioclick"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Radio Popolare"
+            },
+            "datePublished": "2026-11-04",
+            "inLanguage": "it"
+          },
+          {
+            "@type": "NewsArticle",
+            "url": "https://www.unimib.it/news/parliamentrag-atti-parlamentari-e-partiti-al-microscopio-grazie-allia-affidabile",
+            "publisher": {
+              "@type": "CollegeOrUniversity",
+              "name": "University of Milano-Bicocca"
+            },
+            "datePublished": "2026-10-28",
+            "inLanguage": "it"
+          }
+        ]
+      },
+      {
         "@type": "ScholarlyArticle",
         "name": "Who Speaks Matters: Authority-Aware Multi-View Retrieval-Augmented Generation over Italian Parliamentary Proceedings",
         "author": [
-          { "@id": "https://emeierkeio.github.io/#me" },
-          { "@type": "Person", "name": "Riccardo Pozzi" },
-          { "@type": "Person", "name": "Matteo Palmonari" }
+          {
+            "@id": "https://emeierkeio.github.io/#me"
+          },
+          {
+            "@type": "Person",
+            "name": "Riccardo Pozzi"
+          },
+          {
+            "@type": "Person",
+            "name": "Matteo Palmonari"
+          }
         ],
         "url": "https://emeierkeio.github.io/papers/who-speaks-matters-iswc2026.pdf",
         "datePublished": "2026",
-        "isPartOf": { "@type": "PublicationVolume", "name": "The Semantic Web, ISWC 2026, In-Use Track" }
+        "inLanguage": "en",
+        "about": {
+          "@id": "https://www.parliamentrag.it/#app"
+        },
+        "isPartOf": {
+          "@type": "PublicationVolume",
+          "name": "The Semantic Web, ISWC 2026, In-Use Track"
+        }
       },
       {
         "@type": "ScholarlyArticle",
         "name": "ParliamentRAG: An Authority-Aware Multi-View RAG System for Italian Parliamentary Proceedings",
         "author": [
-          { "@id": "https://emeierkeio.github.io/#me" },
-          { "@type": "Person", "name": "Riccardo Pozzi" },
-          { "@type": "Person", "name": "Matteo Palmonari" }
+          {
+            "@id": "https://emeierkeio.github.io/#me"
+          },
+          {
+            "@type": "Person",
+            "name": "Riccardo Pozzi"
+          },
+          {
+            "@type": "Person",
+            "name": "Matteo Palmonari"
+          }
         ],
         "url": "https://emeierkeio.github.io/papers/parliamentrag-demo-iswc2026.pdf",
         "datePublished": "2026",
-        "isPartOf": { "@type": "PublicationVolume", "name": "ISWC 2026 Companion Volume, Posters and Demos" }
+        "inLanguage": "en",
+        "about": {
+          "@id": "https://www.parliamentrag.it/#app"
+        },
+        "isPartOf": {
+          "@type": "PublicationVolume",
+          "name": "ISWC 2026 Companion Volume, Posters and Demos"
+        }
       }
     ]
   }
@@ -179,6 +302,8 @@
           <a href="https://orkg.org/papers/R1909763">ORKG</a>
           <a href="/literature/">Literature map</a>
         </div>
+
+        <p class="meta-note">In the press (in Italian): <a href="https://www.avvenire.it/politica/la-bicocca-ha-lanciato-un-sito-per-navigare-facilmente-i-lavori-parlamentari_115206" hreflang="it">Avvenire</a>, <a href="https://www.lapresse.it/tecnologia/2026/10/28/ai-e-online-parliamentrag-per-navigare-nei-lavori-delparlamento/" hreflang="it">LaPresse</a>, <a href="https://www.radiopopolare.it/puntata/popolare-doppioclick/doppioclick_04_11_2026_21_30" hreflang="it">Radio Popolare</a> (Doppioclick, 4&nbsp;November&nbsp;2026) and the <a href="https://www.unimib.it/news/parliamentrag-atti-parlamentari-e-partiti-al-microscopio-grazie-allia-affidabile" hreflang="it">University of Milano-Bicocca</a>. All coverage on <a href="https://www.parliamentrag.it/">parliamentrag.it</a>.</p>
 
         <h3 class="subhead">How it works</h3>
 
